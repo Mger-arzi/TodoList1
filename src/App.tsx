@@ -17,10 +17,8 @@ function App() {
         {id: 3, title: "React", isDone: true}
     ])
 
-    const removeTask = () => {
-        return(
-
-        )
+    const removeTask = (id: number) => {
+        const nextState = []
     }
 
     return (
