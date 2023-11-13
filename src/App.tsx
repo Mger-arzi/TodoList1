@@ -20,7 +20,7 @@ function App() {
     const removeTask = (id: number) => {
         const nextState = []
     }
-
+    // setTasks(nextState)
     return (
         <div className='App'>
             <TodoList title='What to learn' tasks={tasks}/>
