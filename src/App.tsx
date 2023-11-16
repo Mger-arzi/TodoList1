@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import './App.css';
-import { TodoList } from './TodoList';
+import { TaskType, TodoList } from './TodoList';
 
     export type filterTodoListType = "All" | "Active" | "Completed"
 
 function App() {
     
-    const [tasks, setTasks] = useState([
+    const [tasks, setTasks] = useState < Array <TaskType> > ([
         {id: 1, title: "JS", isDone: true},
         {id: 2, title: "HTML/CSS", isDone: true},
         {id: 3, title: "React", isDone: false},
-        {id: 4, title: "Reduks", isDone: false}
+        {id: 4, title: "Redux", isDone: false}
     ])
 
 
-
     const [ filter, setFilter] = useState<filterTodoListType>("All")
+
     let filterTodoList = tasks
     if(filter === "Active"){
         filterTodoList = filterTodoList.filter(tasks => tasks.isDone === false)

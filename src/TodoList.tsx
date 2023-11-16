@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Button } from './Button';
 import { filterTodoListType } from './App';
 
-type TaskType = {
+export type TaskType = {
 	id: number
 	title: string
 	isDone: boolean
