@@ -57,7 +57,8 @@ function App() {
             removeTask={removeTask}
             changeFilter={changeFilter}
             title='What to learn'
-            tasks={filterTodoList} />
+            tasks={filterTodoList}
+            addTask = {addTask} />
       </div>
    );
 }
