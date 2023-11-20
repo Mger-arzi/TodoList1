@@ -3,7 +3,7 @@ import { Button } from './Button';
 import { filterTodoListType } from './App';
 
 export type TaskType = {
-	id: number
+	id: string
 	title: string
 	isDone: boolean
 }
@@ -11,7 +11,7 @@ export type TaskType = {
 type TodoListTypeProps = {
 	title: string
 	tasks: Array<TaskType>
-	removeTask: (Id: number) => void
+	removeTask: (Id: string) => void
 	changeFilter: (value: filterTodoListType) => void
 
 }
