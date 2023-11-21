@@ -18,14 +18,14 @@ type TodoListTypeProps = {
 }
 
 
-export const TodoList: FC<TodoListTypeProps> = ({changeFilter, removeTask, tasks, title}) => {
+export const TodoList: FC<TodoListTypeProps> = ({changeFilter, removeTask, tasks, title, addTask}) => {
 	return (
 		<div className="TodoList">
 			<div>
 				<h3>{title}</h3>
 				<div>
 					<input />
-					<Button name="+" />
+					<Button name="+" onClickHandler={ ()=> {addTask('asd')}}  />
 				</div>
 				<ul>
 					{tasks.map((task) => (

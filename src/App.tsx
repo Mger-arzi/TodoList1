@@ -43,9 +43,9 @@ function App() {
          title: title,
          isDone: false
       }
-      const nextState: Array<TaskType> = [newTask, ...tasks ]
-      setTasks(nextState)
-      // setTasks([newTask, ...tasks])
+      // const nextState: Array<TaskType> = [newTask, ...tasks ]
+      // setTasks(nextState)
+      setTasks([newTask, ...tasks])
    }
 
 
