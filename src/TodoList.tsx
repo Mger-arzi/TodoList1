@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 import { Button } from './Button';
 import { filterTodoListType } from './App';
 
@@ -24,21 +24,37 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, task
       { addTask(titleInput) }
       setTitle("")
    }
+   const onChengeHandler =  (event: ChangeEvent<HTMLInputElement>) => {
+         setTitle(event.currentTarget.value)
+   }
+   const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+         if(event.key ===  "Enter"){
+            ClickAddTask()
+         }
+   }
+   const onAllClickHandler = () => {
+      changeFilter("All")
+   }
+   const onActiveClickHandler = () => {
+      changeFilter("Active")
+   }
+   const onComplitedClickHandler = () => {
+      changeFilter("Completed")
+   }
+      
    return (
       <div className="TodoList">
          <div>
             <h3>{title}</h3>
             <div>
                <input value={titleInput}
-                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                     setTitle(event.currentTarget.value)
-                  }}
-                  onKeyDown={(event) => {
-                  if(event.key ===  "Enter"){
-                     ClickAddTask()
-                  }}}
+                  onChange={ onChengeHandler }
+                  onKeyPress={ onKeyPressHandler }
                />
-               <Button name="+" onClickHandler={ClickAddTask} />
+               <Button  name="+" onClickHandler={ClickAddTask} 
+               disabled = {!titleInput }
+               
+               />
             </div>
             <ul>
                {tasks.map((task) => (
@@ -55,9 +71,9 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, task
                ))}
             </ul>
             <div>
-               <Button onClickHandler={() => changeFilter("All")} name="All" />
-               <Button onClickHandler={() => changeFilter("Active")} name="Active" />
-               <Button onClickHandler={() => changeFilter("Completed")} name="Completed" />
+               <Button onClickHandler={onAllClickHandler} name="All" />
+               <Button onClickHandler={onActiveClickHandler} name="Active" />
+               <Button onClickHandler={onComplitedClickHandler} name="Completed" />
             </div>
          </div>
       </div>
