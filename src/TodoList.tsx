@@ -14,11 +14,12 @@ type TodoListTypeProps = {
     removeTask: (Id: string) => void
     changeFilter: (value: filterTodoListType) => void
     addTask: (title: string) => void
+    filter: string
 
 }
 
 
-export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, tasks, title, addTask }) => {
+export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, tasks, title, addTask, filter}) => {
     const [titleInput, setTitle] = useState("")
     const ClickAddTask = () => {
         { addTask(titleInput) }
@@ -70,10 +71,20 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, task
                         </li>
                     ))}
                 </ul>
-                <div>
-                    <Button onClickHandler={onAllClickHandler} name="All" />
-                    <Button onClickHandler={onActiveClickHandler} name="Active" />
-                    <Button onClickHandler={onComplitedClickHandler} name="Completed" />
+                <div className='btn-container'>
+                    <Button onClickHandler={onAllClickHandler} 
+                            name="All" 
+                            classes={filter === "All" ? "btn-active" : "btn"}
+                            filter='All'/>
+                    <Button onClickHandler={onActiveClickHandler} 
+                            name="Active"   
+                            filter='Active'
+                            classes={filter === "Active" ? "btn-active" : "btn"}/>
+                    <Button onClickHandler={onComplitedClickHandler} 
+                            name="Completed" 
+                            classes={filter === "Completed" ? "btn-active" : "btn"}
+                            filter='Completed'
+                            />
                 </div>
             </div>
         </div>

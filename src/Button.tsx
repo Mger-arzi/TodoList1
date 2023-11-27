@@ -7,9 +7,11 @@ type ButtonType = {
 	onClickHandler?: () => void
     disabled?: boolean
     classes?: string
+    filter?: string
+
 
 }
-export const Button : FC<ButtonType> = ({onClickHandler , name , disabled,classes}) => {
+export const Button : FC<ButtonType> = ({onClickHandler , name , disabled, classes}) => {
 	return (
 			<button className={classes} 
                     disabled = {disabled} 

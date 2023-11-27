@@ -11,3 +11,15 @@
   background-color: lightsalmon;
 
 }
+.btn-active{
+    background-color: blueviolet;
+    
+}
+.btn{
+    padding: 2px;
+    border-radius: 1px solid black;
+}
+.btn-container{
+    display: flex;
+    justify-content: space-between;
+}
