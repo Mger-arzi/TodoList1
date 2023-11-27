@@ -83,7 +83,6 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, task
                     <Button onClickHandler={onComplitedClickHandler} 
                             name="Completed" 
                             classes={filter === "Completed" ? "btn-active" : "btn"}
-                            filter='Completed'
                             />
                 </div>
             </div>

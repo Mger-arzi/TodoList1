@@ -16,6 +16,6 @@ export const Button : FC<ButtonType> = ({onClickHandler , name , disabled, class
 			<button className={classes} 
                     disabled = {disabled} 
                     style={{margin:"5px", borderRadius: "5px", padding: "5px"}}
-			onClick={onClickHandler}>{name}</button>
+			        onClick={onClickHandler}>{name}</button>
 	);
 };
