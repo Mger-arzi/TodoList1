@@ -5,12 +5,15 @@ import { filterTodoListType } from './App';
 type ButtonType = {
 	name: string
 	onClickHandler?: () => void
-   disabled?: boolean
+    disabled?: boolean
+    classes?: string
 
 }
-export const Button : FC<ButtonType> = ({onClickHandler , name , disabled}) => {
+export const Button : FC<ButtonType> = ({onClickHandler , name , disabled,classes}) => {
 	return (
-			<button disabled = {disabled} style={{margin:"5px", borderRadius: "5px", padding: "5px"}}
+			<button className={classes} 
+                    disabled = {disabled} 
+                    style={{margin:"5px", borderRadius: "5px", padding: "5px"}}
 			onClick={onClickHandler}>{name}</button>
 	);
 };
