@@ -24,20 +24,20 @@ type TodoListTypeProps = {
 export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, tasks, title, addTask, filter, chekedChechbox}) => {
     
     const [titleInput, setTitle] = useState("")
-    const [inputError, setInputError] = useState(false)
+    const [inputError, setInputError] = useState<string | null>(null)
 
     const ClickAddTask = () => {
         let trimedTitle = titleInput.trim()
         if(trimedTitle){
             addTask(trimedTitle) 
         }else{
-            setInputError(true)
+            setInputError("Error vasay")
         }
         setTitle("")
     }
     const onChengeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.currentTarget.value)
-            inputError && setInputError(false)
+            inputError && setInputError(null)
     }
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
@@ -68,7 +68,7 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, task
                     <Button name="+" onClickHandler={ClickAddTask}
                         disabled={!titleInput}
                     />
-                    {inputError && <div style={{color:"red"}}>Error</div>}
+                    {inputError && <div className='error-message'>{inputError}</div>}
                 </div>
                 <ul>
 

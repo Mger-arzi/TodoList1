@@ -26,3 +26,7 @@
 .inputError{
     border: 2px solid red;
 }
+.error-message{
+    color: red;
+    font-weight: bold;
+}
