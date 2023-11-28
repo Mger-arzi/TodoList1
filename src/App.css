@@ -23,3 +23,6 @@
     display: flex;
     justify-content: space-between;
 }
+.inputError{
+    border: 2px solid red;
+}

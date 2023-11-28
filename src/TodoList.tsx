@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 import { Button } from './Button';
 import { filterTodoListType } from './App';
+import { time } from 'console';
 
 export type TaskType = {
     id: string
@@ -21,13 +22,22 @@ type TodoListTypeProps = {
 
 
 export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, tasks, title, addTask, filter, chekedChechbox}) => {
+    
     const [titleInput, setTitle] = useState("")
+    const [inputError, setInputError] = useState(false)
+
     const ClickAddTask = () => {
-        { addTask(titleInput) }
+        let trimedTitle = titleInput.trim()
+        if(trimedTitle){
+            addTask(trimedTitle) 
+        }else{
+            setInputError(true)
+        }
         setTitle("")
     }
     const onChengeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.currentTarget.value)
+            inputError && setInputError(false)
     }
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
@@ -53,11 +63,12 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, task
                     <input value={titleInput}
                         onChange={onChengeHandler}
                         onKeyPress={onKeyPressHandler}
+                        className={inputError ? "inputError" : ""}
                     />
                     <Button name="+" onClickHandler={ClickAddTask}
                         disabled={!titleInput}
-
                     />
+                    {inputError && <div style={{color:"red"}}>Error</div>}
                 </div>
                 <ul>
 
