@@ -19,12 +19,26 @@
     padding: 2px;
     border-radius: 1px solid black;
 }
+.list{
+    padding: 0;
+    list-style: none;
+}
+.task{
+    border: 1px solid cadetblue;
+    border-radius: 10px;
+    padding: 4px;
+}
+.task-done {
+    color: blueviolet;
+    opacity: .6;
+}
 .btn-container{
     display: flex;
     justify-content: space-between;
 }
 .inputError{
     border: 2px solid red;
+    outline: none;
 }
 .error-message{
     color: red;
