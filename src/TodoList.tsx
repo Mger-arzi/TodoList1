@@ -14,12 +14,13 @@ type TodoListTypeProps = {
     removeTask: (Id: string) => void
     changeFilter: (value: filterTodoListType) => void
     addTask: (title: string) => void
+    chekedChechbox: (taskId: string, isDone: boolean)=> void
     filter: string
 
 }
 
 
-export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, tasks, title, addTask, filter}) => {
+export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, tasks, title, addTask, filter, chekedChechbox}) => {
     const [titleInput, setTitle] = useState("")
     const ClickAddTask = () => {
         { addTask(titleInput) }
@@ -43,6 +44,7 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, task
         changeFilter("Completed")
     }
 
+    
     return (
         <div className="TodoList">
             <div>
@@ -58,18 +60,27 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, task
                     />
                 </div>
                 <ul>
-                    {tasks.map((task) => (
-                        <li>
-                            <input type="checkbox" checked={task.isDone} />{" "}
-                            <span>{task.title}</span>
-                            <Button
-                                onClickHandler={() => {
-                                    removeTask(task.id);
-                                }}
-                                name={"✖️"}
+
+                    {
+                        tasks.map((task) => {
+                            const onChengeCheckboxStatusHandler = (e: ChangeEvent<HTMLInputElement>)=>  {
+                                chekedChechbox(task.id, e.currentTarget.checked)
+                            }
+
+                            return   <li>
+                                <input type="checkbox" 
+                                    checked={task.isDone} 
+                                    onChange={onChengeCheckboxStatusHandler} />
+                                <span>{task.title}</span>
+                                <Button
+                                    onClickHandler={() => {
+                                        removeTask(task.id);
+                                    }}
+                                    name={"✖️"}
                             />
-                        </li>
-                    ))}
+                            </li>
+                        })        
+                    }
                 </ul>
                 <div className='btn-container'>
                     <Button onClickHandler={onAllClickHandler} 

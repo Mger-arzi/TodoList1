@@ -48,7 +48,12 @@ function App() {
         setTasks([newTask, ...tasks])
     }
 
+    //chek chekbox
 
+    const chekedChechbox = (taskId: string, isDone: boolean) =>{
+        setTasks(tasks.map(t => t.id === taskId ? {...t, isDone} : t))
+    }
+    
 
 
     return (
@@ -59,7 +64,8 @@ function App() {
                 title='What to learn'
                 tasks={filterTodoList}
                 addTask={addTask} 
-                filter = {filter}/>
+                filter = {filter}
+                chekedChechbox ={chekedChechbox}/>
         </div>
     );
 }
