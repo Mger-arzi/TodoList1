@@ -1,7 +1,6 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 import { Button } from './Button';
 import { filterTodoListType } from './App';
-import { time } from 'console';
 
 export type TaskType = {
     id: string
@@ -10,18 +9,19 @@ export type TaskType = {
 }
 
 type TodoListTypeProps = {
+    id: string
     title: string
     tasks: Array<TaskType>
-    removeTask: (Id: string) => void
-    changeFilter: (value: filterTodoListType) => void
-    addTask: (title: string) => void
-    chekedChechbox: (taskId: string, isDone: boolean) => void
+    removeTask: (Id: string, todolistID: string) => void
+    changeFilter: (value: filterTodoListType, todolistId: string) => void
+    addTask: (todolistID: string, title: string) => void
+    chekedChechbox: (taskId: string, todolistID: string, isDone: boolean) => void
     filter: string
 
 }
 
 
-export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, tasks, title, addTask, filter, chekedChechbox }) => {
+export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, id, removeTask, tasks, title, addTask, filter, chekedChechbox }) => {
 
     const [titleInput, setTitle] = useState("")
     const [inputError, setInputError] = useState<string | null>(null)
@@ -32,7 +32,7 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, task
     const ClickAddTask = () => {
         let trimedTitle = titleInput.trim()
         if (trimedTitle) {
-            addTask(trimedTitle)
+            addTask(trimedTitle, id)
         } else {
             setInputError("Error vasay")
         }
@@ -48,41 +48,43 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, task
         }
     }
     const onAllClickHandler = () => {
-        changeFilter("All")
+        changeFilter("All", id)
     }
     const onActiveClickHandler = () => {
-        changeFilter("Active")
+        changeFilter("Active", id)
     }
     const onComplitedClickHandler = () => {
-        changeFilter("Completed")
+        changeFilter("Completed", id)
     }
 
     let ShowUlTasks = <>
-    <ul className='list'>
+        <ul className='list'>
+            {
 
-        {
-            tasks.map((task) => {
-                const onChengeCheckboxStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                    chekedChechbox(task.id, e.currentTarget.checked)
-                }
+            
+            
+                tasks.map((task) => {
+                    const onChengeCheckboxStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+                        chekedChechbox(task.id, id, e.currentTarget.checked)
+                    }
 
-                return <li className={task.isDone ? "task-done" : "task"}>
-                    <input type="checkbox"
-                        checked={task.isDone}
-                        onChange={onChengeCheckboxStatusHandler} />
-                    <span>{task.title}</span>
-                    <Button
-                        onClickHandler={() => {
-                            removeTask(task.id);
-                        }}
-                        name={"✖️"}
-                    />
-                </li>
-            })
-        }
-    </ul>
-</>
-    const chechCollapsedTasks = (e: ChangeEvent<HTMLInputElement> )=> {setIsCollapsedTodo(e.currentTarget.checked)}
+                    return <li className={task.isDone ? "task-done" : "task"}>
+                        <input type="checkbox"
+                            checked={task.isDone}
+                            onChange={onChengeCheckboxStatusHandler} />
+                        <span>{task.title}</span>
+                        <Button
+                            onClickHandler={() => {
+                                removeTask(task.id, id);
+                            }}
+                            name={"✖️"}
+                        />
+                    </li>
+                })
+            }
+        </ul>
+     </>
+     const chechCollapsedTasks = (e: ChangeEvent<HTMLInputElement>) => { setIsCollapsedTodo(e.currentTarget.checked) }
 
     return (
         <div className="TodoList">
@@ -101,7 +103,7 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, removeTask, task
                 </div>
 
                 <div >{isCollapsedTodo ? "show" : "show"}
-                    <input type="checkbox" onChange={chechCollapsedTasks}/>
+                    <input type="checkbox" onChange={chechCollapsedTasks} />
                 </div>
                 {isCollapsedTodo ? ShowUlTasks : null}
                 <div className='btn-container'>
