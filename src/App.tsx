@@ -81,7 +81,7 @@ function App() {
 
     return (
         <div className='App'>
-            <AddItemForm id='aa' addTask={()=>{}}/>
+            <AddItemForm addItem={()=>{}}/>
 
             {
                 todolists.map(todolist => {

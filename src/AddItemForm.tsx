@@ -1,17 +1,17 @@
 import React, { ChangeEvent,KeyboardEvent, useState } from 'react';
 import { Button } from './Button';
 type AddItemFormProos = {
-    id:string
-    addTask:(todolistID: string, title: string)=> void
+    addItem:( title: string)=> void
 }
 export const AddItemForm = (props:AddItemFormProos) => {
     const [titleInput, setTitle] = useState("")
     const [inputError, setInputError] = useState<string | null>(null)
 
+
     const addTask = () => {
         let trimedTitle = titleInput.trim()
         if (trimedTitle) {
-            props.addTask(trimedTitle, props.id)
+            props.addItem(trimedTitle)
         } else {
             setInputError("Error vasay")
         }

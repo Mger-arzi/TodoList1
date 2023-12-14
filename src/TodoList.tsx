@@ -35,7 +35,7 @@ export const TodoList: FC<TodoListTypeProps> = ({
 	filter,
 	chekedChechbox,
 	removeTodolist,
-}) => {
+}) =>{ 
 	const [isCollapsedTodo, setIsCollapsedTodo] = useState(false);
 
 	const onAllClickHandler = () => {
@@ -50,6 +50,10 @@ export const TodoList: FC<TodoListTypeProps> = ({
 	const onRevoveTodolistHandler = () => {
 		removeTodolist(id);
 	};
+    
+    const addTaskHandler = (title:string) => {
+        addTask(title, id)
+    }
 	let ShowUlTasks = (
 		<>
 			<ul className="list">
@@ -95,7 +99,7 @@ export const TodoList: FC<TodoListTypeProps> = ({
 					/>{" "}
 				</h3>
 
-				<AddItemForm id={id} addTask={addTask} />
+				<AddItemForm  addItem={addTaskHandler} />
 
 				<div>
 					{isCollapsedTodo ? "show" : "show"}
