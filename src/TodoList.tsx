@@ -22,7 +22,7 @@ type TodoListTypeProps = {
 }
 
 
-export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, id, removeTask, tasks, title, addTask, filter, chekedChechbox }) => {
+export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, id, removeTask, tasks, title, addTask, filter, chekedChechbox, removeTodolist}) => {
 
     const [titleInput, setTitle] = useState("")
     const [inputError, setInputError] = useState<string | null>(null)
@@ -57,7 +57,9 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, id, removeTask, 
     const onComplitedClickHandler = () => {
         changeFilter("Completed", id)
     }
-
+    const onRevoveTodolistHandler = ( ) =>{
+        removeTodolist(id)
+    }
     let ShowUlTasks = <>
         <ul className='list'>
             {
@@ -90,7 +92,8 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, id, removeTask, 
     return (
         <div className="TodoList">
             <div>
-                <h3>{title}</h3>
+                <h3>{title}
+                <Button name='X' onClickHandler={onRevoveTodolistHandler}/> </h3>
                 <div>
                     <input value={titleInput}
                         onChange={onChengeHandler}
