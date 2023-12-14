@@ -8,7 +8,7 @@ export const AddItemForm = (props:AddItemFormProos) => {
     const [titleInput, setTitle] = useState("")
     const [inputError, setInputError] = useState<string | null>(null)
 
-    const ClickAddTask = () => {
+    const addTask = () => {
         let trimedTitle = titleInput.trim()
         if (trimedTitle) {
             props.addTask(trimedTitle, props.id)
@@ -25,7 +25,7 @@ export const AddItemForm = (props:AddItemFormProos) => {
 
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
-            ClickAddTask()
+            addTask()
         }
     }
     return (
@@ -35,7 +35,7 @@ export const AddItemForm = (props:AddItemFormProos) => {
             onKeyPress={onKeyPressHandler}
             className={inputError ? "inputError" : ""}
         />
-        <Button name="+" onClickHandler={ClickAddTask}
+        <Button name="+" onClickHandler={addTask}
             disabled={!titleInput}
         />
         {inputError && <div className='error-message'>{inputError}</div>}

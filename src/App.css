@@ -1,5 +1,5 @@
 .App {
-  padding: 30px;
+  padding: 10px;
   display: flex;
 }
 
@@ -9,6 +9,7 @@
   border: 2px solid black ;
   border-radius: 10px;
   background-color: lightsalmon;
+  height: 100%;
 
 }
 .btn-active{
