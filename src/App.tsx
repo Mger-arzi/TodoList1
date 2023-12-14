@@ -69,7 +69,11 @@ function App() {
     const chekedChechbox = (taskId: string, todolistID:string,isDone: boolean) => {
         setTasks({...tasks, [todolistID]:tasks[todolistID].map(el => el.id === taskId ? {...el, isDone} : el)})
     }
-
+    const removeTodolist = (todolistID: string) => {
+        setTodolists(todolists.filter(el => el.id !== todolistID))
+        delete tasks[todolistID]
+        setTasks({...tasks})
+    }
 
 
     return (
@@ -93,6 +97,7 @@ function App() {
                         tasks={filterTodoList}
                         addTask={addTask}
                         filter={todolist.filter}
+                        removeTodolist = {removeTodolist}
                         chekedChechbox={chekedChechbox} />
                 })
             }
