@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 import { Button } from './Button';
 import { filterTodoListType } from './App';
+import { AddItemForm } from './AddItemForm';
 
 export type TaskType = {
     id: string
@@ -16,38 +17,21 @@ type TodoListTypeProps = {
     changeFilter: (value: filterTodoListType, todolistId: string) => void
     addTask: (todolistID: string, title: string) => void
     chekedChechbox: (taskId: string, todolistID: string, isDone: boolean) => void
-    removeTodolist:(todolistID:string) => void
+    removeTodolist: (todolistID: string) => void
     filter: string
 
 }
 
 
-export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, id, removeTask, tasks, title, addTask, filter, chekedChechbox, removeTodolist}) => {
+export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, id, removeTask, tasks, title, addTask, filter, chekedChechbox, removeTodolist }) => {
 
-    const [titleInput, setTitle] = useState("")
-    const [inputError, setInputError] = useState<string | null>(null)
+ 
 
     const [isCollapsedTodo, setIsCollapsedTodo] = useState(false)
 
 
-    const ClickAddTask = () => {
-        let trimedTitle = titleInput.trim()
-        if (trimedTitle) {
-            addTask(trimedTitle, id)
-        } else {
-            setInputError("Error vasay")
-        }
-        setTitle("")
-    }
-    const onChengeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.currentTarget.value)
-        inputError && setInputError(null)
-    }
-    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
-            ClickAddTask()
-        }
-    }
+    
+   
     const onAllClickHandler = () => {
         changeFilter("All", id)
     }
@@ -57,15 +41,15 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, id, removeTask, 
     const onComplitedClickHandler = () => {
         changeFilter("Completed", id)
     }
-    const onRevoveTodolistHandler = ( ) =>{
+    const onRevoveTodolistHandler = () => {
         removeTodolist(id)
     }
     let ShowUlTasks = <>
         <ul className='list'>
             {
 
-            
-            
+
+
                 tasks.map((task) => {
                     const onChengeCheckboxStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
                         chekedChechbox(task.id, id, e.currentTarget.checked)
@@ -86,25 +70,15 @@ export const TodoList: FC<TodoListTypeProps> = ({ changeFilter, id, removeTask, 
                 })
             }
         </ul>
-     </>
-     const chechCollapsedTasks = (e: ChangeEvent<HTMLInputElement>) => { setIsCollapsedTodo(e.currentTarget.checked) }
+    </>
+    const chechCollapsedTasks = (e: ChangeEvent<HTMLInputElement>) => { setIsCollapsedTodo(e.currentTarget.checked) }
 
     return (
         <div className="TodoList">
             <div>
-                <h3>{title}
-                <Button name='X' onClickHandler={onRevoveTodolistHandler}/> </h3>
-                <div>
-                    <input value={titleInput}
-                        onChange={onChengeHandler}
-                        onKeyPress={onKeyPressHandler}
-                        className={inputError ? "inputError" : ""}
-                    />
-                    <Button name="+" onClickHandler={ClickAddTask}
-                        disabled={!titleInput}
-                    />
-                    {inputError && <div className='error-message'>{inputError}</div>}
-                </div>
+                <h3>{title}<Button name='X' onClickHandler={onRevoveTodolistHandler} /> </h3>
+
+                <AddItemForm id={id} addTask={addTask }/>
 
                 <div >{isCollapsedTodo ? "show" : "show"}
                     <input type="checkbox" onChange={chechCollapsedTasks} />
