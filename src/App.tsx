@@ -51,20 +51,14 @@ function App() {
     const removeTask = (id: string, todolistID:string) => {
         setTasks({...tasks, [todolistID]: tasks[todolistID].filter(el => el.id !== id )})
     }
-
-
-
-    //create task
-
-    const addTask = (title: string, todolistID:string) => {
+//create task
+const addTask = (title: string, todolistID:string) => {
         const newTask: TaskType = {
             id: v1(),
             title: title,
             isDone: false
         }
         setTasks({...tasks, [todolistID]:[newTask, ...tasks[todolistID]]})
-        // setTasks(nextState)
-        // setTasks([newTask, ...tasks])
     }
 
     //chek chekbox
@@ -78,10 +72,16 @@ function App() {
         setTasks({...tasks})
     }
 
+    const addTodolist = (trimedTitle: string) => {
+        const newID = v1()
+        const newTodo:TodolistsType  =   { id: newID, title: trimedTitle, filter: 'All' }
+        setTodolists([ newTodo , ...todolists])
+        setTasks({...tasks, [newID]:[]})
+    }
 
     return (
         <div className='App'>
-            <AddItemForm addItem={()=>{}}/>
+            <AddItemForm collBack={addTodolist}/>
 
             {
                 todolists.map(todolist => {

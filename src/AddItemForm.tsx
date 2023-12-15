@@ -1,7 +1,8 @@
 import React, { ChangeEvent,KeyboardEvent, useState } from 'react';
 import { Button } from './Button';
+
 type AddItemFormProos = {
-    addItem:( title: string)=> void
+    collBack:( title: string)=> void
 }
 export const AddItemForm = (props:AddItemFormProos) => {
     const [titleInput, setTitle] = useState("")
@@ -11,7 +12,7 @@ export const AddItemForm = (props:AddItemFormProos) => {
     const addTask = () => {
         let trimedTitle = titleInput.trim()
         if (trimedTitle) {
-            props.addItem(trimedTitle)
+            props.collBack(trimedTitle)
         } else {
             setInputError("Error vasay")
         }

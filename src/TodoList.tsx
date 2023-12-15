@@ -51,8 +51,8 @@ export const TodoList: FC<TodoListTypeProps> = ({
 		removeTodolist(id);
 	};
     
-    const addTaskHandler = (title:string) => {
-        addTask(title, id)
+    const addTaskHandler = (trimedTitle:string) => {
+        addTask(trimedTitle, id)
     }
 	let ShowUlTasks = (
 		<>
@@ -99,7 +99,7 @@ export const TodoList: FC<TodoListTypeProps> = ({
 					/>{" "}
 				</h3>
 
-				<AddItemForm  addItem={addTaskHandler} />
+				<AddItemForm  collBack={addTaskHandler} />
 
 				<div>
 					{isCollapsedTodo ? "show" : "show"}
