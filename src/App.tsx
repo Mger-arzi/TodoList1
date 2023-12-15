@@ -3,6 +3,7 @@ import './App.css';
 import { TaskType, TodoList } from './TodoList';
 import { v1 } from 'uuid';
 import { AddItemForm } from './AddItemForm';
+import { log } from 'console';
 
 export type filterTodoListType = "All" | "Active" | "Completed"
 
@@ -78,10 +79,17 @@ const addTask = (title: string, todolistID:string) => {
         setTodolists([ newTodo , ...todolists])
         setTasks({...tasks, [newID]:[]})
     }
-
+    const updateTask = (todolistID:string, taskID:string, newTitle:string) => {
+        setTasks({...tasks, [todolistID]:tasks[todolistID].map(t => t.id === taskID ? {...t ,title:newTitle }  : t)})
+        
+        
+    }
+    const updateTodolist = ( todolistID:string,titleInput:string) => {
+        setTodolists(todolists.map(el => el.id === todolistID  ? {...el, title: titleInput}  :el ))
+    }
     return (
         <div className='App'>
-            <AddItemForm collBack={addTodolist}/>
+            <AddItemForm callBack={addTodolist}/>
 
             {
                 todolists.map(todolist => {
@@ -103,7 +111,9 @@ const addTask = (title: string, todolistID:string) => {
                         addTask={addTask}
                         filter={todolist.filter}
                         removeTodolist = {removeTodolist}
-                        chekedChechbox={chekedChechbox} />
+                        chekedChechbox={chekedChechbox}
+                        updateTask = {updateTask}
+                        updateTodolist={updateTodolist} />
                 })
             }
         </div>

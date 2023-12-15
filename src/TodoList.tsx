@@ -2,6 +2,7 @@ import React, { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import { Button } from "./Button";
 import { filterTodoListType } from "./App";
 import { AddItemForm } from "./AddItemForm";
+import { EditableSpan } from "./EditableSpan";
 
 export type TaskType = {
 	id: string;
@@ -23,6 +24,8 @@ type TodoListTypeProps = {
 	) => void;
 	removeTodolist: (todolistID: string) => void;
 	filter: string;
+    updateTask: (todolistID:string, taskID:string, newTitle:string)=>void
+    updateTodolist: (todolistID:string, trimedTitle:string)=>void
 };
 
 export const TodoList: FC<TodoListTypeProps> = ({
@@ -35,6 +38,8 @@ export const TodoList: FC<TodoListTypeProps> = ({
 	filter,
 	chekedChechbox,
 	removeTodolist,
+    updateTask,
+    updateTodolist
 }) =>{ 
 	const [isCollapsedTodo, setIsCollapsedTodo] = useState(false);
 
@@ -54,31 +59,44 @@ export const TodoList: FC<TodoListTypeProps> = ({
     const addTaskHandler = (trimedTitle:string) => {
         addTask(trimedTitle, id)
     }
+
+    const updateTodolistHandler = (titleInput:string, ) => {
+        updateTodolist(id, titleInput)
+        
+    }
+   
 	let ShowUlTasks = (
 		<>
 			<ul className="list">
-				{tasks.map((task) => {
+				{tasks.map((t) => {
 					const onChengeCheckboxStatusHandler = (
 						e: ChangeEvent<HTMLInputElement>
 					) => {
-						chekedChechbox(task.id, id, e.currentTarget.checked);
+						chekedChechbox(t.id, id, e.currentTarget.checked);
 					};
-
+                    const updateTaskHandler = (titleInput:string ) => {
+                        updateTask(id, t.id, titleInput)
+                    }
 					return (
-						<li className={task.isDone ? "task-done" : "task"}>
+						<li className={t.isDone ? "task-done" : "task"}>
 							<input
 								type="checkbox"
-								checked={task.isDone}
+								checked={t.isDone}
 								onChange={onChengeCheckboxStatusHandler}
 							/>
-							<span>{task.title}</span>
+							{/* <span>{task.title}</span> */}
+                            
+                            
+                            <EditableSpan callBack={updateTaskHandler} oldTitle={t.title}/>
 							<Button
 								onClickHandler={() => {
-									removeTask(task.id, id);
+									removeTask(t.id, id);
 								}}
 								name={"✖️"}
 							/>
 						</li>
+                            
+
 					);
 				})}
 			</ul>
@@ -88,18 +106,20 @@ export const TodoList: FC<TodoListTypeProps> = ({
 		setIsCollapsedTodo(e.currentTarget.checked);
 	};
 
+
+
 	return (
 		<div className="TodoList">
 			<div>
 				<h3>
-					{title}
+					<EditableSpan callBack={updateTodolistHandler} oldTitle={title}/>
 					<Button
 						name="X"
 						onClickHandler={onRevoveTodolistHandler}
 					/>{" "}
 				</h3>
 
-				<AddItemForm  collBack={addTaskHandler} />
+				<AddItemForm  callBack={addTaskHandler} />
 
 				<div>
 					{isCollapsedTodo ? "show" : "show"}
