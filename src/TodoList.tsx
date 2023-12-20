@@ -24,8 +24,8 @@ type TodoListTypeProps = {
 	) => void;
 	removeTodolist: (todolistID: string) => void;
 	filter: string;
-    updateTask: (todolistID:string, taskID:string, newTitle:string)=>void
-    updateTodolist: (todolistID:string, trimedTitle:string)=>void
+	updateTask: (todolistID: string, taskID: string, newTitle: string) => void;
+	updateTodolist: (todolistID: string, trimedTitle: string) => void;
 };
 
 export const TodoList: FC<TodoListTypeProps> = ({
@@ -38,11 +38,9 @@ export const TodoList: FC<TodoListTypeProps> = ({
 	filter,
 	chekedChechbox,
 	removeTodolist,
-    updateTask,
-    updateTodolist
-}) =>{ 
-	const [isCollapsedTodo, setIsCollapsedTodo] = useState(false);
-
+	updateTask,
+	updateTodolist,
+}) => {
 	const onAllClickHandler = () => {
 		changeFilter("All", id);
 	};
@@ -55,77 +53,61 @@ export const TodoList: FC<TodoListTypeProps> = ({
 	const onRevoveTodolistHandler = () => {
 		removeTodolist(id);
 	};
-    
-    const addTaskHandler = (trimedTitle:string) => {
-        addTask(trimedTitle, id)
-    }
 
-    const updateTodolistHandler = (titleInput:string, ) => {
-        updateTodolist(id, titleInput)
-        
-    }
-   
-	let ShowUlTasks = (
-		<>
-			<ul className="list">
-				{tasks.map((t) => {
-					const onChengeCheckboxStatusHandler = (
-						e: ChangeEvent<HTMLInputElement>
-					) => {
-						chekedChechbox(t.id, id, e.currentTarget.checked);
-					};
-                    const updateTaskHandler = (titleInput:string ) => {
-                        updateTask(id, t.id, titleInput)
-                    }
-					return (
-						<li className={t.isDone ? "task-done" : "task"}>
-							<input
-								type="checkbox"
-								checked={t.isDone}
-								onChange={onChengeCheckboxStatusHandler}
-							/>
-							{/* <span>{task.title}</span> */}
-                            
-                            
-                            <EditableSpan callBack={updateTaskHandler} oldTitle={t.title}/>
-							<Button
-								onClickHandler={() => {
-									removeTask(t.id, id);
-								}}
-								name={"✖️"}
-							/>
-						</li>
-                            
-
-					);
-				})}
-			</ul>
-		</>
-	);
-	const chechCollapsedTasks = (e: ChangeEvent<HTMLInputElement>) => {
-		setIsCollapsedTodo(e.currentTarget.checked);
+	const addTaskHandler = (trimedTitle: string) => {
+		addTask(trimedTitle, id);
 	};
 
-
+	const updateTodolistHandler = (titleInput: string) => {
+		updateTodolist(id, titleInput);
+	};
 
 	return (
 		<div className="TodoList">
 			<div>
 				<h3>
-					<EditableSpan callBack={updateTodolistHandler} oldTitle={title}/>
-					<Button
-						name="X"
-						onClickHandler={onRevoveTodolistHandler}
-					/>{" "}
+					<EditableSpan
+						callBack={updateTodolistHandler}
+						oldTitle={title}
+					/>
+					<Button name="X" onClickHandler={onRevoveTodolistHandler} />{" "}
 				</h3>
 
-				<AddItemForm  callBack={addTaskHandler} />
+				<AddItemForm callBack={addTaskHandler} />
 
-				<div>
-					{isCollapsedTodo ? "show" : "show"}
-					<input type="checkbox" onChange={chechCollapsedTasks} />
-				</div>
-				{isCollapsedTodo ? ShowUlTasks : null}
+				<ul className="list">
+					{tasks.map((t) => {
+						const onChengeCheckboxStatusHandler = (
+							e: ChangeEvent<HTMLInputElement>
+						) => {
+							chekedChechbox(t.id, id, e.currentTarget.checked);
+						};
+						const updateTaskHandler = (titleInput: string) => {
+							updateTask(id, t.id, titleInput);
+						};
+						return (
+							<li className={t.isDone ? "task-done" : "task"}>
+								<input
+									type="checkbox"
+									checked={t.isDone}
+									onChange={onChengeCheckboxStatusHandler}
+								/>
+
+								<EditableSpan
+									callBack={updateTaskHandler}
+									oldTitle={t.title}
+								/>
+								<Button
+									onClickHandler={() => {
+										removeTask(t.id, id);
+									}}
+									name={"✖️"}
+								/>
+							</li>
+						);
+					})}
+				</ul>
+
 				<div className="btn-container">
 					<Button
 						onClickHandler={onAllClickHandler}
