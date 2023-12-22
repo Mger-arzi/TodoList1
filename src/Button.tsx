@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { filterTodoListType } from './App';
 
 
+
 type ButtonType = {
 	name: string
 	onClickHandler?: () => void
@@ -11,7 +12,7 @@ type ButtonType = {
 
 
 }
-export const Button : FC<ButtonType> = ({onClickHandler , name , disabled, classes}) => {
+export const MyButton : FC<ButtonType> = ({onClickHandler , name , disabled, classes}) => {
 	return (
 			<button className={classes} 
                     disabled = {disabled} 

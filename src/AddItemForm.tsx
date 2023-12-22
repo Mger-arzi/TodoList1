@@ -1,10 +1,15 @@
-import React, { ChangeEvent,KeyboardEvent, useState } from 'react';
-import { Button } from './Button';
+import { Button } from '@mui/material';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import { AddCircleSharp, AddCircleTwoTone } from '@mui/icons-material';
+import TextField from '@mui/material/TextField';
+import { error } from 'console';
 
 type AddItemFormProos = {
-    callBack:( title: string)=> void
+    callBack: (title: string) => void
 }
-export const AddItemForm = (props:AddItemFormProos) => {
+export const AddItemForm = (props: AddItemFormProos) => {
     const [titleInput, setTitle] = useState("")
     const [inputError, setInputError] = useState<string | null>(null)
 
@@ -14,7 +19,7 @@ export const AddItemForm = (props:AddItemFormProos) => {
         if (trimedTitle) {
             props.callBack(trimedTitle)
         } else {
-            setInputError("Error vasay")
+            setInputError("inputError")
         }
         setTitle("")
     }
@@ -31,15 +36,22 @@ export const AddItemForm = (props:AddItemFormProos) => {
     }
     return (
         <div>
-        <input value={titleInput}
-            onChange={onChengeHandler}
-            onKeyPress={onKeyPressHandler}
-            className={inputError ? "inputError" : ""}
-        />
-        <Button name="+" onClickHandler={addTask}
-            disabled={!titleInput}
-        />
-        {inputError && <div className='error-message'>{inputError}</div>}
-    </div>
+            <TextField 
+                label="Type value"  
+                error = {!!inputError}
+                id="outlined-basic" 
+                size='small' 
+                value={titleInput}
+                onChange={onChengeHandler}
+                onKeyPress={onKeyPressHandler}
+            />
+        <IconButton    
+        onClick={addTask} >
+                <AddCircleSharp  color='primary'/>
+             
+            </IconButton> 
+        
+        {/* { inputError && <div className='error-message'>{inputError}</div> } */}
+    </div >
     );
 };
