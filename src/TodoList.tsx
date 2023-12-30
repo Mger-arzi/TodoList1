@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import { AppBar } from "@mui/material";
 import { ButtonAppBar } from "./AppBar/AppBar";
+import { CheckBox } from "./CheckBox";
 export type TaskType = {
     id: string;
     title: string;
@@ -66,6 +67,10 @@ export const TodoList: FC<TodoListTypeProps> = ({
         updateTodolist(id, titleInput);
     };
 
+
+    
+
+   
     return (
         
         <div >
@@ -95,6 +100,7 @@ export const TodoList: FC<TodoListTypeProps> = ({
                         };
                         return (
                             <li className={t.isDone ? "task-done" : "task"}>
+                              
                                 <Checkbox size="small" 
                                     checked={t.isDone}
                                     onChange={onChengeCheckboxStatusHandler}
