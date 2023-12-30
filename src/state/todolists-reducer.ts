@@ -18,10 +18,14 @@ export const todolistsReducer = (state:TodolistsType[], action: TodolistsReducer
         const newTodo: TodolistsType = { id: newID, title: action.payloard.trimedTitle, filter: 'All' }
             return [...state , newTodo]
         }
+        //setTodolists(todolists.map(el => el.id === todolistID ? { ...el, title: titleInput } : el))
+        case "UPDATE-TODOLIST" : {
+            return state.map(el => el.id === action.payloard.todolistID ? {...el , title: action.payloard.titleInput} : el)
+        }
         default: return state
     }
 }
-type TodolistsReducerType  = RemoveTodolistACType | AddTodolistAC
+type TodolistsReducerType  = RemoveTodolistACType | AddTodolistAC | UpdateTodolistACType
 
 type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>
 
@@ -37,5 +41,13 @@ export const addTodolistAC = (trimedTitle:string) => {
     return{
         type: 'ADD-TODOLIST',
         payloard : { trimedTitle }
+    }as const
+}
+
+type UpdateTodolistACType = ReturnType<typeof updateTodolistAC>
+export const updateTodolistAC = (todolistID: string, titleInput: string) => {
+    return{
+        type: 'UPDATE-TODOLIST',
+        payloard : { todolistID, titleInput }
     }as const
 }
