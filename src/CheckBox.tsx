@@ -7,7 +7,7 @@ type CheckBoxtype = {
 }
 export const CheckBox = (props:CheckBoxtype) => {
     const onChengeHandler = (e:ChangeEvent<HTMLInputElement>) => {
-        props.Callback(e.currentTarget.checked)
+        props. Callback(e.currentTarget.checked)
     }
     return (
         <div>
