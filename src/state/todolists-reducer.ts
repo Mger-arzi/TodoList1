@@ -10,7 +10,6 @@ export const todolistsReducer = (
             return state.filter((el) => el.id !== action.payloard.id);
         }
         case "ADD-TODOLIST": {
-            // const newID = v1();
             const newTodo: TodolistsType = {
                 id: action.payloard.todolistId,
                 title: action.payloard.trimedTitle,
