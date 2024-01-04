@@ -1,7 +1,7 @@
 import { v1 } from "uuid";
-import { TasksStateType } from "../App";
+import { TasksStateType, TodolistsType } from "../App";
 import { TaskType } from "../TodoList";
-import { AddTodolistAC } from "./todolists-reducer";
+import { AddTodolistAC, RemoveTodolistACType } from "./todolists-reducer";
 
 export const tasksReducer = (
     state: TasksStateType,
@@ -12,9 +12,9 @@ export const tasksReducer = (
             return { ...state, [action.payloard.todolistId]: state[action.payloard.todolistId].filter(el => el.id !== action.payloard.taskId) }
         }
         case "ADD-TASK": {
-            // const newID = v1();
+            const newID = v1();
             const newTask: TaskType = {
-                id: action.payloard.todolistId,
+                id: newID,
                 title: action.payloard.title,
                 isDone: false,
             };
@@ -34,12 +34,15 @@ export const tasksReducer = (
                     )
             };
         }
+        case "ADD-TODOLIST":{
+            return  {...state, [action.payloard.todolistId]:[]}
+        }
         default:
             return state;
     }
 };
 type TaskReducerType =
-    | RemoveTaskACType | AddTaskAC | changeTaskStatusACType | UpdateTitleTaskACType | AddTodolistAC
+    | RemoveTaskACType | AddTaskAC | changeTaskStatusACType | UpdateTitleTaskACType | AddTodolistAC | RemoveTodolistACType
 
 type RemoveTaskACType = ReturnType<typeof removeTaskAC>;
 

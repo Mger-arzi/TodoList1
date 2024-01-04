@@ -38,7 +38,7 @@ type TodolistsReducerType =
     | UpdateTodolistACType
     | ChangeFilterACType;
 
-type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>;
+export type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>;
 
 export const removeTodolistAC = (id: string) => {
     return {
@@ -48,10 +48,10 @@ export const removeTodolistAC = (id: string) => {
 };
 
 export type AddTodolistAC = ReturnType<typeof addTodolistAC>;
-export const addTodolistAC = (trimedTitle: string, todolistId: string) => {
+export const addTodolistAC = (trimedTitle: string) => {
     return {
         type: "ADD-TODOLIST",
-        payloard: { trimedTitle , todolistId},
+        payloard: { trimedTitle , todolistId: v1()},
     } as const;
 };
 
