@@ -1,6 +1,7 @@
 import { v1 } from "uuid";
-import {TasksStateType , filterTodoListType } from "../App";
+import { TasksStateType } from "../App";
 import { TaskType } from "../TodoList";
+import { AddTodolistAC } from "./todolists-reducer";
 
 export const tasksReducer = (
     state: TasksStateType,
@@ -8,40 +9,44 @@ export const tasksReducer = (
 ): TasksStateType => {
     switch (action.type) {
         case "REMOVE-TASK": {
-            return {...state, [action.payloard.todolistId]: state[action.payloard.todolistId].filter(el => el.id !== action.payloard.taskId)}
+            return { ...state, [action.payloard.todolistId]: state[action.payloard.todolistId].filter(el => el.id !== action.payloard.taskId) }
         }
         case "ADD-TASK": {
-            const newID = v1();
-            const newTask:TaskType  = {
-                id: newID,
+            // const newID = v1();
+            const newTask: TaskType = {
+                id: action.payloard.todolistId,
                 title: action.payloard.title,
                 isDone: false,
             };
-            return {...state, [action.payloard.todolistId]: [newTask, ...state[action.payloard.todolistId]]};
+            return { ...state, [action.payloard.todolistId]: [newTask, ...state[action.payloard.todolistId]] };
         }
         case "UPDATE-TASK-TITLE": {
-            return {...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
-                .map((el) =>el.id === action.payloard.taskId? { ...el, title: action.payloard.title }: el)
-        }}
+            return {
+                ...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
+                    .map((el) => el.id === action.payloard.taskId ? { ...el, title: action.payloard.title } : el)
+            }
+        }
         case "CHANGE-TASK-STATUS": {
-            return {...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
-                .map((t) =>
-                t.id === action.payloard.taskId ? { ...t, isDone: action.payloard.isDone } : t
-            )};
+            return {
+                ...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
+                    .map((t) =>
+                        t.id === action.payloard.taskId ? { ...t, isDone: action.payloard.isDone } : t
+                    )
+            };
         }
         default:
             return state;
     }
 };
 type TaskReducerType =
-    | RemoveTaskACType | AddTaskAC | changeTaskStatusACType | UpdateTitleTaskACType
+    | RemoveTaskACType | AddTaskAC | changeTaskStatusACType | UpdateTitleTaskACType | AddTodolistAC
 
 type RemoveTaskACType = ReturnType<typeof removeTaskAC>;
 
 export const removeTaskAC = (taskId: string, todolistId: string) => {
     return {
         type: "REMOVE-TASK",
-        payloard: { taskId, todolistId  },
+        payloard: { taskId, todolistId },
     } as const;
 };
 
@@ -57,12 +62,12 @@ type UpdateTitleTaskACType = ReturnType<typeof updateTitleTaskAC>;
 export const updateTitleTaskAC = (taskId: string, title: string, todolistId: string) => {
     return {
         type: "UPDATE-TASK-TITLE",
-        payloard: {taskId , title ,todolistId },
+        payloard: { taskId, title, todolistId },
     } as const;
 };
 
 type changeTaskStatusACType = ReturnType<typeof changeTaskStatusAC>;
-export const changeTaskStatusAC = ( taskId: string, isDone: boolean,todolistId: string ) => {
+export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string) => {
     return {
         type: "CHANGE-TASK-STATUS",
         payloard: { taskId, isDone, todolistId },

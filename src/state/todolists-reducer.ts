@@ -10,9 +10,9 @@ export const todolistsReducer = (
             return state.filter((el) => el.id !== action.payloard.id);
         }
         case "ADD-TODOLIST": {
-            const newID = v1();
+            // const newID = v1();
             const newTodo: TodolistsType = {
-                id: newID,
+                id: action.payloard.todolistId,
                 title: action.payloard.trimedTitle,
                 filter: "All",
             };
@@ -47,11 +47,11 @@ export const removeTodolistAC = (id: string) => {
     } as const;
 };
 
-type AddTodolistAC = ReturnType<typeof addTodolistAC>;
-export const addTodolistAC = (trimedTitle: string) => {
+export type AddTodolistAC = ReturnType<typeof addTodolistAC>;
+export const addTodolistAC = (trimedTitle: string, todolistId: string) => {
     return {
         type: "ADD-TODOLIST",
-        payloard: { trimedTitle },
+        payloard: { trimedTitle , todolistId},
     } as const;
 };
 
