@@ -1,5 +1,6 @@
 import { v1 } from "uuid";
 import {TasksStateType , filterTodoListType } from "../App";
+import { TaskType } from "../TodoList";
 
 export const tasksReducer = (
     state: TasksStateType,
@@ -9,15 +10,15 @@ export const tasksReducer = (
         case "REMOVE-TASK": {
             return {...state, [action.payloard.todolistId]: state[action.payloard.todolistId].filter(el => el.id !== action.payloard.taskId)}
         }
-        // case "ADD": {
-        //     const newID = v1();
-        //     const newTodo: TodolistsType = {
-        //         id: newID,
-        //         title: action.payloard.trimedTitle,
-        //         filter: "All",
-        //     };
-        //     return ;
-        // }
+        case "ADD-TASK": {
+            const newID = v1();
+            const newTask:TaskType  = {
+                id: newID,
+                title: action.payloard.title,
+                isDone: false,
+            };
+            return {...state, [action.payloard.todolistId]: [newTask, ...state[action.payloard.todolistId]]};
+        }
         // case "UPDATE": {
         //     return state.map((el) =>el.id === action.payloard.todolistID? { ...el, title: action.payloard.titleInput }: el);
         // }
@@ -33,7 +34,7 @@ export const tasksReducer = (
     }
 };
 type TaskReducerType =
-    | RemoveTaskACType
+    | RemoveTaskACType | AddTaskAC
 
 type RemoveTaskACType = ReturnType<typeof removeTaskAC>;
 
@@ -44,11 +45,11 @@ export const removeTaskAC = (taskId: string, todolistId: string) => {
     } as const;
 };
 
-type AddTodolistAC = ReturnType<typeof addTodolistAC>;
-export const addTodolistAC = (trimedTitle: string) => {
+type AddTaskAC = ReturnType<typeof addTaskAC>;
+export const addTaskAC = (title: string, todolistId: string) => {
     return {
-        type: "ADD-TODOLIST",
-        payloard: { trimedTitle },
+        type: "ADD-TASK",
+        payloard: { title, todolistId },
     } as const;
 };
 
