@@ -19,22 +19,22 @@ export const tasksReducer = (
             };
             return {...state, [action.payloard.todolistId]: [newTask, ...state[action.payloard.todolistId]]};
         }
-        // case "UPDATE": {
-        //     return state.map((el) =>el.id === action.payloard.todolistID? { ...el, title: action.payloard.titleInput }: el);
-        // }
-        // case "CHANGE-TODOLIST-FILTER": {
-        //     return state.map((t) =>
-        //         t.id === action.payloard.todolistId
-        //             ? { ...t, filter: action.payloard.value }
-        //             : t
-        //     );
-        // }
+        case "UPDATE-TASK-TITLE": {
+            return {...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
+                .map((el) =>el.id === action.payloard.taskId? { ...el, title: action.payloard.title }: el)
+        }}
+        case "CHANGE-TASK-STATUS": {
+            return {...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
+                .map((t) =>
+                t.id === action.payloard.taskId ? { ...t, isDone: action.payloard.isDone } : t
+            )};
+        }
         default:
             return state;
     }
 };
 type TaskReducerType =
-    | RemoveTaskACType | AddTaskAC
+    | RemoveTaskACType | AddTaskAC | changeTaskStatusACType | UpdateTitleTaskACType
 
 type RemoveTaskACType = ReturnType<typeof removeTaskAC>;
 
@@ -53,21 +53,18 @@ export const addTaskAC = (title: string, todolistId: string) => {
     } as const;
 };
 
-type UpdateTodolistACType = ReturnType<typeof updateTodolistAC>;
-export const updateTodolistAC = (todolistID: string, titleInput: string) => {
+type UpdateTitleTaskACType = ReturnType<typeof updateTitleTaskAC>;
+export const updateTitleTaskAC = (taskId: string, title: string, todolistId: string) => {
     return {
-        type: "UPDATE-TODOLIST",
-        payloard: { todolistID, titleInput },
+        type: "UPDATE-TASK-TITLE",
+        payloard: {taskId , title ,todolistId },
     } as const;
 };
 
-type ChangeFilterACType = ReturnType<typeof changeFilterAC>;
-export const changeFilterAC = (
-    value: filterTodoListType,
-    todolistId: string
-) => {
+type changeTaskStatusACType = ReturnType<typeof changeTaskStatusAC>;
+export const changeTaskStatusAC = ( taskId: string, isDone: boolean,todolistId: string ) => {
     return {
-        type: "CHANGE-TODOLIST-FILTER",
-        payloard: { value, todolistId },
+        type: "CHANGE-TASK-STATUS",
+        payloard: { taskId, isDone, todolistId },
     } as const;
 };
