@@ -21,7 +21,7 @@ export type TodolistsType = {
 export type TasksStateType = {
     [key: string]: TaskType[]
 }
-export function AppWithReducers() {
+export function AppWithRedux() {
 
 
     let todolistID1 = v1()

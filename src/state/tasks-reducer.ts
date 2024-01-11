@@ -3,8 +3,10 @@ import { TasksStateType, TodolistsType } from "../App";
 import { TaskType } from "../TodoList";
 import { AddTodolistAC, RemoveTodolistACType } from "./todolists-reducer";
 
+let initialState: TasksStateType = {}
+
 export const tasksReducer = (
-    state: TasksStateType,
+    state= initialState,
     action: TaskReducerType
 ): TasksStateType => {
     switch (action.type) {
