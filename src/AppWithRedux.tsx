@@ -10,6 +10,9 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper'
 import { addTodolistAC, changeFilterAC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './state/todolists-reducer';
 import { addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer, updateTitleTaskAC } from './state/tasks-reducer';
+import { useSelector } from 'react-redux';
+import { AppRootStateType } from './state/store';
+import { useDispatch } from 'react-redux';
 
 export type filterTodoListType = "All" | "Active" | "Completed"
 
@@ -24,59 +27,39 @@ export type TasksStateType = {
 export function AppWithRedux() {
 
 
-    let todolistID1 = v1()
-    let todolistID2 = v1()
+let todolists = useSelector<AppRootStateType, TodolistsType[] >(state => state.todolists )
+let tasks = useSelector <AppRootStateType, TasksStateType>(state => state.tasks)
 
-    let [todolists, dispatchTodolists] = useReducer(todolistsReducer, [
-        { id: todolistID1, title: 'What to learn', filter: 'All' },
-        { id: todolistID2, title: 'What to buy', filter: 'All' },
-    ])
-
-    let [tasks, dispatchTasks] = useReducer(tasksReducer, {
-        [todolistID1]: [
-            { id: v1(), title: 'HTML&CSS', isDone: true },
-            { id: v1(), title: 'JS', isDone: true },
-            { id: v1(), title: 'ReactJS', isDone: false },
-
-        ],
-        [todolistID2]: [
-            { id: v1(), title: 'Rest API', isDone: true },
-            { id: v1(), title: 'GraphQL', isDone: false },
-        ]
-    })
-
-
-   
+let dispatch = useDispatch()
 
     const removeTask = (id: string, todolistID: string) => {
-        dispatchTasks(removeTaskAC(id, todolistID))
+        dispatch(removeTaskAC(id, todolistID))
     }
     const addTask = (title: string, todolistID: string) => {
-        dispatchTasks(addTaskAC(title, todolistID))
+        dispatch(addTaskAC(title, todolistID))
     }
     const updateTask = (todolistID: string, taskID: string, newTitle: string) => {
-        dispatchTasks(updateTitleTaskAC(todolistID, taskID, newTitle))
+        dispatch(updateTitleTaskAC(todolistID, taskID, newTitle))
     }
     const chekedChechbox = (taskId: string, todolistID: string, isDone: boolean) => {
-        dispatchTasks(changeTaskStatusAC(taskId , isDone,todolistID ))
+        dispatch(changeTaskStatusAC(taskId , isDone,todolistID ))
     }
 
     
     const removeTodolist = (todolistID: string) => {
         const action = removeTodolistAC(todolistID)
-        dispatchTodolists(action)
-        dispatchTasks(action)
+        dispatch(action)
     }
     const addTodolist = (trimedTitle: string) => {
         const action = addTodolistAC(trimedTitle)
-        dispatchTasks(action)
-        dispatchTodolists(action)
+        dispatch(action)
+    
     }
     const changeFilter = (value: filterTodoListType, todolistId: string) => {
-        dispatchTodolists(changeFilterAC(value, todolistId))
+        dispatch(changeFilterAC(value, todolistId))
     }
     const updateTodolist = (todolistID: string, titleInput: string) => {
-        dispatchTodolists(updateTodolistAC(todolistID, titleInput ))
+        dispatch(updateTodolistAC(todolistID, titleInput ))
     }
     return (
         <div className='App'>
