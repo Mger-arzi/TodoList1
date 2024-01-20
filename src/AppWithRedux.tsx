@@ -26,7 +26,7 @@ export type TasksStateType = {
 }
 export function AppWithRedux() {
 
-    console.log("AppppPp");
+    console.log("App");
 
     let todolists = useSelector<AppRootStateType, TodolistsType[]>(state => state.todolists)
     let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
@@ -76,7 +76,6 @@ export function AppWithRedux() {
             <Container>
                 <Grid style={{ padding: '20px' }} container>
                     <AddItemForm callBack={addTodolist} />
-
                 </Grid>
 
                 <Grid container spacing={4}>
@@ -104,11 +103,8 @@ export function AppWithRedux() {
 
                             </Grid>
                         })
-
-
                     }
                 </Grid>
-
             </Container>
         </div>
     );

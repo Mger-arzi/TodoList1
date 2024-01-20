@@ -47,8 +47,7 @@ export const AddItemForm = React.memo ( (props: AddItemFormProos) => {
                 onChange={onChengeHandler}
                 onKeyPress={onKeyPressHandler}
             />
-        <IconButton    
-        onClick={addTask} >
+            <IconButton onClick={addTask} >
                 <AddCircleSharp  color='primary'/>
             </IconButton> 
         

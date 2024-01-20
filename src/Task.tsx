@@ -32,10 +32,10 @@ export const Task = React.memo((props: TaskPropsType ) => {
                 callBack={updateTaskHandler}
                 oldTitle={props.task.title}
             />
-            <IconButton>
-                <DeleteIcon color="secondary" onClick={() => {
+            <IconButton onClick={() => {
                     props.removeTask(props.task.id, props.todolistId);
-                }}/>
+                }}>
+                <DeleteIcon color="secondary" />
             
 
             </IconButton>
