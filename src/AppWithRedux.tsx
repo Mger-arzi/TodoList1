@@ -26,14 +26,14 @@ export type TasksStateType = {
 }
 export function AppWithRedux() {
 
-console.log("AppppPp");
+    console.log("AppppPp");
 
-let todolists = useSelector<AppRootStateType, TodolistsType[] >(state => state.todolists )
-let tasks = useSelector <AppRootStateType, TasksStateType>(state => state.tasks)
+    let todolists = useSelector<AppRootStateType, TodolistsType[]>(state => state.todolists)
+    let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
 
-let dispatch = useDispatch()
+    let dispatch = useDispatch()
 
-    const removeTask = useCallback( (id: string, todolistID: string) => {
+    const removeTask = useCallback((id: string, todolistID: string) => {
         dispatch(removeTaskAC(id, todolistID))
     }, [dispatch])
 
@@ -45,27 +45,27 @@ let dispatch = useDispatch()
         dispatch(updateTitleTaskAC(todolistID, taskID, newTitle))
     }, [dispatch])
 
-    const chekedChechbox =useCallback( (taskId: string, todolistID: string, isDone: boolean) => {
-        dispatch(changeTaskStatusAC(taskId , isDone,todolistID ))
-    },[dispatch])
+    const chekedChechbox = useCallback((taskId: string, todolistID: string, isDone: boolean) => {
+        dispatch(changeTaskStatusAC(taskId, isDone, todolistID))
+    }, [dispatch])
 
-    
-    const removeTodolist =useCallback( (todolistID: string) => {
+
+    const removeTodolist = useCallback((todolistID: string) => {
         const action = removeTodolistAC(todolistID)
         dispatch(action)
     }, [dispatch])
 
-    const addTodolist = useCallback ( (trimedTitle: string) => {
+    const addTodolist = useCallback((trimedTitle: string) => {
         const action = addTodolistAC(trimedTitle)
         dispatch(action)
-    },[dispatch])
+    }, [dispatch])
 
     const changeFilter = useCallback((value: filterTodoListType, todolistId: string) => {
         dispatch(changeFilterAC(value, todolistId))
     }, [dispatch])
 
     const updateTodolist = useCallback((todolistID: string, titleInput: string) => {
-        dispatch(updateTodolistAC(todolistID, titleInput ))
+        dispatch(updateTodolistAC(todolistID, titleInput))
     }, [dispatch])
 
     return (
@@ -74,7 +74,7 @@ let dispatch = useDispatch()
 
 
             <Container>
-                <Grid style ={{padding: '20px'}} container>
+                <Grid style={{ padding: '20px' }} container>
                     <AddItemForm callBack={addTodolist} />
 
                 </Grid>
@@ -91,21 +91,21 @@ let dispatch = useDispatch()
                             // }
 
                             return <Grid>
-                                <Paper style={{padding: "15px"}} elevation={3}>
+                                <Paper style={{ padding: "15px" }} elevation={3}>
 
-                                <TodoList
-                                    key={todolist.id}
-                                    id={todolist.id}
-                                    removeTask={removeTask}
-                                    changeFilter={changeFilter}
-                                    title={todolist.title}
-                                    tasks={filterTodoList}
-                                    addTask={addTask}
-                                    filter={todolist.filter}
-                                    removeTodolist={removeTodolist}
-                                    chekedChechbox={chekedChechbox}
-                                    updateTask={updateTask}
-                                    updateTodolist={updateTodolist} />
+                                    <TodoList
+                                        key={todolist.id}
+                                        id={todolist.id}
+                                        removeTask={removeTask}
+                                        changeFilter={changeFilter}
+                                        title={todolist.title}
+                                        tasks={filterTodoList}
+                                        addTask={addTask}
+                                        filter={todolist.filter}
+                                        removeTodolist={removeTodolist}
+                                        chekedChechbox={chekedChechbox}
+                                        updateTask={updateTask}
+                                        updateTodolist={updateTodolist} />
                                 </Paper>
 
                             </Grid>

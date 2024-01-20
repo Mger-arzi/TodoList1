@@ -49,18 +49,21 @@ export const TodoList: FC<TodoListTypeProps> = React.memo ( ({
 }) => {
     console.log("TODOOOO");
     
-    const onAllClickHandler = () => {
+    const onAllClickHandler = useCallback ( () => {
         changeFilter("All", id);
-    };
-    const onActiveClickHandler = () => {
+    },[changeFilter , id]);
+
+    const onActiveClickHandler = useCallback (() => {
         changeFilter("Active", id);
-    };
-    const onComplitedClickHandler = () => {
+    },[changeFilter, id]);
+
+    const onComplitedClickHandler = useCallback( () => {
         changeFilter("Completed", id);
-    };
-    const onRevoveTodolistHandler = () => {
+    }, [changeFilter, id]);
+    
+    const onRevoveTodolistHandler =useCallback( () => {
         removeTodolist(id);
-    };
+    },[removeTodolist, id]);
 
     const addTaskHandler = useCallback( (trimedTitle: string) => {
         addTask(trimedTitle, id);

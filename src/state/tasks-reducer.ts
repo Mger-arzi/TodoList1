@@ -23,6 +23,13 @@ export const tasksReducer = (
             return { ...state, [action.payloard.todolistId]: [newTask, ...state[action.payloard.todolistId]] };
         }
         case "UPDATE-TASK-TITLE": {
+            let todolistTasks = state[action.payloard.todolistId];
+            // найдём нужную таску:
+            let task = todolistTasks.find(t => t.id === action.payloard.taskId);
+            //изменим таску, если она нашлась
+            if (task) {
+                task.title = action.payloard.title;
+            }
             return {
                 ...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
                     .map((el) => el.id === action.payloard.taskId ? { ...el, title: action.payloard.title } : el)
