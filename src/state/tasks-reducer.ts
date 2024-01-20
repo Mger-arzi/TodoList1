@@ -24,15 +24,13 @@ export const tasksReducer = (
         }
         case "UPDATE-TASK-TITLE": {
             let todolistTasks = state[action.payloard.todolistId];
-            // найдём нужную таску:
             let task = todolistTasks.find(t => t.id === action.payloard.taskId);
-            //изменим таску, если она нашлась
             if (task) {
                 task.title = action.payloard.title;
             }
             return {
                 ...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
-                    .map((el) => el.id === action.payloard.taskId ? { ...el, title: action.payloard.title } : el)
+                    .map(el => el.id === action.payloard.taskId ? { ...el, title: action.payloard.title } : el)
             }
         }
         case "CHANGE-TASK-STATUS": {
@@ -78,7 +76,7 @@ export const addTaskAC = (title: string, todolistId: string) => {
 };
 
 type UpdateTitleTaskACType = ReturnType<typeof updateTitleTaskAC>;
-export const updateTitleTaskAC = (taskId: string, title: string, todolistId: string) => {
+export const updateTitleTaskAC = (todolistId: string , taskId: string, title: string, ) => {
     return {
         type: "UPDATE-TASK-TITLE",
         payloard: { taskId, title, todolistId },

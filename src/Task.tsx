@@ -7,11 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { EditableSpan } from "./EditableSpan";
 
 type TaskPropsType = {
-    chekedChechbox: (
-        taskId: string,
-        todolistID: string,
-        isDone: boolean
-    ) => void;
+    chekedChechbox: (taskId: string, todolistID: string , isDone: boolean  ) => void;
     removeTask: (Id: string, todolistID: string) => void;
     updateTask: (todolistID: string, taskID: string, newTitle: string) => void;
     task: TaskType;
@@ -25,14 +21,13 @@ export const Task = React.memo((props: TaskPropsType ) => {
     };
     const updateTaskHandler = useCallback( (titleInput: string) => {
         props.updateTask(props.todolistId , props.task.id, titleInput);
-    }, [  props.updateTask,props.todolistId,props.task.id ]);
+    }, [ props.updateTask, props.todolistId,props.task.id]);
     return (
         <div className={props.task.isDone ? "task-done" : "task"}>
             <Checkbox size="small" 
                 checked={props.task.isDone}
                 onChange={onChengeCheckboxStatusHandler}
             />
-
             <EditableSpan
                 callBack={updateTaskHandler}
                 oldTitle={props.task.title}

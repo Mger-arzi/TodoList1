@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useState } from 'react';
 import TextField from '@mui/material/TextField';
 type EditableSpanProps = {
-    oldTitle: string
     callBack:(titleInput:string) => void
+    oldTitle: string
 }
-export const EditableSpan =React.memo( (props:EditableSpanProps) => {
+export const EditableSpan = React.memo( (props:EditableSpanProps) => {
     console.log("EditableSpan");
     
     const [titleInput, setTitle] = useState(props.oldTitle)
