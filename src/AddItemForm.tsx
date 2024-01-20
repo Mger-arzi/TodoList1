@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import { AddCircleSharp, AddCircleTwoTone } from '@mui/icons-material';
@@ -9,7 +9,9 @@ import { error } from 'console';
 type AddItemFormProos = {
     callBack: (title: string) => void
 }
-export const AddItemForm = (props: AddItemFormProos) => {
+export const AddItemForm = React.memo ( (props: AddItemFormProos) => {
+    console.log('AddItemForm');
+    
     const [titleInput, setTitle] = useState("")
     const [inputError, setInputError] = useState<string | null>(null)
 
@@ -19,7 +21,7 @@ export const AddItemForm = (props: AddItemFormProos) => {
         if (trimedTitle) {
             props.callBack(trimedTitle)
         } else {
-            setInputError("inputError")
+            setInputError("Title is required")
         }
         setTitle("")
     }
@@ -48,10 +50,9 @@ export const AddItemForm = (props: AddItemFormProos) => {
         <IconButton    
         onClick={addTask} >
                 <AddCircleSharp  color='primary'/>
-             
             </IconButton> 
         
         {/* { inputError && <div className='error-message'>{inputError}</div> } */}
     </div >
     );
-};
+});

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, KeyboardEvent, useState } from "react";
+import React, { ChangeEvent, FC, KeyboardEvent, useCallback, useState } from "react";
 import { filterTodoListType } from "./App";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
@@ -33,7 +33,7 @@ type TodoListTypeProps = {
     updateTodolist: (todolistID: string, trimedTitle: string) => void;
 };
 
-export const TodoList: FC<TodoListTypeProps> = ({
+export const TodoList: FC<TodoListTypeProps> = React.memo ( ({
     changeFilter,
     id,
     removeTask,
@@ -46,6 +46,8 @@ export const TodoList: FC<TodoListTypeProps> = ({
     updateTask,
     updateTodolist,
 }) => {
+    console.log("TODOOOO");
+    
     const onAllClickHandler = () => {
         changeFilter("All", id);
     };
@@ -59,18 +61,22 @@ export const TodoList: FC<TodoListTypeProps> = ({
         removeTodolist(id);
     };
 
-    const addTaskHandler = (trimedTitle: string) => {
+    const addTaskHandler = useCallback( (trimedTitle: string) => {
         addTask(trimedTitle, id);
-    };
+    }, [addTask]);
 
     const updateTodolistHandler = (titleInput: string) => {
         updateTodolist(id, titleInput);
     };
 
+let filterTodoList = tasks
+    if (filter === "Active") {
+        filterTodoList = tasks.filter(tasks => tasks.isDone === false)
+    }
+    if (filter === "Completed") {
+        filterTodoList = tasks.filter(tasks => tasks.isDone === true)
+    }
 
-    
-
-   
     return (
         
         <div >
@@ -146,4 +152,4 @@ export const TodoList: FC<TodoListTypeProps> = ({
             </div>
         </div>
     );
-};
+});

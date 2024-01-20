@@ -22,7 +22,11 @@ export const EditableSpan = (props:EditableSpanProps) => {
     return (
         edit 
         ?
-        <TextField id="outlined-basic" size='small' variant="outlined" autoFocus onBlur={activateEditHanlker} onChange={onChengeHandler} value={titleInput}/> 
+        <TextField id="outlined-basic" size='small' variant="outlined" 
+        autoFocus 
+        onBlur={activateEditHanlker} 
+        onChange={onChengeHandler} 
+        value={titleInput}/> 
         :
 		<span onDoubleClick={activateEditHanlker}>{props.oldTitle}</span>
         
