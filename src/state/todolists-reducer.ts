@@ -21,7 +21,7 @@ export const todolistsReducer = (
             return [...state, newTodo];
         }
         case "UPDATE-TODOLIST": {
-            return state.map((el) =>el.id === action.payloard.todolistID? { ...el, title: action.payloard.titleInput }: el);
+            return state.map((el) =>el.id === action.payloard.todolistID ? { ...el, title: action.payloard.titleInput }: el);
         }
         case "CHANGE-TODOLIST-FILTER": {
             return state.map((t) =>

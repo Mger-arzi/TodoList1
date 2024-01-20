@@ -4,8 +4,9 @@ type EditableSpanProps = {
     oldTitle: string
     callBack:(titleInput:string) => void
 }
-export const EditableSpan = (props:EditableSpanProps) => {
-
+export const EditableSpan =React.memo( (props:EditableSpanProps) => {
+    console.log("EditableSpan");
+    
     const [titleInput, setTitle] = useState(props.oldTitle)
     const [edit, setEdit] = useState(false)
     
@@ -31,5 +32,5 @@ export const EditableSpan = (props:EditableSpanProps) => {
 		<span onDoubleClick={activateEditHanlker}>{props.oldTitle}</span>
         
     );
-};
+});
 

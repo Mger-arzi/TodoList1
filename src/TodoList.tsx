@@ -9,6 +9,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { AppBar } from "@mui/material";
 import { ButtonAppBar } from "./AppBar/AppBar";
 import { CheckBox } from "./CheckBox";
+import { Task } from "./Task";
 export type TaskType = {
     id: string;
     title: string;
@@ -63,11 +64,11 @@ export const TodoList: FC<TodoListTypeProps> = React.memo ( ({
 
     const addTaskHandler = useCallback( (trimedTitle: string) => {
         addTask(trimedTitle, id);
-    }, [addTask]);
+    }, [addTask, id]);
 
-    const updateTodolistHandler = (titleInput: string) => {
+    const updateTodolistHandler = useCallback ( (titleInput: string) => {
         updateTodolist(id, titleInput);
-    };
+    }, [updateTodolist , id]);
 
 let filterTodoList = tasks
     if (filter === "Active") {
@@ -94,39 +95,15 @@ let filterTodoList = tasks
                 
                 <AddItemForm callBack={addTaskHandler} />
 
-                <ul className="list">
-                    {tasks.map((t) => {
-                        const onChengeCheckboxStatusHandler = (
-                            e: ChangeEvent<HTMLInputElement>
-                        ) => {
-                            chekedChechbox(t.id, id, e.currentTarget.checked);
-                        };
-                        const updateTaskHandler = (titleInput: string) => {
-                            updateTask(id, t.id, titleInput);
-                        };
-                        return (
-                            <li className={t.isDone ? "task-done" : "task"}>
-                              
-                                <Checkbox size="small" 
-                                    checked={t.isDone}
-                                    onChange={onChengeCheckboxStatusHandler}
-                                />
+                {filterTodoList.map(t => 
+                    <Task chekedChechbox={chekedChechbox}
+                        key={t.id}
+                        removeTask={removeTask}
+                        updateTask={updateTask}
+                        task={t}
+                        todolistId={id}
 
-                                <EditableSpan
-                                    callBack={updateTaskHandler}
-                                    oldTitle={t.title}
-                                />
-                                <IconButton>
-                                    <DeleteIcon color="secondary" onClick={() => {
-                                        removeTask(t.id, id);
-                                    }}/>
-                                
-
-                                </IconButton>
-                            </li>
-                        );
-                    })}
-                </ul>
+                    />)}
 
                 <div className="btn-container">
                     <Button variant={filter === "All" ? "contained" : "text"}
@@ -153,3 +130,6 @@ let filterTodoList = tasks
         </div>
     );
 });
+
+
+
