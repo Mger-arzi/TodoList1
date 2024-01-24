@@ -108,7 +108,7 @@ let filterTodoList = tasks
 
                     />)}
 
-                <div className="btn-container">
+                <div >
                     <Button variant={filter === "All" ? "contained" : "text"}
                         onClick={onAllClickHandler}> All
                     </Button>
