@@ -6,11 +6,10 @@ import { AddCircleSharp, AddCircleTwoTone } from '@mui/icons-material';
 import TextField from '@mui/material/TextField';
 import { error } from 'console';
 
-type AddItemFormProos = {
+export type AddItemFormProos = {
     callBack: (title: string) => void
 }
 export const AddItemForm = React.memo ( (props: AddItemFormProos) => {
-    console.log('AddItemForm');
     
     const [titleInput, setTitle] = useState("")
     const [inputError, setInputError] = useState<string | null>(null)
