@@ -5,13 +5,16 @@ import { ReduxStoreProviderDecorator } from './decorator/ReduxStoreProviderDecor
 // More on how to set up stories at:
 // https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof AppWithRedux> = {
-    title: 'TODOLISTS/AppWithRedux',
+    title: 'TODOLIST/AppWithRedux',
     component: AppWithRedux,
     // This component will have an automatically generated Autodocs entry:
     // https://storybook.js.org/docs/react/writing-docs/autodocs
     tags: ['autodocs'],
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-    decorators: [ReduxStoreProviderDecorator]
+    decorators: [ReduxStoreProviderDecorator],
+    parameters:{
+        layout: 'centered',
+    }
 };
 
 export default meta;

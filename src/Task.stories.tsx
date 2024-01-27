@@ -3,7 +3,7 @@ import {action} from '@storybook/addon-actions'
 import {Task} from './Task';
 
 const meta: Meta<typeof Task> = {
-    title: 'TODOLISTS/Task',
+    title: 'TODOLIST/Task',
     component: Task,
     tags: ['autodocs'],
     args: {
@@ -12,7 +12,10 @@ const meta: Meta<typeof Task> = {
         removeTask: action('Remove Button clicked changed inside Task'),
         task: {id: '12wsdewfijdei', title: 'JS', isDone: false},
         todolistId: 'fgdosrg8rgjuh'
-    }
+    },
+    parameters: {
+        layout: 'centered',
+    },
 };
 
 export default meta;

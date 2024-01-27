@@ -5,7 +5,7 @@ import { EditableSpan } from './EditableSpan';
 // More on how to set up stories at:
 // https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof EditableSpan> = {
-    title: 'TODOLISTS/EditableSpan',
+    title: 'TODOLIST/EditableSpan',
     component: EditableSpan,
     // This component will have an automatically generated Autodocs entry:
     // https://storybook.js.org/docs/react/writing-docs/autodocs
