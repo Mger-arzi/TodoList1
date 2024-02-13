@@ -77,12 +77,12 @@ function App() {
         setTasks({ ...tasks })
     }
 
-    const addTodolist = (trimedTitle: string) => {
-        const newID = v1()
-        const newTodo: TodolistsType = { id: newID, title: trimedTitle, filter: 'All' }
-        setTodolists([newTodo, ...todolists])
-        setTasks({ ...tasks, [newID]: [] })
-    }
+    // const addTodolist = (trimedTitle: string) => {
+    //     const newID = v1()
+    //     const newTodo: TodolistsType = { id: newID, title: trimedTitle, filter: 'All' }
+    //     setTodolists([newTodo, ...todolists])
+    //     setTasks({ ...tasks, [newID]: [] })
+    // }
     const updateTask = (todolistID: string, taskID: string, newTitle: string) => {
         setTasks({ ...tasks, [todolistID]: tasks[todolistID].map(t => t.id === taskID ? { ...t, title: newTitle } : t) })
 
@@ -98,7 +98,7 @@ function App() {
 
             <Container>
                 <Grid style ={{padding: '20px'}} container>
-                    <AddItemForm callBack={addTodolist} />
+                    {/* <AddItemForm  /> */}
 
                 </Grid>
 

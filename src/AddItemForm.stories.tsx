@@ -1,9 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React, { ChangeEvent,KeyboardEvent, useState } from 'react';
+import React, { ChangeEvent,KeyboardEvent, useCallback, useState } from 'react';
 import { action } from '@storybook/addon-actions';
 import { AddItemForm, AddItemFormProos } from './AddItemForm';
 import { IconButton, TextField } from '@mui/material';
 import { AddCircleSharp } from '@mui/icons-material';
+import { addTodolistAC } from './state/todolists-reducer';
+import { useDispatch } from 'react-redux';
+import { addTaskAC } from './state/tasks-reducer';
+import { ReduxStoreProviderDecorator } from './decorator/ReduxStoreProviderDecorator';
 
 const meta: Meta<typeof AddItemForm> = {
     title: 'Todolist/AddItemForm',
@@ -11,9 +15,11 @@ const meta: Meta<typeof AddItemForm> = {
     parameters: {
         layout: 'centered',
     },
+    decorators: [ReduxStoreProviderDecorator],
+
     tags: ['autodocs'],
     argTypes: {
-        callBack: {
+        Item: {
             description: 'Button clicked inside form',
             action: 'clicked'
         }
@@ -24,21 +30,28 @@ export default meta;
 type Story = StoryObj<typeof AddItemForm>;
 
 export const AddItemFormStory: Story = {
-    args: { callBack: action('Button clicked inside form') }
+    args: { Item: action('Button clicked inside form') }
 }
 export const AddItemFormErrorStory: Story = {
-    render : () => <AddItemFormError callBack={action('Button clicked inside form')}/>
+    render : () => <AddItemFormError Item = {action('click')}/>
 }
 const AddItemFormError =  (props:AddItemFormProos) => {
 
     const [titleInput, setTitle] = useState("")
     const [inputError, setInputError] = useState<string | null>("Title is required")
 
+    let dispatch = useDispatch()
 
-    const addTask = () => {
+
+    // const addTasksHandler = useCallback((trimedTitle: string) => {
+    //     const action = addTaskAC(trimedTitle, props.todolistId)
+    //     dispatch(action)
+    // }, [dispatch])
+
+    const addItem = () => {
         let trimedTitle = titleInput.trim()
         if (trimedTitle) {
-            props.callBack(trimedTitle)
+            props.Item(trimedTitle)
         } else {
             setInputError("Title is required")
         }
@@ -52,7 +65,7 @@ const AddItemFormError =  (props:AddItemFormProos) => {
 
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
-            addTask()
+            addItem()
         }
     }
     return(
@@ -66,7 +79,7 @@ const AddItemFormError =  (props:AddItemFormProos) => {
                 onChange={onChengeHandler}
                 onKeyPress={onKeyPressHandler}
             />
-            <IconButton onClick={addTask} >
+            <IconButton onClick={addItem} >
                 <AddCircleSharp  color='primary'/>
             </IconButton> 
         

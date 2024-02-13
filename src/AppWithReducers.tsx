@@ -67,11 +67,11 @@ export function AppWithReducers() {
         dispatchTodolists(action)
         dispatchTasks(action)
     }
-    const addTodolist = (trimedTitle: string) => {
-        const action = addTodolistAC(trimedTitle)
-        dispatchTasks(action)
-        dispatchTodolists(action)
-    }
+    // const addTodolist = (trimedTitle: string) => {
+    //     const action = addTodolistAC(trimedTitle)
+    //     dispatchTasks(action)
+    //     dispatchTodolists(action)
+    // }
     const changeFilter = (value: filterTodoListType, todolistId: string) => {
         dispatchTodolists(changeFilterAC(value, todolistId))
     }
@@ -85,7 +85,7 @@ export function AppWithReducers() {
 
             <Container>
                 <Grid style ={{padding: '20px'}} container>
-                    <AddItemForm callBack={addTodolist} />
+                    {/* <AddItemForm  /> */}
 
                 </Grid>
 

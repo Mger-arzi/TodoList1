@@ -5,20 +5,33 @@ import IconButton from '@mui/material/IconButton';
 import { AddCircleSharp, AddCircleTwoTone } from '@mui/icons-material';
 import TextField from '@mui/material/TextField';
 import { error } from 'console';
+import { addTodolistAC } from './state/todolists-reducer';
+import { useDispatch } from 'react-redux';
+import { addTaskAC } from './state/tasks-reducer';
 
 export type AddItemFormProos = {
-    callBack: (title: string) => void
+    Item: (trimedTitle:string)=> void
+    // todolistId: string
+    // callBack: (title: string) => 
 }
-export const AddItemForm = React.memo ( (props: AddItemFormProos) => {
-    
+export const AddItemForm = React.memo ( (props:AddItemFormProos) => {
+
+    let dispatch = useDispatch()
+
     const [titleInput, setTitle] = useState("")
     const [inputError, setInputError] = useState<string | null>(null)
 
+    // const addTaskHendler = useCallback((trimedTitle: string) => {
+    //     // const action = addTodolistAC(trimedTitle)
 
-    const addTask = () => {
+    //     // const action1 = addTaskAC(trimedTitle,props.todolistId)
+    //     dispatch(addTodolistAC(trimedTitle),addTaskAC(trimedTitle,props.todolistId) )
+    // }, [dispatch])
+
+    const addItem = () => {
         let trimedTitle = titleInput.trim()
         if (trimedTitle) {
-            props.callBack(trimedTitle)
+            props.Item(trimedTitle)
         } else {
             setInputError("Title is required")
         }
@@ -32,7 +45,7 @@ export const AddItemForm = React.memo ( (props: AddItemFormProos) => {
 
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
-            addTask()
+            addItem()
         }
     }
     return (
@@ -46,7 +59,7 @@ export const AddItemForm = React.memo ( (props: AddItemFormProos) => {
                 onChange={onChengeHandler}
                 onKeyPress={onKeyPressHandler}
             />
-            <IconButton onClick={addTask} >
+            <IconButton onClick={addItem} >
                 <AddCircleSharp  color='primary'/>
             </IconButton> 
         
