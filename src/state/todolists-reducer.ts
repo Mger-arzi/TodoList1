@@ -34,20 +34,17 @@ export const todolistsReducer = (
             return state;
     }
 };
-type TodolistsReducerType =
-    | RemoveTodolistACType
-    | AddTodolistAC
-    | UpdateTodolistACType
-    | ChangeFilterACType;
+type TodolistsReducerType = RemoveTodolistACType | AddTodolistAC | UpdateTodolistACType | ChangeFilterACType;
+
 
 export type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>;
-
 export const removeTodolistAC = (id: string) => {
     return {
         type: "REMOVE-TODOLIST",
         payloard: { id },
     } as const;
 };
+
 
 export type AddTodolistAC = ReturnType<typeof addTodolistAC>;
 export const addTodolistAC = (trimedTitle: string) => {
@@ -57,6 +54,7 @@ export const addTodolistAC = (trimedTitle: string) => {
     } as const;
 };
 
+
 type UpdateTodolistACType = ReturnType<typeof updateTodolistAC>;
 export const updateTodolistAC = (todolistID: string, titleInput: string) => {
     return {
@@ -64,6 +62,7 @@ export const updateTodolistAC = (todolistID: string, titleInput: string) => {
         payloard: { todolistID, titleInput },
     } as const;
 };
+
 
 type ChangeFilterACType = ReturnType<typeof changeFilterAC>;
 export const changeFilterAC = (
