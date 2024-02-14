@@ -20,6 +20,7 @@ type TaskPropsType = {
 
 
 export const Task = React.memo((props: TaskPropsType ) => {
+console.log("Task");
 
     let dispatch = useDispatch()
 

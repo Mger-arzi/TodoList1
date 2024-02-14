@@ -15,6 +15,7 @@ export type AddItemFormProos = {
     // callBack: (title: string) => 
 }
 export const AddItemForm = React.memo ( (props:AddItemFormProos) => {
+console.log("AddItemForm");
 
     let dispatch = useDispatch()
 

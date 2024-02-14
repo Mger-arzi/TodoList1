@@ -32,6 +32,7 @@ type TodoListTypeProps = {
 
 
 export const TodoListWithRedux: FC<TodoListTypeProps> = React.memo(({ id, title, filter }) => {
+console.log("TodoListWithRedux");
 
     let tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[id]);
 
