@@ -31,6 +31,7 @@ export const tasksReducer = (state= initialState,action: TaskReducerType): Tasks
             }
         }
         case "CHANGE-TASK-STATUS": {
+
             return {
                 ...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
                     .map((t) =>
@@ -89,6 +90,7 @@ export const updateTitleTaskAC = (todolistId: string , taskId: string, title: st
 
 type changeTaskStatusACType = ReturnType<typeof changeTaskStatusAC>;
 export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string) => {
+    debugger
     return {
         type: "CHANGE-TASK-STATUS",
         payloard: { taskId, isDone, todolistId },

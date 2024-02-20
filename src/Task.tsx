@@ -36,9 +36,7 @@ console.log("Task");
         dispatch(removeTaskAC(id, todolistID))
     }, [dispatch])
 
-    const onChengeCheckboxStatusHandler = (
-        e: ChangeEvent<HTMLInputElement>
-    ) => {
+    const onChengeCheckboxStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         chekedChechbox(props.task.id, props.todolistId, e.currentTarget.checked);
     };
     const updateTaskHandler = useCallback( (titleInput: string) => {
