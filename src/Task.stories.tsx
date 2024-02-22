@@ -1,7 +1,11 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions'
-import {Task} from './Task';
 import { ReduxStoreProviderDecorator } from './decorator/ReduxStoreProviderDecorator';
+import { useSelector } from 'react-redux';
+import { AppRootStateType } from './state/store';
+import { TaskType } from './TodoListWithRedux';
+import { stat } from 'fs';
+import { Task } from './Task';
 
 const meta: Meta<typeof Task> = {
     title: 'TODOLIST/Task',
@@ -24,10 +28,20 @@ const meta: Meta<typeof Task> = {
 export default meta;
 type Story = StoryObj<typeof Task>;
 
-export const TaskIsNotDoneStory: Story = {};
+const TaskW = () =>{
 
-export const TaskIsDoneStory: Story = {
-    args: {
-        task: {id: '12wsdewfijdei2343', title: 'CSS', isDone: true},
-    },
-};
+    let tasks = useSelector <AppRootStateType, TaskType> (state => state.tasks['todolistId1'][0])
+    if(!tasks) tasks = {id: '12wsdewfijdei', title: 'DEFAULT TASK', isDone: false}
+    return <Task task={tasks} todolistId={'todolistId1'}/>
+        
+}
+export const TaskReduxStory: Story = {
+    render: () => <TaskW />,
+}
+// export const TaskIsNotDoneStory: Story = {};
+
+// export const TaskIsDoneStory: Story = {
+//     args: {
+//         task: {id: '12wsdewfijdei2343', title: 'CSS', isDone: true},
+//     },
+// };
