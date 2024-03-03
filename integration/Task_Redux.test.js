@@ -1,8 +1,8 @@
-describe("Task is done", () => {
+describe("Task is not done", () => {
 	it("base example, visually looks correct", async () => {
 		// APIs from jest-puppeteer
 		await page.goto(
-			"http://localhost:9009/iframe.html?args=&id=todolists-task--task-is-done-story&viewMode=story",
+			"http://localhost:9010/iframe.html?id=todolist-task--task-redux-story&viewMode=story",
 			{ waitUntil: "networkidle2" }
 		);
 
