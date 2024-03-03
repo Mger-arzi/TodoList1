@@ -20,12 +20,6 @@ export const tasksAPI = {
         )
         return promise
     },
-    deleteTodolist(todolistId: string) {
-        const promise = instance.delete(
-            `todo-lists/${todolistId}`,
-        )
-        return promise
-    },
     updateTask(todolistId: string, taskId:string, title: string){
         const propmis = instance.put(
             `/todo-lists/${todolistId}/tasks/${taskId}`,
@@ -34,7 +28,7 @@ export const tasksAPI = {
         return propmis
     },
     deleteTask(todolistId: string, taskId:string){
-        const propmis = instance.put(
+        const propmis = instance.delete(
             `/todo-lists/${todolistId}/tasks/${taskId}`,
         )
         return propmis
