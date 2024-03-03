@@ -10,11 +10,11 @@ type TodoListType = {
     addedDate: Date,
     order : number
 }
-type FieldErrorType = {
+export type FieldErrorType = {
     error: string
     field: string
 }
-type ResponseType<D = {}> = {
+export type ResponseType<D = {}> = {
     resultCode: 0
     fieldsErrors:FieldErrorType[]
     messages: [],
