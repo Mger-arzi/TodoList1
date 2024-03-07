@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useCallback, useState } from "react";
-import {  filterTodoListType } from "./App";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
 import Button from '@mui/material/Button';
@@ -13,6 +12,8 @@ import { Task } from "./Task";
 import { useSelector } from "react-redux";
 import { AppRootStateType } from "./state/store";
 import { TasksStateType } from "./AppWithRedux";
+import { TaskStatuses, TaskType } from "./api/tasks-api";
+import { FilterTodoListType } from "./state/todolists-reducer";
 
 
 type TodoListTypeProps = {
@@ -20,7 +21,7 @@ type TodoListTypeProps = {
     title: string;
     tasks: Array<TaskType>;
     removeTask: (Id: string, todolistID: string) => void;
-    changeFilter: (value: filterTodoListType, todolistId: string) => void;
+    changeFilter: (value: FilterTodoListType, todolistId: string) => void;
     addTask: (todolistID: string, title: string) => void;
     chekedChechbox: (
         taskId: string,
@@ -79,10 +80,10 @@ export const TodoList: FC<TodoListTypeProps> = React.memo ( ({
 
 let filterTodoList = tasks
     if (filter === "Active") {
-        filterTodoList = tasks.filter(t => t.isDone === false)
+        filterTodoList = tasks.filter(t => t.status === TaskStatuses.New)
     }
     if (filter === "Completed") {
-        filterTodoList = tasks.filter(t => t.isDone === true)
+        filterTodoList = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
     return (

@@ -74,7 +74,14 @@ function App() {
         const newTask: TaskType = {
             id: v1(),
             title: title,
-            isDone: false
+            status:TaskStatuses.New,
+            addedDate: new Date,
+            deadline: new Date,
+            description: "",
+            order: 0,
+            priority: TaskPriorities.Low,
+            startDate: new Date,
+            todoListId: todolistID
         }
         setTasks({ ...tasks, [todolistID]: [newTask, ...tasks[todolistID]] })
     }
@@ -120,10 +127,10 @@ function App() {
                         todolists.map(todolist => {
                             let filterTodoList = tasks[todolist.id]
                             if (todolist.filter === "Active") {
-                                filterTodoList = filterTodoList.filter(tasks => tasks.status === 0)
+                                filterTodoList = filterTodoList.filter(tasks => tasks.status === TaskStatuses.New)
                             }
                             if (todolist.filter === "Completed") {
-                                filterTodoList = filterTodoList.filter(tasks => tasks.status === 2)
+                                filterTodoList = filterTodoList.filter(tasks => tasks.status === TaskStatuses.Completed)
                             }
 
                             return <Grid>

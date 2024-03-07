@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useCallback } from "react";
-import { TaskType } from "./TodoList";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
 import IconButton from "@mui/material/IconButton/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -7,6 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { EditableSpan } from "./EditableSpan";
 import { useDispatch } from "react-redux";
 import { changeTaskStatusAC, removeTaskAC, updateTitleTaskAC } from "./state/tasks-reducer";
+import { TaskType } from "./api/tasks-api";
 
 type TaskPropsType = {
     // chekedChechbox: (taskId: string, todolistID: string , isDone: boolean  ) => void;
@@ -46,7 +46,7 @@ console.log("Task");
 
 
     return (
-        <div className={props.task.isDone ? "task-done" : "task"}>
+        <div className={props.task.status ? "task-done" : "task"}>
             <Checkbox size="small" 
                 checked={props.task.isDone}
                 onChange={onChengeCheckboxStatusHandler}
