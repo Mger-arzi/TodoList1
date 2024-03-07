@@ -1,7 +1,7 @@
 import { v1 } from "uuid";
-import { TasksStateType, TodolistsType } from "../App";
-import { TaskType } from "../TodoList";
+import { TasksStateType } from "../App";
 import { AddTodolistAC, RemoveTodolistACType } from "./todolists-reducer";
+import { TaskPriorities, TaskStatuses, TaskType } from "../api/tasks-api";
 
 let initialState: TasksStateType = {}
 
@@ -15,7 +15,14 @@ export const tasksReducer = (state= initialState,action: TaskReducerType): Tasks
             const newTask: TaskType = {
                 id: newID,
                 title: action.payloard.title,
-                isDone: false,
+                status: TaskStatuses.New,
+                todoListId: action.payloard.todolistId,
+                description: "",
+                startDate: new Date,
+                deadline: new Date,
+                addedDate: new Date,
+                order: 0,
+                priority: TaskPriorities.Low,
             };
             return { ...state, [action.payloard.todolistId]: [newTask, ...state[action.payloard.todolistId]] };
         }
@@ -35,7 +42,7 @@ export const tasksReducer = (state= initialState,action: TaskReducerType): Tasks
             return {
                 ...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
                     .map((t) =>
-                        t.id === action.payloard.taskId ? { ...t, isDone: action.payloard.isDone } : t
+                        t.id === action.payloard.taskId ? { ...t, status: action.payloard.status } : t
                     )
             };
         }
@@ -89,10 +96,10 @@ export const updateTitleTaskAC = (todolistId: string , taskId: string, title: st
 
 
 type changeTaskStatusACType = ReturnType<typeof changeTaskStatusAC>;
-export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string) => {
+export const changeTaskStatusAC = (taskId: string, status: TaskStatuses, todolistId: string) => {
     debugger
     return {
         type: "CHANGE-TASK-STATUS",
-        payloard: { taskId, isDone, todolistId },
+        payloard: { taskId, status, todolistId },
     } as const;
 };

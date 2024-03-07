@@ -88,8 +88,8 @@ function App() {
 
     //chek chekbox
 
-    const chekedChechbox = (taskId: string, todolistID: string, isDone: boolean) => {
-        setTasks({ ...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskId ? { ...el, isDone } : el) })
+    const chekedChechbox = (taskId: string, todolistID: string, status: TaskStatuses) => {
+        setTasks({ ...tasks, [todolistID]: tasks[todolistID].map(el => el.id === taskId ? { ...el, status } : el) })
     }
     const removeTodolist = (todolistID: string) => {
         setTodolists(todolists.filter(el => el.id !== todolistID))

@@ -26,7 +26,7 @@ type TodoListTypeProps = {
     chekedChechbox: (
         taskId: string,
         todolistID: string,
-        isDone: boolean
+        status:TaskStatuses
     ) => void;
     removeTodolist: (todolistID: string) => void;
     filter: string;

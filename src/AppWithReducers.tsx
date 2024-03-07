@@ -65,8 +65,8 @@ export function AppWithReducers() {
     const updateTask = (todolistID: string, taskID: string, newTitle: string) => {
         dispatchTasks(updateTitleTaskAC(todolistID, taskID, newTitle))
     }
-    const chekedChechbox = (taskId: string, todolistID: string, isDone: boolean) => {
-        dispatchTasks(changeTaskStatusAC(taskId , isDone,todolistID ))
+    const chekedChechbox = (taskId: string, todolistID: string, status:TaskStatuses) => {
+        dispatchTasks(changeTaskStatusAC(taskId , status,todolistID ))
     }
 
     

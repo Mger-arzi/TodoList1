@@ -5,6 +5,7 @@ import {combineReducers, createStore, legacy_createStore} from "redux";
 import { tasksReducer } from '../state/tasks-reducer';
 import {todolistsReducer} from "../state/todolists-reducer";
 import {v1} from "uuid";
+import { TaskPriorities, TaskStatuses } from '../api/tasks-api';
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
@@ -13,22 +14,35 @@ const rootReducer = combineReducers({
 
 const initialGlobalState = {
     todolists: [
-        {id: "todolistId1", title: "What to learn", filter: "all"},
-        {id: "todolistId2", title: "What to buy", filter: "all"}
+        {id: "todolistId1", title: "What to learn", filter: "All", addedDate: new Date,
+        order : 0},
+        {id: "todolistId2", title: "What to buy", filter: "All", addedDate: new Date,
+        order : 0}
     ] ,
     tasks: {
-        ["todolistId1"]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: false}
+        "todolistID1": [
+            { id: v1(), title: 'HTML&CSS', status: TaskStatuses.Completed, addedDate: new Date, deadline: new Date, description: "", 
+            order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID1" },
+            { id: v1(), title: 'JS', status: TaskStatuses.Completed, addedDate: new Date, deadline: new Date, description: "", 
+            order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID1" },
+            { id: v1(), title: 'ReactJS', status: TaskStatuses.New, addedDate: new Date, deadline: new Date, description: "", 
+            order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID1" },
+
         ],
-        ["todolistId2"]: [
-            {id: v1(), title: "Milk", isDone: false},
-            {id: v1(), title: "React Book", isDone: true}
+        "todolistID2": [
+            {
+                id: v1(), title: 'Rest API', status: TaskStatuses.Completed, addedDate: new Date, deadline: new Date, description: "",
+                order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID2"
+            },
+            {
+                id: v1(), title: 'GraphQL', status: TaskStatuses.New, addedDate: new Date, deadline: new Date, description: "",
+                order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID2"
+            },
         ]
     }
 };
 
-export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState as AppRootStateType & undefined);
+export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState as AppRootStateType & undefined );
 
 
 export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => {

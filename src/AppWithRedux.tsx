@@ -1,6 +1,6 @@
 import React, { useCallback, useReducer, useState } from 'react';
 import './App.css';
-import { TaskType, TodoList } from './TodoList';
+import {  TodoList } from './TodoList';
 import { v1 } from 'uuid';
 import { AddItemForm } from './AddItemForm';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -8,20 +8,16 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { ButtonAppBar } from './AppBar/AppBar';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper'
-import { addTodolistAC, changeFilterAC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './state/todolists-reducer';
+import { TodolistsDomainType, addTodolistAC, changeFilterAC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './state/todolists-reducer';
 import { addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer, updateTitleTaskAC } from './state/tasks-reducer';
 import { useSelector } from 'react-redux';
 import { AppRootStateType } from './state/store';
 import { useDispatch } from 'react-redux';
 import { TodoListWithRedux } from './TodoListWithRedux';
+import { TaskType } from './api/tasks-api';
 
-export type filterTodoListType = "All" | "Active" | "Completed"
 
-export type TodolistsType = {
-    id: string
-    title: string
-    filter: filterTodoListType
-}
+
 export type TasksStateType = {
     [key: string]: TaskType[]
 }
@@ -29,7 +25,7 @@ export function AppWithRedux() {
 
     console.log("AppWithRedux");
 
-    let todolists = useSelector<AppRootStateType, TodolistsType[]>(state => state.todolists)
+    let todolists = useSelector<AppRootStateType, TodolistsDomainType[]>(state => state.todolists)
     let todolistId = useSelector<any , any>(state => state.todolists.id)
 
     // let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
@@ -94,6 +90,8 @@ export function AppWithRedux() {
                                         title={todolist.title}
                                         filter={todolist.filter}
                                         id={todolist.id}
+                                        addedDate={new Date}
+                                        order={0}
                                         // removeTask={removeTask}
                                         // changeFilter={changeFilter}
                                         // tasks={filterTodoList}

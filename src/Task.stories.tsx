@@ -3,9 +3,9 @@ import {action} from '@storybook/addon-actions'
 import { ReduxStoreProviderDecorator } from './decorator/ReduxStoreProviderDecorator';
 import { useSelector } from 'react-redux';
 import { AppRootStateType } from './state/store';
-import { TaskType } from './TodoListWithRedux';
 import { stat } from 'fs';
 import { Task } from './Task';
+import { TaskPriorities, TaskStatuses, TaskType } from './api/tasks-api';
 
 const meta: Meta<typeof Task> = {
     title: 'TODOLIST/Task',
@@ -15,8 +15,9 @@ const meta: Meta<typeof Task> = {
         // chekedChechbox: action('Status changed inside Task'),
         // updateTask: action('Title changed inside Task'),
         // removeTask: action('Remove Button clicked changed inside Task'),
-        task: {id: '12wsdewfijdei', title: 'JS', isDone: false},
-        todolistId: 'fgdosrg8rgjuh'
+        todolistId: 'fgdosrg8rgjuh',
+        task: {id: '12wsdewfijdei', title: 'JS', status: TaskStatuses.New, deadline: new Date , description: "",
+        addedDate: new Date, order: 0, priority:TaskPriorities.Low, startDate: new Date, todoListId: ''},
     },
     decorators: [ReduxStoreProviderDecorator],
 
@@ -31,7 +32,8 @@ type Story = StoryObj<typeof Task>;
 const TaskW = () =>{
 
     let tasks = useSelector <AppRootStateType, TaskType> (state => state.tasks['todolistId1'][0])
-    if(!tasks) tasks = {id: '12wsdewfijdei', title: 'DEFAULT TASK', isDone: false}
+    if(!tasks) tasks = {id: '12wsdewfijdei', title: 'DEFAULT TASK',status: TaskStatuses.New, deadline: new Date , description: "",
+        addedDate: new Date, order: 0, priority:TaskPriorities.Low, startDate: new Date, todoListId: ''}
     return <Task task={tasks} todolistId={'todolistId1'}/>
         
 }

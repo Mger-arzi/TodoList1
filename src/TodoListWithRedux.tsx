@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useCallback, useState } from "react";
-import { filterTodoListType } from "./App";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
 import Button from '@mui/material/Button';
@@ -12,32 +11,29 @@ import { CheckBox } from "./CheckBox";
 import { Task } from "./Task";
 import { useSelector } from "react-redux";
 import { AppRootStateType } from "./state/store";
-import { TasksStateType, TodolistsType } from "./AppWithRedux";
+import { TasksStateType } from "./AppWithRedux";
 import { useDispatch } from "react-redux";
-import { removeTodolistAC, addTodolistAC, updateTodolistAC, changeFilterAC } from './state/todolists-reducer';
+import { removeTodolistAC, addTodolistAC, updateTodolistAC, changeFilterAC, TodolistsDomainType } from './state/todolists-reducer';
 import { addTaskAC } from "./state/tasks-reducer";
-export type TaskType = {
-    id: string;
-    title: string;
-    isDone: boolean;
-};
+import { TaskStatuses, TaskType } from "./api/tasks-api";
 
-type TodoListTypeProps = {
-    id: string;
-    title: string;
-    filter: string;
 
-};
+// type TodoListTypeProps = {
+//     id: string;
+//     title: string;
+//     filter: string;
+
+// };
 
 
 
-export const TodoListWithRedux: FC<TodoListTypeProps> = React.memo(({ id, title, filter }) => {
+export const TodoListWithRedux: FC<TodolistsDomainType> = React.memo(({ id, title, filter }) => {
 console.log("TodoListWithRedux");
 
     let tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[id]);
     let dispatch = useDispatch();
 
-    let todolists = useSelector<AppRootStateType, TodolistsType[]>(state => state.todolists)
+    let todolists = useSelector<AppRootStateType, TodolistsDomainType[]>(state => state.todolists)
     // let todolistId = todolists[0].id
 
     const onRevoveTodolistHandler = useCallback(() => {
@@ -68,10 +64,10 @@ console.log("TodoListWithRedux");
     }, [id]);
 
     if (filter === "Active") {
-        tasks = tasks.filter(t => t.isDone === false)
+        tasks = tasks.filter(t => t.status === TaskStatuses.New)
     }
     if (filter === "Completed") {
-        tasks = tasks.filter(t => t.isDone === true)
+        tasks = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
     return (
