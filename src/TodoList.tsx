@@ -13,11 +13,7 @@ import { Task } from "./Task";
 import { useSelector } from "react-redux";
 import { AppRootStateType } from "./state/store";
 import { TasksStateType } from "./AppWithRedux";
-export type TaskType = {
-    id: string;
-    title: string;
-    isDone: boolean;
-};
+
 
 type TodoListTypeProps = {
     id: string;

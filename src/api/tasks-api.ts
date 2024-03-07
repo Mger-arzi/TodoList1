@@ -10,7 +10,7 @@ type GetTasksType ={
     error: string | null 
     items: TaskType[]
 }
-type TaskType = {
+export type TaskType = {
     id: string,
     title: string,
     description: string,

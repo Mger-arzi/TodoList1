@@ -57,7 +57,7 @@ export const UpdateTask = () => {
     return <div>{JSON.stringify(state)}
         <input placeholder='taskId' type="text" value={taskId} onChange={(e)=>setTaskId(e.currentTarget.value)}/>
         <input placeholder='todolistId'  type="text" value={todolistId} onChange={(e)=>setTodolistId(e.currentTarget.value)}/>
-        <input placeholder=' new title'  type="text" value={title} onChange={(e)=>setTitle(e.currentTarget.value)}/>
+        <input placeholder=' new title'  type="text" value={title   } onChange={(e)=>setTitle(e.currentTarget.value)}/>
         <button onClick={updateTaskHandler}>UPDATE</button>
     </div>
 } 

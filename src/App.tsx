@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import './App.css';
-import { TaskType, TodoList } from './TodoList';
+
 import { v1 } from 'uuid';
-import { AddItemForm } from './AddItemForm';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import { ButtonAppBar } from './AppBar/AppBar';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper'
+import { TaskType } from './api/tasks-api';
+import { FilterTodoListType, TodolistsDomainType } from './state/todolists-reducer';
 
-export type filterTodoListType = "All" | "Active" | "Completed"
 
-export type TodolistsType = {
-    id: string
-    title: string
-    filter: filterTodoListType
-}
+
+
 export type TasksStateType = {
     [key: string]: TaskType[]
 }
@@ -25,9 +22,11 @@ function App() {
     let todolistID1 = v1()
     let todolistID2 = v1()
 
-    let [todolists, setTodolists] = useState<Array<TodolistsType>>([
-        { id: todolistID1, title: 'What to learn', filter: 'All' },
-        { id: todolistID2, title: 'What to buy', filter: 'All' },
+    let [todolists, setTodolists] = useState<Array<TodolistsDomainType>>([
+        { id: todolistID1, title: 'What to learn', filter: 'All',  addedDate: new Date,
+        order: 0, },
+        { id: todolistID2, title: 'What to buy', filter: 'All',  addedDate: new Date,
+        order: 0, },
     ])
 
     let [tasks, setTasks] = useState<TasksStateType>({
@@ -44,7 +43,7 @@ function App() {
     })
 
 
-    const changeFilter = (value: filterTodoListType, todolistId: string) => {
+    const changeFilter = (value: FilterTodoListType, todolistId: string) => {
         let todolist = todolists.find(t => t.id === todolistId)
         if (todolist) {
             todolist.filter = value

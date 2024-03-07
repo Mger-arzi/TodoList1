@@ -4,7 +4,7 @@ const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1',
     withCredentials: true,
 })
-type TodoListType = {
+export type TodoListType = {
     id: string,
     title: string,
     addedDate: Date,
