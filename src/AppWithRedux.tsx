@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import './App.css';
 import {  TodoList } from './TodoList';
 import { v1 } from 'uuid';
@@ -8,7 +8,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { ButtonAppBar } from './AppBar/AppBar';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper'
-import { TodolistsDomainType, addTodolistAC, changeFilterAC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './state/todolists-reducer';
+import { TodolistsDomainType, addTodolistAC, changeFilterAC, getTodolistsTC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './state/todolists-reducer';
 import { addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer, updateTitleTaskAC } from './state/tasks-reducer';
 import { useSelector } from 'react-redux';
 import { AppRootStateType } from './state/store';
@@ -66,7 +66,9 @@ export function AppWithRedux() {
     // const updateTodolist = useCallback((todolistID: string, titleInput: string) => {
     //     dispatch(updateTodolistAC(todolistID, titleInput))
     // }, [dispatch])
-
+    useEffect(( ) => {
+        dispatch(getTodolistsTC())
+    },[])
     return (
         <div className='App'>
             <ButtonAppBar />

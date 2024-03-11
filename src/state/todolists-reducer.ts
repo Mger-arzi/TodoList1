@@ -1,5 +1,6 @@
 import { v1 } from "uuid";
-import { TodoListType } from "../api/todolist-api";
+import { TodoListType, todolistAPI } from "../api/todolist-api";
+import { Dispatch } from "redux";
 
 
 
@@ -36,11 +37,16 @@ export const todolistsReducer = (state = initialState, action: TodolistsReducerT
                     : t
             );
         }
+        case "GET-TODOLISTS":{
+
+            return action.todolists.map((el)=>({...el,filter:"All"}))
+
+        }
         default:
             return state;
     }
 };
-type TodolistsReducerType = RemoveTodolistACType | AddTodolistAC | UpdateTodolistACType | ChangeFilterACType;
+type TodolistsReducerType = RemoveTodolistACType | AddTodolistAC | UpdateTodolistACType | ChangeFilterACType | getTodolistsACType
 
 
 export type RemoveTodolistACType = ReturnType<typeof removeTodolistAC>;
@@ -80,3 +86,14 @@ export const changeFilterAC = (
         payloard: { value, todolistId },
     } as const;
 };
+
+
+export type getTodolistsACType = ReturnType<typeof getTodolistsAC>;
+export const getTodolistsAC = (todolists: Array<TodoListType>) => {
+    return {type: "GET-TODOLISTS", todolists  } as const
+}
+export const getTodolistsTC = () => (dispatch: Dispatch) => {
+    todolistAPI.getTodolists().then((res) => {
+        dispatch(getTodolistsAC(res.data))
+    })
+}

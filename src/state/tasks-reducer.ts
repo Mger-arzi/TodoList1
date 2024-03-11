@@ -1,6 +1,6 @@
 import { v1 } from "uuid";
 import { TasksStateType } from "../App";
-import { AddTodolistAC, RemoveTodolistACType } from "./todolists-reducer";
+import { AddTodolistAC, RemoveTodolistACType, getTodolistsACType } from "./todolists-reducer";
 import { TaskPriorities, TaskStatuses, TaskType } from "../api/tasks-api";
 
 let initialState: TasksStateType = {}
@@ -56,6 +56,13 @@ export const tasksReducer = (state= initialState,action: TaskReducerType): Tasks
             const {[action.payloard.id] : [] ,...rest } = state
             return rest
         }
+        case "GET-TODOLISTS":{
+            const copyState = {...state}
+            action.todolists.forEach((tl)=>{
+                copyState[tl.id] = []
+            })
+            return copyState
+        }
         default:
             return state;
     }
@@ -66,7 +73,8 @@ type TaskReducerType = |
     changeTaskStatusACType |
     UpdateTitleTaskACType |
     AddTodolistAC |
-    RemoveTodolistACType
+    RemoveTodolistACType | 
+    getTodolistsACType 
 
 type RemoveTaskACType = ReturnType<typeof removeTaskAC>;
 export const removeTaskAC = (taskId: string, todolistId: string) => {
