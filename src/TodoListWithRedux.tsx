@@ -8,7 +8,7 @@ import { Task } from "./Task";
 import { useSelector } from "react-redux";
 import { AppRootStateType, useAppDispatch } from "./state/store";
 import { removeTodolistAC, updateTodolistAC, changeFilterAC, TodolistsDomainType } from './state/todolists-reducer';
-import { addTaskAC, setTasksTC } from "./state/tasks-reducer";
+import { addTaskAC, addTaskTC, setTasksTC } from "./state/tasks-reducer";
 import { TaskStatuses, TaskType } from "./api/tasks-api";
 
 
@@ -25,7 +25,7 @@ console.log("TodoListWithRedux");
     }, [id]);
 
     const addTaskHandler = useCallback((trimedTitle: string) => {
-        dispatch(addTaskAC(trimedTitle, id));
+        dispatch(addTaskTC(id, trimedTitle));
     }, [id]);
 
     const updateTodolistHandler = useCallback((titleInput: string) => {
@@ -57,7 +57,7 @@ console.log("TodoListWithRedux");
         useEffect(()=>{
             dispatch(setTasksTC(id))
         }, [])
-        
+
     return (
 
         <div >

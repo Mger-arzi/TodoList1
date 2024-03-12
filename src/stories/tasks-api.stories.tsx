@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { tasksAPI } from '../api/tasks-api'
+import { model, tasksAPI } from '../api/tasks-api'
 
 export default {
     title: 'API TASKS',
@@ -49,7 +49,7 @@ export const UpdateTask = () => {
 
 
     const updateTaskHandler = ()=>{
-        tasksAPI.updateTask(todolistId, taskId, title)
+        tasksAPI.updateTask(todolistId, taskId, model)
         .then((res)=>{
             setState(res.data)
         })
