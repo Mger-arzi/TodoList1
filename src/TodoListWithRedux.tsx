@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import { Task } from "./Task";
 import { useSelector } from "react-redux";
 import { AppRootStateType, useAppDispatch } from "./state/store";
-import { removeTodolistAC, updateTodolistAC, changeFilterAC, TodolistsDomainType } from './state/todolists-reducer';
+import { removeTodolistAC, updateTodolistAC, changeFilterAC, TodolistsDomainType, removeTodolistTC, updateTodolistTC } from './state/todolists-reducer';
 import { addTaskAC, addTaskTC, setTasksTC } from "./state/tasks-reducer";
 import { TaskStatuses, TaskType } from "./api/tasks-api";
 
@@ -21,7 +21,7 @@ console.log("TodoListWithRedux");
     const dispatch = useAppDispatch();
 
     const onRevoveTodolistHandler = useCallback(() => {
-        dispatch(removeTodolistAC(id));
+        dispatch(removeTodolistTC(id));
     }, [id]);
 
     const addTaskHandler = useCallback((trimedTitle: string) => {
@@ -29,7 +29,7 @@ console.log("TodoListWithRedux");
     }, [id]);
 
     const updateTodolistHandler = useCallback((titleInput: string) => {
-            dispatch(updateTodolistAC(id, titleInput))
+            dispatch(updateTodolistTC(id, titleInput))
     }, [id]);
 
 

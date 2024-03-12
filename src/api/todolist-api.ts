@@ -29,7 +29,7 @@ export const todolistAPI = {
         return promise
     },
     createTodolist(title: string) {
-        const promise = instance.post<ResponseType< {item: TodoListType[]} >>(
+        const promise = instance.post<ResponseType< {item: TodoListType} >>(
             `todo-lists/`,
             {title: title}
         )

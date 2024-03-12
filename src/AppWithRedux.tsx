@@ -8,7 +8,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { ButtonAppBar } from './AppBar/AppBar';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper'
-import { TodolistsDomainType, addTodolistAC, changeFilterAC, getTodolistsTC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './state/todolists-reducer';
+import { TodolistsDomainType, addTodolistAC, addTodolistTC, changeFilterAC, getTodolistsTC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './state/todolists-reducer';
 import { addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer, updateTitleTaskAC } from './state/tasks-reducer';
 import { useSelector } from 'react-redux';
 import { AppRootStateType, useAppDispatch, useAppSelector } from './state/store';
@@ -55,8 +55,7 @@ export function AppWithRedux() {
     // }, [dispatch])
 
     const addTodolist = useCallback((trimedTitle: string) => {
-        const action = addTodolistAC(trimedTitle)
-        dispatch(action)
+        dispatch(addTodolistTC(trimedTitle))
     }, [dispatch])
 
     // const changeFilter = useCallback((value: filterTodoListType, todolistId: string) => {

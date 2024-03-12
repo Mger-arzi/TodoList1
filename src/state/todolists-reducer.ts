@@ -19,13 +19,8 @@ export const todolistsReducer = (state = initialState, action: TodolistsReducerT
             return state.filter((el) => el.id !== action.payloard.id);
         }
         case "ADD-TODOLIST": {
-                return [{id: action.payloard.todolistId,
-                title: action.payloard.trimedTitle,
-                filter: "All",
-                addedDate: new Date,
-                order: 0,
-            },
-            ...state]
+            let  newTodo:TodolistsDomainType = {...action.payloard.todolist, filter: "All"}
+            return [ newTodo, ...state]
         }
         case "UPDATE-TODOLIST": {
             return state.map((el) =>el.id === action.payloard.todolistID ? { ...el, title: action.payloard.titleInput }: el);
@@ -56,25 +51,24 @@ export const removeTodolistAC = (id: string) => {
         payloard: { id },
     } as const;
 };
+export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch) => {
+    todolistAPI.deleteTodolist(todolistId).then((res) => {
+        dispatch(removeTodolistAC(todolistId))
+    })
+}
 
-
-export type AddTodolistAC = ReturnType<typeof addTodolistAC>;
-export const addTodolistAC = (trimedTitle: string) => {
-    return {
-        type: "ADD-TODOLIST",
-        payloard: { trimedTitle , todolistId: v1()},
-    } as const;
-};
 
 
 type UpdateTodolistACType = ReturnType<typeof updateTodolistAC>;
 export const updateTodolistAC = (todolistID: string, titleInput: string) => {
-    return {
-        type: "UPDATE-TODOLIST",
-        payloard: { todolistID, titleInput },
-    } as const;
+    return {  type: "UPDATE-TODOLIST", payloard: { todolistID, titleInput },  } as const;
 };
 
+export const updateTodolistTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+    todolistAPI.updateTodolist(todolistId, title).then((res) => {
+        dispatch(updateTodolistAC(todolistId, title))
+    })
+}
 
 type ChangeFilterACType = ReturnType<typeof changeFilterAC>;
 export const changeFilterAC = (
@@ -96,4 +90,17 @@ export const getTodolistsTC = () => (dispatch: Dispatch) => {
     todolistAPI.getTodolists().then((res) => {
         dispatch(getTodolistsAC(res.data))
     })
+}
+
+
+
+export type AddTodolistAC = ReturnType<typeof addTodolistAC>;
+export const addTodolistAC = (todolist: TodoListType) => {
+    return {  type: "ADD-TODOLIST",   payloard: { todolist },} as const;
+};
+export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
+    todolistAPI.createTodolist(title).then((res) => {
+        dispatch(addTodolistAC(res.data.data.item))
+    })
+
 }

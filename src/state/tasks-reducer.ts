@@ -39,7 +39,7 @@ export const tasksReducer = (state = initialState, action: TaskReducerType): Tas
             };
         }
         case "ADD-TODOLIST": {
-            return { ...state, [action.payloard.todolistId]: [] }
+            return { ...state, [action.payloard.todolist.id]: [] }
         }
         case "REMOVE-TODOLIST": {
             // const copyState = {...state}
