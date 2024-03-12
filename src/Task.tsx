@@ -24,10 +24,12 @@ export const Task = React.memo((props: TaskPropsType ) => {
     let dispatch = useDispatch()
 
     const chekedChechbox = useCallback(( todolistID: string, taskId: string, status:TaskStatuses) => {
+        debugger
         dispatch(updateTaskTC(todolistID, taskId,  {status} ))
     }, [dispatch])
 
     const updateTask = useCallback((todolistID: string, taskId: string, newTitle: string) => {
+        debugger
         dispatch(updateTaskTC(todolistID, taskId, {title:newTitle}))
     }, [dispatch])
 

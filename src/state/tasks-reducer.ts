@@ -125,13 +125,12 @@ export const updateTaskAC = (todolistId: string, taskId: string, model: UpdateDo
 
 
 export const updateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType) =>
+
     (dispatch: Dispatch, getState: () => AppRootStateType) => { 
+        debugger
         const state = getState()
         const task = state.tasks[todolistId].find(t => t.id === taskId)
-        if(!task){
-            console.warn('task not found in the state')
-            return
-        }
+        if(task){
             const APImodel: UpdateTaskModelType = {
                 title: task.title,
                 description: task.description,
@@ -144,7 +143,7 @@ export const updateTaskTC = (todolistId: string, taskId: string, domainModel: Up
             tasksAPI.updateTask(todolistId, taskId, APImodel).then((res) => {
                 dispatch(updateTaskAC(todolistId, taskId , domainModel))
             })
-        
+        }
     }
 
 
