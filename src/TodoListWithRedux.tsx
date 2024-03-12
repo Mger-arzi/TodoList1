@@ -7,8 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import { Task } from "./Task";
 import { useSelector } from "react-redux";
 import { AppRootStateType, useAppDispatch } from "./state/store";
-import { removeTodolistAC, updateTodolistAC, changeFilterAC, TodolistsDomainType, removeTodolistTC, updateTodolistTC } from './state/todolists-reducer';
-import { addTaskAC, addTaskTC, setTasksTC } from "./state/tasks-reducer";
+import {  changeFilterAC, TodolistsDomainType, removeTodolistTC, updateTodolistTC } from './state/todolists-reducer';
+import {  addTaskTC, setTasksTC } from "./state/tasks-reducer";
 import { TaskStatuses, TaskType } from "./api/tasks-api";
 
 
@@ -59,10 +59,8 @@ console.log("TodoListWithRedux");
         }, [])
 
     return (
-
         <div >
             <div>
-
                 <h3>
                     <EditableSpan
                         callBack={updateTodolistHandler}
@@ -72,20 +70,13 @@ console.log("TodoListWithRedux");
                         <DeleteIcon />
                     </IconButton>
                 </h3>
-
                 <AddItemForm Item={addTaskHandler} />
-
                 {tasks.map(t =>
                     <Task
-                        // chekedChechbox={chekedChechbox}
                         key={t.id}
-                        // removeTask={removeTask}
-                        // updateTask={updateTask}
                         task={t}
                         todolistId={id}
-
                     />)}
-
                 <div >
                     <Button variant={filter === "All" ? "contained" : "text"}
                         onClick={onAllClickHandler}> All
@@ -95,9 +86,7 @@ console.log("TodoListWithRedux");
                         onClick={onActiveClickHandler}
                         color="success"
                     > Active
-
                     </Button>
-
                     <Button
                         variant={filter === "Completed" ? "contained" : "text"}
                         color="secondary"

@@ -5,13 +5,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { EditableSpan } from "./EditableSpan";
 import { useDispatch } from "react-redux";
-import { removeTaskAC, removeTaskTC, updateTaskTC,  } from "./state/tasks-reducer";
+import {  removeTaskTC, updateTaskTC,  } from "./state/tasks-reducer";
 import { TaskStatuses, TaskType } from "./api/tasks-api";
 
 type TaskPropsType = {
-    // chekedChechbox: (taskId: string, todolistID: string , isDone: boolean  ) => void;
-    // removeTask: (Id: string, todolistID: string) => void;
-    // updateTask: (todolistID: string, taskID: string, newTitle: string) => void;
     task: TaskType;
     todolistId: string;
 }
@@ -31,13 +28,11 @@ export const Task = React.memo((props: TaskPropsType ) => {
         dispatch(updateTaskTC(todolistID, taskId, {title:newTitle}))
     }, [dispatch])
 
-
-
-
     const removeTask = useCallback((id: string, todolistID: string) => {
         dispatch(removeTaskTC(todolistID, id ))
     }, [dispatch])
 
+    
     const onChengeCheckboxStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
         chekedChechbox( props.todolistId, props.task.id, e.currentTarget.checked ? TaskStatuses.Completed :  TaskStatuses.New);
     };
@@ -61,8 +56,6 @@ export const Task = React.memo((props: TaskPropsType ) => {
                     removeTask(props.task.id, props.todolistId);
                 }}>
                 <DeleteIcon color="secondary" />
-            
-
             </IconButton>
         </div>
     );

@@ -85,15 +85,6 @@ test('status of specified task should be changed', () => {
     expect(endState['todolistId1'][1].status).toBe(TaskStatuses.Completed)
 })
 
-// test('title of specified task should be changed', () => {
-
-//     const action = updateTitleTaskAC('2', 'todolistId2' ,'New Title', )
-
-//     const endState = tasksReducer(startState, action)
-
-//     expect(endState['todolistId2'][1].title).toBe('New Title')
-//     expect(endState['todolistId1'][1].title).toBe('JS')
-// })
 
 test('new array should be added when new todolist is added', () => {
 

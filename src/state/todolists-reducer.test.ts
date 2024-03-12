@@ -47,11 +47,6 @@ test('correct todolist should change its name', () => {
 
     let newTodolistTitle = "New Todolist"
 
-    // const action = {
-    //     type: 'CHANGE_TODOLIST-TITLE',
-    //     id: todolistID2,
-    //     title: newTodolistTitle
-    // }
     const endState = todolistsReducer(startState, updateTodolistAC(todolistID2, newTodolistTitle))
 
     expect(endState[0].title).toBe('What to learn')
