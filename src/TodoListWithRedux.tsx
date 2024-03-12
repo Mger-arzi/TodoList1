@@ -1,4 +1,4 @@
-import React, {  FC,  useCallback } from "react";
+import React, {  FC,  useCallback, useEffect } from "react";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
 import Button from '@mui/material/Button';
@@ -8,7 +8,7 @@ import { Task } from "./Task";
 import { useSelector } from "react-redux";
 import { AppRootStateType, useAppDispatch } from "./state/store";
 import { removeTodolistAC, updateTodolistAC, changeFilterAC, TodolistsDomainType } from './state/todolists-reducer';
-import { addTaskAC } from "./state/tasks-reducer";
+import { addTaskAC, setTasksTC } from "./state/tasks-reducer";
 import { TaskStatuses, TaskType } from "./api/tasks-api";
 
 
@@ -54,6 +54,10 @@ console.log("TodoListWithRedux");
         tasks = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
+        useEffect(()=>{
+            dispatch(setTasksTC(id))
+        }, [])
+        
     return (
 
         <div >
