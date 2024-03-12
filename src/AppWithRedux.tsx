@@ -9,7 +9,7 @@ import { ButtonAppBar } from './AppBar/AppBar';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper'
 import { TodolistsDomainType, addTodolistAC, addTodolistTC, changeFilterAC, getTodolistsTC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './state/todolists-reducer';
-import { addTaskAC,  removeTaskAC, tasksReducer, updateTitleTaskAC } from './state/tasks-reducer';
+import { addTaskAC,  removeTaskAC, tasksReducer,} from './state/tasks-reducer';
 import { useSelector } from 'react-redux';
 import { AppRootStateType, useAppDispatch, useAppSelector } from './state/store';
 import { useDispatch } from 'react-redux';

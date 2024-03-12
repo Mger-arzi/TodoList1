@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { EditableSpan } from "./EditableSpan";
 import { useDispatch } from "react-redux";
-import { removeTaskAC, removeTaskTC, updateTaskTC, updateTitleTaskAC, updateTitleTaskTC } from "./state/tasks-reducer";
+import { removeTaskAC, removeTaskTC, updateTaskTC,  } from "./state/tasks-reducer";
 import { TaskStatuses, TaskType } from "./api/tasks-api";
 
 type TaskPropsType = {
@@ -24,12 +24,10 @@ export const Task = React.memo((props: TaskPropsType ) => {
     let dispatch = useDispatch()
 
     const chekedChechbox = useCallback(( todolistID: string, taskId: string, status:TaskStatuses) => {
-        debugger
         dispatch(updateTaskTC(todolistID, taskId,  {status} ))
     }, [dispatch])
 
     const updateTask = useCallback((todolistID: string, taskId: string, newTitle: string) => {
-        debugger
         dispatch(updateTaskTC(todolistID, taskId, {title:newTitle}))
     }, [dispatch])
 
@@ -41,7 +39,7 @@ export const Task = React.memo((props: TaskPropsType ) => {
     }, [dispatch])
 
     const onChengeCheckboxStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        chekedChechbox(props.task.id, props.todolistId, e.currentTarget.checked ? TaskStatuses.Completed :  TaskStatuses.New);
+        chekedChechbox( props.todolistId, props.task.id, e.currentTarget.checked ? TaskStatuses.Completed :  TaskStatuses.New);
     };
     const updateTaskHandler = useCallback( (titleInput: string) => {
         updateTask(props.todolistId , props.task.id, titleInput);
