@@ -1,5 +1,5 @@
 
-import {  addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer, updateTitleTaskAC } from './tasks-reducer'
+import {  addTaskAC,removeTaskAC, tasksReducer, updateTaskAC, updateTitleTaskAC } from './tasks-reducer'
 import { TasksStateType } from '../App'
 import { addTodolistAC, removeTodolistAC } from './todolists-reducer'
 import { v1 } from 'uuid'
@@ -77,7 +77,7 @@ test('correct task should be added to correct array', () => {
 
 test('status of specified task should be changed', () => {
 
-    const action = changeTaskStatusAC('todolistId2' ,'2', TaskStatuses.New, )
+    const action = updateTaskAC('todolistId2' ,'2', New, )
 
     const endState = tasksReducer(startState, action)
 

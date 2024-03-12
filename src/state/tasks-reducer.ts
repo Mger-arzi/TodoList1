@@ -19,22 +19,23 @@ export const tasksReducer = (state = initialState, action: TaskReducerType): Tas
                     .concat(state[action.payloard.task.todoListId])
             };
         }
-        case "UPDATE-TASK-TITLE": {
-            let todolistTasks = state[action.payloard.todolistId];
-            let task = todolistTasks.find(t => t.id === action.payloard.taskId);
-            if (task) {
-                task.title = action.payloard.title;
-            }
-            return {
-                ...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
-                    .map(el => el.id === action.payloard.taskId ? { ...el, title: action.payloard.title } : el)
-            }
-        }
-        case "CHANGE-TASK-STATUS": {
+        // case "UPDATE-TASK-TITLE": {
+        //     let todolistTasks = state[action.payloard.todolistId];
+        //     let task = todolistTasks.find(t => t.id === action.payloard.taskId);
+        //     if (task) {
+        //         task.status = action.payloard.status;
+        //     }
+        //     return {
+        //         ...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
+        //             .map(el => el.id === action.payloard.taskId ? { ...el, title: action.payloard.status } : el)
+        //     }
+        // }
+        case "UPDATE-TASK": {
+            debugger
             return {
                 ...state, [action.payloard.todolistId]: state[action.payloard.todolistId]
                     .map((t) =>
-                        t.id === action.payloard.taskId ? { ...t, status: action.payloard.status } : t
+                        t.id === action.payloard.taskId ? { ...t, ...action.payloard.model } : t
                     )
             };
         }
@@ -107,13 +108,58 @@ export const addTaskTC = (todolistId: string , title: string ) => (dispatch: Dis
         dispatch(addTaskAC( res.data.data.item ))
     })
 }
+export type UpdateDomainTaskModelType = {
+    title?: string
+    description?: string
+    status?: TaskStatuses
+    priority?: TaskPriorities
+    startDate?: Date
+    deadline?: Date
+}
 
-
-type changeTaskStatusACType = ReturnType<typeof changeTaskStatusAC>;
-export const changeTaskStatusAC = (todolistId: string, taskId: string, status: TaskStatuses, ) => {
-    return { type: "CHANGE-TASK-STATUS", payloard: { taskId, status, todolistId }, } as const;
+type changeTaskStatusACType = ReturnType<typeof updateTaskAC>;
+export const updateTaskAC = (todolistId: string, taskId: string, model: UpdateDomainTaskModelType, ) => {
+    debugger
+    return { type: "UPDATE-TASK", payloard: {  todolistId ,taskId, model}, } as const;
 };
-export const changeTaskStatusTC = (todolistId: string, taskId: string, status: TaskStatuses) =>
+
+
+export const updateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType) =>
+    (dispatch: Dispatch, getState: () => AppRootStateType) => { 
+        const state = getState()
+        const task = state.tasks[todolistId].find(t => t.id === taskId)
+        if(!task){
+            console.warn('task not found in the state')
+            return
+        }
+            const APImodel: UpdateTaskModelType = {
+                title: task.title,
+                description: task.description,
+                status: task.status,
+                priority: task.priority,
+                startDate: task.startDate,
+                deadline: task.deadline,
+                ...domainModel,
+            }
+            tasksAPI.updateTask(todolistId, taskId, APImodel).then((res) => {
+                dispatch(updateTaskAC(todolistId, taskId , domainModel))
+            })
+        
+    }
+
+
+
+
+
+
+    type UpdateTitleTaskACType = ReturnType<typeof updateTitleTaskAC>;
+export const updateTitleTaskAC = (todolistId: string, taskId: string, status: TaskStatuses) => {
+    return {
+        type: "UPDATE-TASK-TITLE",
+        payloard: { taskId,todolistId , status },
+    } as const;
+};
+export const updateTitleTaskTC = (todolistId: string, taskId: string, status: TaskStatuses) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => { 
         const task = getState().tasks[todolistId].find(t => t.id === taskId)
         if(task){
@@ -126,32 +172,7 @@ export const changeTaskStatusTC = (todolistId: string, taskId: string, status: T
                 deadline: task.deadline,
             }
             tasksAPI.updateTask(todolistId, taskId, model).then((res) => {
-                dispatch(changeTaskStatusAC(todolistId, taskId, status))
-            })
-        }
-    }
-
-    type UpdateTitleTaskACType = ReturnType<typeof updateTitleTaskAC>;
-export const updateTitleTaskAC = (todolistId: string, taskId: string, title: string,) => {
-    return {
-        type: "UPDATE-TASK-TITLE",
-        payloard: { taskId, title, todolistId },
-    } as const;
-};
-export const updateTitleTaskTC = (todolistId: string, taskId: string, title: string) =>
-    (dispatch: Dispatch, getState: () => AppRootStateType) => { 
-        const task = getState().tasks[todolistId].find(t => t.id === taskId)
-        if(task){
-            const model: UpdateTaskModelType = {
-                title: title,
-                description: task.description,
-                status: task.status,
-                priority: task.priority,
-                startDate: task.startDate,
-                deadline: task.deadline,
-            }
-            tasksAPI.updateTask(todolistId, taskId, model).then((res) => {
-                dispatch(updateTitleTaskAC(todolistId, taskId, title))
+                dispatch(updateTitleTaskAC(todolistId, taskId, status))
             })
         }
     }
