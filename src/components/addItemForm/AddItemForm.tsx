@@ -5,9 +5,9 @@ import IconButton from '@mui/material/IconButton';
 import { AddCircleSharp, AddCircleTwoTone } from '@mui/icons-material';
 import TextField from '@mui/material/TextField';
 import { error } from 'console';
-import { addTodolistAC } from './state/todolists-reducer';
+import { addTodolistAC } from '../../state/todolists-reducer';
 import { useDispatch } from 'react-redux';
-import { addTaskAC } from './state/tasks-reducer';
+import { addTaskAC } from '../../state/tasks-reducer';
 
 export type AddItemFormProos = {
     Item: (trimedTitle:string)=> void

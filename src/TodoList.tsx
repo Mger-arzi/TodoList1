@@ -1,17 +1,17 @@
 import React, { ChangeEvent, FC, KeyboardEvent, useCallback, useState } from "react";
-import { AddItemForm } from "./AddItemForm";
-import { EditableSpan } from "./EditableSpan";
+import { AddItemForm } from "./components/addItemForm/AddItemForm";
+import { EditableSpan } from "./components/editableSpan/EditableSpan";
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import { AppBar } from "@mui/material";
 import { ButtonAppBar } from "./AppBar/AppBar";
-import { CheckBox } from "./CheckBox";
-import { Task } from "./Task";
+import { CheckBox } from "./components/CheckBox";
+import { Task } from "./components/tasks/Task";
 import { useSelector } from "react-redux";
 import { AppRootStateType } from "./state/store";
-import { TasksStateType } from "./AppWithRedux";
+import { TasksStateType } from "./app/AppWithRedux";
 import { TaskStatuses, TaskType } from "./api/tasks-api";
 import { FilterTodoListType } from "./state/todolists-reducer";
 

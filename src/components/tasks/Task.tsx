@@ -3,10 +3,10 @@ import Checkbox from "@mui/material/Checkbox/Checkbox";
 import IconButton from "@mui/material/IconButton/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { EditableSpan } from "./EditableSpan";
+import { EditableSpan } from "../editableSpan/EditableSpan";
 import { useDispatch } from "react-redux";
-import {  removeTaskTC, updateTaskTC,  } from "./state/tasks-reducer";
-import { TaskStatuses, TaskType } from "./api/tasks-api";
+import {  removeTaskTC, updateTaskTC,  } from "../../state/tasks-reducer";
+import { TaskStatuses, TaskType } from "../../api/tasks-api";
 
 type TaskPropsType = {
     task: TaskType;

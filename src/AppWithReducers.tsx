@@ -2,7 +2,7 @@ import React, { useReducer, useState } from 'react';
 import './App.css';
 import { TodoList } from './TodoList';
 import { v1 } from 'uuid';
-import { AddItemForm } from './AddItemForm';
+import { AddItemForm } from './components/addItemForm/AddItemForm';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import { ButtonAppBar } from './AppBar/AppBar';

@@ -1,14 +1,14 @@
 import { useCallback, useEffect,  } from 'react';
 import './App.css';
-import { AddItemForm } from './AddItemForm';
+import { AddItemForm } from '../components/addItemForm/AddItemForm';
 import Grid from '@mui/material/Unstable_Grid2';
-import { ButtonAppBar } from './AppBar/AppBar';
+import { ButtonAppBar } from '../AppBar/AppBar';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper'
-import { TodolistsDomainType,  addTodolistTC, getTodolistsTC,   } from './state/todolists-reducer';
-import { useAppDispatch, useAppSelector } from './state/store';
-import { TodoListWithRedux } from './TodoListWithRedux';
-import { TaskType } from './api/tasks-api';
+import { TodolistsDomainType,  addTodolistTC, getTodolistsTC,   } from '../state/todolists-reducer';
+import { useAppDispatch, useAppSelector } from '../state/store';
+import { TodoListWithRedux } from '../components/todolist/TodoListWithRedux';
+import { TaskType } from '../api/tasks-api';
 
 
 
