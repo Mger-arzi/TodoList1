@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { EditableSpan } from "../editableSpan/EditableSpan";
 import { useDispatch } from "react-redux";
-import {  removeTaskTC, updateTaskTC,  } from "../../state/tasks-reducer";
+import {  removeTaskTC, updateTaskTC,  } from "./tasks-reducer";
 import { TaskStatuses, TaskType } from "../../api/tasks-api";
 
 type TaskPropsType = {

@@ -4,9 +4,9 @@ import { action } from '@storybook/addon-actions';
 import { AddItemForm, AddItemFormProos } from './AddItemForm';
 import { IconButton, TextField } from '@mui/material';
 import { AddCircleSharp } from '@mui/icons-material';
-import { addTodolistAC } from '../../state/todolists-reducer';
+import { addTodolistAC } from '../todolist/todolists-reducer';
 import { useDispatch } from 'react-redux';
-import { addTaskAC } from '../../state/tasks-reducer';
+import { addTaskAC } from '../tasks/tasks-reducer';
 import { ReduxStoreProviderDecorator } from '../../decorator/ReduxStoreProviderDecorator';
 
 const meta: Meta<typeof AddItemForm> = {

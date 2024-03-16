@@ -8,8 +8,8 @@ import Grid from '@mui/material/Unstable_Grid2';
 import { ButtonAppBar } from './AppBar/AppBar';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper'
-import { FilterTodoListType, addTodolistAC, changeFilterAC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './state/todolists-reducer';
-import { addTaskAC, addTaskTC, removeTaskAC, tasksReducer, } from './state/tasks-reducer';
+import { FilterTodoListType, addTodolistAC, changeFilterAC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './components/todolist/todolists-reducer';
+import { addTaskAC, addTaskTC, removeTaskAC, tasksReducer, } from './components/tasks/tasks-reducer';
 import { TaskPriorities, TaskStatuses, TaskType } from './api/tasks-api';
 
 

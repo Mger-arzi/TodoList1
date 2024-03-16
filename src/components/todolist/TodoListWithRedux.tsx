@@ -7,8 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import { Task } from "../tasks/Task";
 import { useSelector } from "react-redux";
 import { AppRootStateType, useAppDispatch } from "../../state/store";
-import {  changeFilterAC, TodolistsDomainType, removeTodolistTC, updateTodolistTC } from '../../state/todolists-reducer';
-import {  addTaskTC, setTasksTC } from "../../state/tasks-reducer";
+import {  changeFilterAC, TodolistsDomainType, removeTodolistTC, updateTodolistTC } from './todolists-reducer';
+import {  addTaskTC, setTasksTC } from "../tasks/tasks-reducer";
 import { TaskStatuses, TaskType } from "../../api/tasks-api";
 
 

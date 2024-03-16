@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { AppRootStateType } from "./state/store";
 import { TasksStateType } from "./app/AppWithRedux";
 import { TaskStatuses, TaskType } from "./api/tasks-api";
-import { FilterTodoListType } from "./state/todolists-reducer";
+import { FilterTodoListType } from "./components/todolist/todolists-reducer";
 
 
 type TodoListTypeProps = {
