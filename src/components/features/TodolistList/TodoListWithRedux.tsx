@@ -1,23 +1,36 @@
 import React, {  FC,  useCallback, useEffect } from "react";
-import { AddItemForm } from "../addItemForm/AddItemForm";
-import { EditableSpan } from "../editableSpan/EditableSpan";
+import { AddItemForm } from "../../addItemForm/AddItemForm";
+import { EditableSpan } from "../../editableSpan/EditableSpan";
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
-import { Task } from "../tasks/Task";
+import { Task } from "../../tasks/Task";
 import { useSelector } from "react-redux";
-import { AppRootStateType, useAppDispatch } from "../../state/store";
-import {  changeFilterAC, TodolistsDomainType, removeTodolistTC, updateTodolistTC } from './todolists-reducer';
-import {  addTaskTC, setTasksTC } from "../tasks/tasks-reducer";
-import { TaskStatuses, TaskType } from "../../api/tasks-api";
+import { AppRootStateType, useAppDispatch } from "../../../app/store";
+import {  changeFilterAC, TodolistsDomainType, removeTodolistTC, updateTodolistTC, FilterTodoListType } from './todolists-reducer';
+import {  addTaskTC, setTasksTC } from "../../tasks/tasks-reducer";
+import { TaskStatuses, TaskType } from "../../../api/tasks-api";
 
 
+type PropsType = {
+    id: string
+    title: string
+    tasks: Array<TaskType>
+    changeFilter: (value: FilterTodoListType, todolistId: string) => void
+    addTask: (title: string, todolistId: string) => void
+    changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void
+    changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
+    removeTask: (taskId: string, todolistId: string) => void
+    removeTodolist: (id: string) => void
+    changeTodolistTitle: (id: string, newTitle: string) => void
+    filter: FilterTodoListType
+    // entityStatus: RequestStatusType
 
+}
 
-export const TodoListWithRedux: FC<TodolistsDomainType> = React.memo(({ id, title, filter }) => {
+export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter , tasks}) => {
 console.log("TodoListWithRedux");
 
-    let tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[id]);
     const dispatch = useAppDispatch();
 
     const onRevoveTodolistHandler = useCallback(() => {
@@ -77,7 +90,7 @@ console.log("TodoListWithRedux");
                         task={t}
                         todolistId={id}
                     />)}
-                <div >
+                <div style={{paddingTop:"10px"}}>
                     <Button variant={filter === "All" ? "contained" : "text"}
                         onClick={onAllClickHandler}> All
                     </Button>

@@ -1,7 +1,7 @@
 
 import {  addTaskAC,removeTaskAC, tasksReducer, updateTaskAC, } from '../components/tasks/tasks-reducer'
 import { TasksStateType } from '../App'
-import { addTodolistAC, removeTodolistAC } from '../components/todolist/todolists-reducer'
+import { addTodolistAC, removeTodolistAC } from '../components/features/TodolistList/todolists-reducer'
 import { v1 } from 'uuid'
 import { TaskPriorities, TaskStatuses, model } from '../api/tasks-api'
 

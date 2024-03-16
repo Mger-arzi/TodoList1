@@ -10,10 +10,10 @@ import { ButtonAppBar } from "./AppBar/AppBar";
 import { CheckBox } from "./components/CheckBox";
 import { Task } from "./components/tasks/Task";
 import { useSelector } from "react-redux";
-import { AppRootStateType } from "./state/store";
+import { AppRootStateType } from "./app/store";
 import { TasksStateType } from "./app/AppWithRedux";
 import { TaskStatuses, TaskType } from "./api/tasks-api";
-import { FilterTodoListType } from "./components/todolist/todolists-reducer";
+import { FilterTodoListType } from "./components/features/TodolistList/todolists-reducer";
 
 
 type TodoListTypeProps = {
