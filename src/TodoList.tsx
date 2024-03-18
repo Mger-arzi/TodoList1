@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
 import { AppBar } from "@mui/material";
-import { ButtonAppBar } from "./AppBar/AppBar";
+import { MyAppBar } from "./AppBar/AppBar";
 import { CheckBox } from "./components/CheckBox";
 import { Task } from "./components/tasks/Task";
 import { useSelector } from "react-redux";

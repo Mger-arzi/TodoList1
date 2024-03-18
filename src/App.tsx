@@ -4,7 +4,7 @@ import './App.css';
 import { v1 } from 'uuid';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { ButtonAppBar } from './AppBar/AppBar';
+import { MyAppBar } from './AppBar/AppBar';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper'
 import { TaskPriorities, TaskStatuses, TaskType } from './api/tasks-api';
@@ -113,7 +113,7 @@ function App() {
     }
     return (
         <div className='App'>
-            <ButtonAppBar />
+            <MyAppBar />
 
 
             <Container>

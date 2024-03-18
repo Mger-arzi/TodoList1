@@ -5,7 +5,7 @@ import { v1 } from 'uuid';
 import { AddItemForm } from './components/addItemForm/AddItemForm';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { ButtonAppBar } from './AppBar/AppBar';
+import { MyAppBar } from './AppBar/AppBar';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper'
 import { FilterTodoListType, addTodolistAC, changeFilterAC, removeTodolistAC, todolistsReducer, updateTodolistAC } from './components/features/TodolistList/todolists-reducer';
