@@ -4,6 +4,7 @@ import { TodolistsList } from '../components/features/TodolistList/TodolistList'
 import { TaskType } from '../api/tasks-api';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useAppSelector } from './store';
+import { ErrorSnackbar } from '../components/errorSnackbar/ErrorSnackbar';
 
 
 
@@ -17,7 +18,7 @@ export function AppWithRedux() {
 
     return (
         <div className="App">
-            {/* <ErrorSnackbar/> */}
+            <ErrorSnackbar/>
 
             <MyAppBar/>
             {status === "loading" &&   <LinearProgress color="success" />}

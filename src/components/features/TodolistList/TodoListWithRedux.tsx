@@ -10,6 +10,7 @@ import { AppRootStateType, useAppDispatch } from "../../../app/store";
 import {  changeFilterAC, TodolistsDomainType, removeTodolistTC, updateTodolistTC, FilterTodoListType } from './todolists-reducer';
 import {  addTaskTC, setTasksTC } from "../../tasks/tasks-reducer";
 import { TaskStatuses, TaskType } from "../../../api/tasks-api";
+import { RequestStatusType } from "../../../app/app-reducer";
 
 
 type PropsType = {
@@ -24,11 +25,11 @@ type PropsType = {
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     filter: FilterTodoListType
-    // entityStatus: RequestStatusType
+    entityStatus: RequestStatusType
 
 }
 
-export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter , tasks}) => {
+export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter , tasks, entityStatus}) => {
 console.log("TodoListWithRedux");
 
     const dispatch = useAppDispatch();
@@ -79,11 +80,11 @@ console.log("TodoListWithRedux");
                         callBack={updateTodolistHandler}
                         oldTitle={title}
                     />
-                    <IconButton onClick={onRevoveTodolistHandler}>
+                    <IconButton onClick={onRevoveTodolistHandler} disabled = {entityStatus === "loading"} >
                         <DeleteIcon />
                     </IconButton>
                 </h3>
-                <AddItemForm Item={addTaskHandler} />
+                <AddItemForm Item={addTaskHandler} disabled={ entityStatus === 'loading'}/>
                 {tasks.map(t =>
                     <Task
                         key={t.id}

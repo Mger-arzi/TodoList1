@@ -11,8 +11,7 @@ import { addTaskAC } from '../tasks/tasks-reducer';
 
 export type AddItemFormProos = {
     Item: (trimedTitle:string)=> void
-    // todolistId: string
-    // callBack: (title: string) => 
+    disabled? : boolean
 }
 export const AddItemForm = React.memo ( (props:AddItemFormProos) => {
 console.log("AddItemForm");
@@ -22,12 +21,6 @@ console.log("AddItemForm");
     const [titleInput, setTitle] = useState("")
     const [inputError, setInputError] = useState<string | null>(null)
 
-    // const addTaskHendler = useCallback((trimedTitle: string) => {
-    //     // const action = addTodolistAC(trimedTitle)
-
-    //     // const action1 = addTaskAC(trimedTitle,props.todolistId)
-    //     dispatch(addTodolistAC(trimedTitle),addTaskAC(trimedTitle,props.todolistId) )
-    // }, [dispatch])
 
     const addItem = () => {
         let trimedTitle = titleInput.trim()
@@ -59,12 +52,11 @@ console.log("AddItemForm");
                 value={titleInput}
                 onChange={onChengeHandler}
                 onKeyPress={onKeyPressHandler}
+                disabled={props.disabled}
             />
-            <IconButton onClick={addItem} >
-                <AddCircleSharp  color='primary'/>
+            <IconButton onClick={addItem}  disabled = {props.disabled}>
+                <AddCircleSharp  color='primary'  />
             </IconButton> 
-        
-        {/* { inputError && <div className='error-message'>{inputError}</div> } */}
     </div >
     );
 });

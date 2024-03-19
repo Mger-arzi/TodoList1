@@ -25,11 +25,11 @@ function App() {
 
     let [todolists, setTodolists] = useState<Array<TodolistsDomainType>>([
         {
-            id: todolistID1, title: 'What to learn', filter: 'All', addedDate: new Date,
+            id: todolistID1, title: 'What to learn', filter: 'All',entityStatus: "idle", addedDate: new Date,
             order: 0,
         },
         {
-            id: todolistID2, title: 'What to buy', filter: 'All', addedDate: new Date,
+            id: todolistID2, title: 'What to buy', filter: 'All',entityStatus: "idle", addedDate: new Date,
             order: 0,
         },
     ])
