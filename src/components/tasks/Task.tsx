@@ -7,6 +7,7 @@ import { EditableSpan } from "../editableSpan/EditableSpan";
 import { useDispatch } from "react-redux";
 import {  removeTaskTC, updateTaskTC,  } from "./tasks-reducer";
 import { TaskStatuses, TaskType } from "../../api/tasks-api";
+import { useAppSelector } from "../../app/store";
 
 type TaskPropsType = {
     task: TaskType;
@@ -17,7 +18,7 @@ type TaskPropsType = {
 
 
 export const Task = React.memo((props: TaskPropsType ) => {
-
+    // const entityStatus = useAppSelector(state => state.app.status)
     let dispatch = useDispatch()
 
     const chekedChechbox = useCallback(( todolistID: string, taskId: string, status:TaskStatuses) => {
@@ -47,15 +48,18 @@ export const Task = React.memo((props: TaskPropsType ) => {
             <Checkbox size="small" 
                 checked={props.task.status === TaskStatuses.Completed}
                 onChange={onChengeCheckboxStatusHandler}
+                disabled={props.task.entityStatus === "loading"}
+
             />
             <EditableSpan
                 callBack={updateTaskHandler}
                 oldTitle={props.task.title}
+                disabled={props.task.entityStatus === "loading"}
             />
-            <IconButton onClick={() => {
+            <IconButton disabled={props.task.entityStatus === "loading"} onClick={() => {
                     removeTask(props.task.id, props.todolistId);
-                }}>
-                <DeleteIcon color="secondary" />
+                }} >
+                <DeleteIcon   />
             </IconButton>
         </div>
     );

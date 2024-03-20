@@ -14,9 +14,7 @@ export type AddItemFormProos = {
     disabled? : boolean
 }
 export const AddItemForm = React.memo ( (props:AddItemFormProos) => {
-console.log("AddItemForm");
 
-    let dispatch = useDispatch()
 
     const [titleInput, setTitle] = useState("")
     const [inputError, setInputError] = useState<string | null>(null)
@@ -24,6 +22,8 @@ console.log("AddItemForm");
 
     const addItem = () => {
         let trimedTitle = titleInput.trim()
+        if(props.disabled)
+        return
         if (trimedTitle) {
             props.Item(trimedTitle)
         } else {
@@ -54,7 +54,7 @@ console.log("AddItemForm");
                 onKeyPress={onKeyPressHandler}
                 disabled={props.disabled}
             />
-            <IconButton onClick={addItem}  disabled = {props.disabled}>
+            <IconButton onClick={addItem} disabled = {props.disabled}>
                 <AddCircleSharp  color='primary'  />
             </IconButton> 
     </div >

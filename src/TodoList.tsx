@@ -95,6 +95,7 @@ let filterTodoList = tasks
                     <EditableSpan
                         callBack={updateTodolistHandler}
                         oldTitle={title}
+                        disabled ={true}
                     />
                     <IconButton onClick={onRevoveTodolistHandler}>
                         <DeleteIcon />

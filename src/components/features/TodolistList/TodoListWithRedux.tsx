@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import { Task } from "../../tasks/Task";
 import { useSelector } from "react-redux";
-import { AppRootStateType, useAppDispatch } from "../../../app/store";
+import { AppRootStateType, useAppDispatch, useAppSelector } from "../../../app/store";
 import {  changeFilterAC, TodolistsDomainType, removeTodolistTC, updateTodolistTC, FilterTodoListType } from './todolists-reducer';
 import {  addTaskTC, setTasksTC } from "../../tasks/tasks-reducer";
 import { TaskStatuses, TaskType } from "../../../api/tasks-api";
@@ -29,8 +29,8 @@ type PropsType = {
 
 }
 
-export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter , tasks, entityStatus}) => {
-console.log("TodoListWithRedux");
+export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter , tasks}) => {
+const entityStatus = useAppSelector(state => state.app.status)
 
     const dispatch = useAppDispatch();
 
@@ -79,6 +79,7 @@ console.log("TodoListWithRedux");
                     <EditableSpan
                         callBack={updateTodolistHandler}
                         oldTitle={title}
+                        disabled={ entityStatus === 'loading'}
                     />
                     <IconButton onClick={onRevoveTodolistHandler} disabled = {entityStatus === "loading"} >
                         <DeleteIcon />

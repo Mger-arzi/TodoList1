@@ -12,21 +12,21 @@ beforeEach(()=>{
 startState  = {
     "todolistID1": [
         { id: v1(), title: 'HTML&CSS', status: TaskStatuses.Completed, addedDate: new Date, deadline: new Date, description: "", 
-        order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID1" },
+        order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID1" , entityStatus: "idle"},
         { id: v1(), title: 'JS', status: TaskStatuses.Completed, addedDate: new Date, deadline: new Date, description: "", 
-        order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID1" },
+        order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID1" , entityStatus: "idle"},
         { id: v1(), title: 'ReactJS', status: TaskStatuses.New, addedDate: new Date, deadline: new Date, description: "", 
-        order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID1"},
+        order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID1",entityStatus: "idle"},
 
     ],
     "todolistID2": [
         {
             id: v1(), title: 'Rest API', status: TaskStatuses.Completed, addedDate: new Date, deadline: new Date, description: "",
-            order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID2"
+            order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID2",entityStatus: "idle"
         },
         {
             id: v1(), title: 'GraphQL', status: TaskStatuses.New, addedDate: new Date, deadline: new Date, description: "",
-            order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID2"
+            order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: "todolistID2", entityStatus: "idle"
         },
     ]
 }
@@ -64,6 +64,7 @@ test('correct task should be added to correct array', () => {
         startDate: new Date,
         deadline: new Date,
         addedDate:new Date,
+        entityStatus: "idle"
 })
 
     const endState = tasksReducer(startState, action)
