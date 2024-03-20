@@ -19,7 +19,8 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 }
 
 export const setAppErrorAC = (error: string | null) => ({ type: 'APP/SET-ERROR', error } as const)
-
-
 export const setAppStatusAC = (status: RequestStatusType) => ({ type: 'APP/SET-STATUS', status } as const)
+export type SetAppStatusACType = ReturnType<typeof setAppErrorAC>
+export type SetAppErrorACType = ReturnType<typeof setAppStatusAC>
+
 type ActionsType = ReturnType<typeof setAppStatusAC> | ReturnType<typeof setAppErrorAC>

@@ -4,6 +4,7 @@ import { TaskPriorities, TaskStatuses, TaskType, UpdateTaskModelType, tasksAPI }
 import { Dispatch } from "redux";
 import { AppRootStateType } from "../../app/store";
 import { setAppErrorAC, setAppStatusAC } from "../../app/app-reducer";
+import { handleServerAppError, handleServerNetworkError } from "../../utils/error-utils";
 
 
 export const tasksReducer = (state = initialState, action: TaskReducerType): TasksStateType => {
@@ -59,14 +60,21 @@ export const setTasksTC = (todolistId: string) => (dispatch: Dispatch<TaskReduce
     dispatch(setAppStatusAC("idle"))
 
     })
+    .catch(error => {
+        handleServerNetworkError(error, dispatch)
+    })
 }
 export const removeTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch<TaskReducerType>) => {
     dispatch(setAppStatusAC("loading"))
 
-    tasksAPI.deleteTask(todolistId, taskId).then((res) => {
+    tasksAPI.deleteTask(todolistId, taskId)
+    .then((res) => {
         dispatch(removeTaskAC(todolistId, taskId))
     dispatch(setAppStatusAC("idle"))
 
+    })
+    .catch(error => {
+        handleServerNetworkError(error, dispatch)
     })
 }
 export const addTaskTC = (todolistId: string , title: string ) => (dispatch: Dispatch<TaskReducerType>) => {
@@ -74,17 +82,16 @@ export const addTaskTC = (todolistId: string , title: string ) => (dispatch: Dis
     
     tasksAPI.createTask(todolistId, title)
     .then((res) => {
-        if (res.data.resultCode === 0) {
+        if(res.data.resultCode === 0){
             dispatch(addTaskAC(res.data.data.item))
             dispatch(setAppStatusAC('idle'))
-        } else {
-            if (res.data.messages.length) {
-                dispatch(setAppErrorAC("ERRRRooooorr"))
-            } else {
-                dispatch(setAppErrorAC('Some error occurred'))
-            }
-            dispatch(setAppStatusAC('failed'))
+        }else{
+        handleServerAppError(res.data, dispatch)
         }
+
+    })
+    .catch(error => {
+        handleServerNetworkError(error, dispatch)
     })
 }
 
@@ -102,8 +109,18 @@ export const updateTaskTC = (todolistId: string, taskId: string, domainModel: Up
                 deadline: task.deadline,
                 ...domainModel,
             }
-            tasksAPI.updateTask(todolistId, taskId, APImodel).then((res) => {
-                dispatch(updateTaskAC(todolistId, taskId , domainModel))
+            dispatch(setAppStatusAC('loading'))
+            tasksAPI.updateTask(todolistId, taskId, APImodel)
+            .then((res) => {
+                if(res.data.resultCode === 0 ){
+                    dispatch(updateTaskAC(todolistId,taskId,APImodel))
+                    dispatch(setAppStatusAC('idle'))
+                }else{
+                    handleServerAppError(res.data, dispatch)
+                }
+            })
+            .catch(error => {
+                handleServerNetworkError(error, dispatch)
             })
         }
     }
