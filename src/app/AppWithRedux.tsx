@@ -5,6 +5,8 @@ import { TaskType } from '../api/tasks-api';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useAppSelector } from './store';
 import { ErrorSnackbar } from '../components/errorSnackbar/ErrorSnackbar';
+import { Login } from '../components/features/login/Login';
+import { Route, Routes } from 'react-router-dom';
 
 
 
@@ -19,12 +21,13 @@ export function AppWithRedux() {
     return (
         <div className="App">
             <ErrorSnackbar/>
-
             <MyAppBar/>
             {status === "loading" &&   <LinearProgress color="success" />}
-
             <Container fixed>
-                <TodolistsList />
+              <Routes>
+                  <Route path={'/'} element={<TodolistsList />}/>
+                  <Route path={'/login'} element={<Login/>}/>
+              </Routes>
             </Container>
         </div>
     );
