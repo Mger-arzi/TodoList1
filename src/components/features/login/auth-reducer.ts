@@ -2,6 +2,7 @@ import { Dispatch } from 'redux'
 import { SetAppErrorACType, SetAppStatusACType, setAppStatusAC } from '../../../app/app-reducer'
 import { LoginParamsType, authAPI } from '../../../api/auth-api'
 import { handleServerAppError, handleServerNetworkError } from '../../../utils/error-utils'
+
 const initialState = {
   isLoggenIn: false,
 }
