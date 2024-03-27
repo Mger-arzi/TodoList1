@@ -3,11 +3,13 @@ import Container from '@mui/material/Container';
 import { TodolistsList } from '../components/features/TodolistList/TodolistList';
 import { TaskType } from '../api/tasks-api';
 import LinearProgress from '@mui/material/LinearProgress';
-import { useAppSelector } from './store';
+import { useAppDispatch, useAppSelector } from './store';
 import { ErrorSnackbar } from '../components/errorSnackbar/ErrorSnackbar';
 import { Login } from '../components/features/login/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
-
+import { useEffect } from 'react';
+import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
+import { initializeAppTC } from './app-reducer';
 
 
 export type TasksStateType = {
@@ -15,9 +17,21 @@ export type TasksStateType = {
 }
 export function AppWithRedux() {
 
-    const status = useAppSelector(state => state.app.status)
+  const status = useAppSelector(state => state.app.status)
+  const isInitialized = useAppSelector(state => state.app.isInitialized)
+  const dispatch = useAppDispatch()
 
+  useEffect(() => {
+    dispatch(initializeAppTC())
+  },[])
 
+if (!isInitialized) {
+  return (
+    <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%'   }}>
+      <CircularProgress />
+    </div>
+  )
+}
     return (
         <div className="App">
             <ErrorSnackbar/>
