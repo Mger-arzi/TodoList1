@@ -16,7 +16,7 @@ import { Navigate } from 'react-router-dom'
 export const Login = () => {
 
   const dispatch = useAppDispatch()
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggenIn)
+  const isLoggenIn = useAppSelector(state => state.auth.isLoggenIn)
 
   
   type FormikErrorType = {
@@ -51,7 +51,7 @@ export const Login = () => {
     },
   })
 
-  if (isLoggedIn) {
+  if (isLoggenIn) {
     return <Navigate to={'/'} />
   }
   return (

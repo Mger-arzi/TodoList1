@@ -38,7 +38,20 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Acti
 }
 }
 
-
+export const logoutTC = () =>  async (dispatch: Dispatch<ActionsType>) => {
+  dispatch(setAppStatusAC('loading'))
+  try{
+    const res =  await authAPI.logout()
+    if (res.data.resultCode === 0) {
+      dispatch(setIsLoggenInAC(false))
+      dispatch(setAppStatusAC('idle'))
+    } else {
+      handleServerAppError(res.data, dispatch)
+    }
+  }catch(e){
+    handleServerNetworkError(e as { message: string }, dispatch)
+  }
+}
 
 // types
 type ActionsType =
