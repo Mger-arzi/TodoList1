@@ -22,7 +22,7 @@ export const TodolistsList: React.FC = () => {
   useEffect(() => {
     if (!isLoggedIn) {
       return
-    } 
+    }
     dispatch(getTodolistsTC())
   }, [])
 
@@ -70,7 +70,7 @@ export const TodolistsList: React.FC = () => {
     return <Navigate to={'/login'} />
   }
   return <>
-    <Grid container style={{ padding: '20px' }}>
+    <Grid container style={{ padding: '20px', marginBottom:"40px" }}>
       <AddItemForm Item={addTodolist} disabled={entityStatus === "loading"} />
     </Grid>
     <Grid container spacing={3}>
@@ -78,7 +78,7 @@ export const TodolistsList: React.FC = () => {
         todolists.map(tl => {
           let allTodolistTasks = tasks[tl.id]
 
-          return <Grid item key={tl.id}>
+          return <Grid style={{ marginRight: '15px' }} item key={tl.id}>
             <Paper style={{ padding: '10px' }}>
               <TodoListWithRedux
                 id={tl.id}

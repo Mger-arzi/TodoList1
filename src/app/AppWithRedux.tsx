@@ -7,13 +7,16 @@ import { useAppDispatch, useAppSelector } from './store';
 import { ErrorSnackbar } from '../components/errorSnackbar/ErrorSnackbar';
 import { Login } from '../components/features/login/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 import { initializeAppTC } from './app-reducer';
-
+import createTheme from '@mui/material/styles/createTheme';
+import { ThemeProvider } from '@emotion/react';
+import Switch from '@mui/material/Switch'
+import CssBaseline from '@mui/material/CssBaseline'
 
 export type TasksStateType = {
-    [key: string]: TaskType[]
+  [key: string]: TaskType[]
 }
 export function AppWithRedux() {
 
@@ -23,30 +26,53 @@ export function AppWithRedux() {
 
   useEffect(() => {
     dispatch(initializeAppTC())
-  },[])
+  }, [])
 
-if (!isInitialized) {
-  return (
-    <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%'   }}>
-      <CircularProgress />
-    </div>
-  )
-}
+  type ThemeMode = 'dark' | 'light'
+  const [themeMode, setThemeMode] = useState<ThemeMode>('light')
+
+  if (!isInitialized) {
     return (
-        <div className="App">
-            <ErrorSnackbar/>
-            <MyAppBar/>
-            {status === "loading" &&   <LinearProgress color="success" />}
-            <Container fixed>
-              <Routes>
-                  <Route path={'/'} element={<TodolistsList />}/>
-                  <Route path={'/login'} element={<Login/>}/>
+      <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
+        <CircularProgress />
+      </div>
+    )
+  }
 
-                  <Route path={'/404'} element={<h2 style={{ alignItems: 'center' }}>PAGE NOT FOUND</h2>} />
-                  <Route path={'*'} element={<Navigate to={'/404'} />} />
-              </Routes>
-              
-            </Container>
-        </div>
-    );
+  const theme = createTheme({
+    palette: {
+      mode: themeMode === 'light' ? 'light' : 'dark',
+      primary: {
+        main: '#087a62',
+      },
+      secondary: {
+        main: '#7f3136',
+      },
+
+    },
+  })
+
+
+  const changeModeHandler = () => {
+    setThemeMode(themeMode == 'light' ? 'dark' : 'light')
+  }
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <ErrorSnackbar />
+      <MyAppBar changeModeHandler={changeModeHandler} />
+      {status === "loading" && <LinearProgress color="success" />}
+      <Container fixed>
+        <Routes>
+          <Route path={'/'} element={<TodolistsList />} />
+          <Route path={'/login'} element={<Login />} />
+
+          <Route path={'/404'} element={<h2 style={{ alignItems: 'center' }}>PAGE NOT FOUND</h2>} />
+          <Route path={'*'} element={<Navigate to={'/404'} />} />
+        </Routes>
+
+      </Container>
+    </ThemeProvider>
+
+  );
 }

@@ -11,6 +11,7 @@ import {  changeFilterAC, TodolistsDomainType, removeTodolistTC, updateTodolistT
 import {  addTaskTC, setTasksTC } from "../../tasks/tasks-reducer";
 import { TaskStatuses, TaskType } from "../../../api/tasks-api";
 import { RequestStatusType } from "../../../app/app-reducer";
+import Box from "@mui/material/Box";
 
 
 type PropsType = {
@@ -92,14 +93,14 @@ const entityStatus = useAppSelector(state => state.app.status)
                         task={t}
                         todolistId={id}
                     />)}
-                <div style={{paddingTop:"10px"}}>
+                <Box style={{paddingTop:"10px"}} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Button variant={filter === "All" ? "contained" : "text"}
                         onClick={onAllClickHandler}> All
                     </Button>
                     <Button
                         variant={filter === "Active" ? "contained" : "text"}
                         onClick={onActiveClickHandler}
-                        color="success"
+                        color="info"
                     > Active
                     </Button>
                     <Button
@@ -110,7 +111,7 @@ const entityStatus = useAppSelector(state => state.app.status)
                         Completed
                     </Button>
 
-                </div>
+                </Box>
             </div>
         </div>
     );

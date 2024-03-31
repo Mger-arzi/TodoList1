@@ -8,55 +8,55 @@ import { error } from 'console';
 import { addTodolistAC } from '../features/TodolistList/todolists-reducer';
 import { useDispatch } from 'react-redux';
 import { addTaskAC } from '../tasks/tasks-reducer';
-
+import AddBoxIcon from '@mui/icons-material/AddBox'
 export type AddItemFormProos = {
-    Item: (trimedTitle:string)=> void
-    disabled? : boolean
+  Item: (trimedTitle: string) => void
+  disabled?: boolean
 }
-export const AddItemForm = React.memo ( (props:AddItemFormProos) => {
+export const AddItemForm = React.memo((props: AddItemFormProos) => {
 
 
-    const [titleInput, setTitle] = useState("")
-    const [inputError, setInputError] = useState<string | null>(null)
+  const [titleInput, setTitle] = useState("")
+  const [inputError, setInputError] = useState<string | null>(null)
 
 
-    const addItem = () => {
-        let trimedTitle = titleInput.trim()
-        if(props.disabled)
-        return
-        if (trimedTitle) {
-            props.Item(trimedTitle)
-        } else {
-            setInputError("Title is required")
-        }
-        setTitle("")
+  const addItem = () => {
+    let trimedTitle = titleInput.trim()
+    if (props.disabled)
+      return
+    if (trimedTitle) {
+      props.Item(trimedTitle)
+    } else {
+      setInputError("Title is required")
     }
+    setTitle("")
+  }
 
-    const onChengeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.currentTarget.value)
-        inputError && setInputError(null)
-    }
+  const onChengeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.currentTarget.value)
+    inputError && setInputError(null)
+  }
 
-    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
-            addItem()
-        }
+  const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      addItem()
     }
-    return (
-        <div>
-            <TextField 
-                label="Type value"  
-                error = {!!inputError}
-                id="outlined-basic" 
-                size='small' 
-                value={titleInput}
-                onChange={onChengeHandler}
-                onKeyPress={onKeyPressHandler}
-                disabled={props.disabled}
-            />
-            <IconButton onClick={addItem} disabled = {props.disabled}>
-                <AddCircleSharp  color='primary'  />
-            </IconButton> 
+  }
+  return (
+    <div>
+      <TextField
+        label="Type value"
+        error={!!inputError}
+        id="outlined-basic"
+        size='small'
+        value={titleInput}
+        onChange={onChengeHandler}
+        onKeyPress={onKeyPressHandler}
+        disabled={props.disabled}
+      />
+      <IconButton color={'primary'} onClick={addItem} disabled={props.disabled}>
+        <AddBoxIcon />
+      </IconButton>
     </div >
-    );
+  );
 });

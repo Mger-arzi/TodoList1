@@ -5,62 +5,70 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { EditableSpan } from "../editableSpan/EditableSpan";
 import { useDispatch } from "react-redux";
-import {  removeTaskTC, updateTaskTC,  } from "./tasks-reducer";
+import { removeTaskTC, updateTaskTC, } from "./tasks-reducer";
 import { TaskStatuses, TaskType } from "../../api/tasks-api";
 import { useAppSelector } from "../../app/store";
+import ListItem from "@mui/material/ListItem";
 
 type TaskPropsType = {
-    task: TaskType;
-    todolistId: string;
+  task: TaskType;
+  todolistId: string;
 }
 
 
 
 
-export const Task = React.memo((props: TaskPropsType ) => {
-    // const entityStatus = useAppSelector(state => state.app.status)
-    let dispatch = useDispatch()
+export const Task = React.memo((props: TaskPropsType) => {
+  // const entityStatus = useAppSelector(state => state.app.status)
+  let dispatch = useDispatch()
 
-    const chekedChechbox = useCallback(( todolistID: string, taskId: string, status:TaskStatuses) => {
-        dispatch(updateTaskTC(todolistID, taskId,  {status} ))
-    }, [dispatch])
+  const chekedChechbox = useCallback((todolistID: string, taskId: string, status: TaskStatuses) => {
+    dispatch(updateTaskTC(todolistID, taskId, { status }))
+  }, [dispatch])
 
-    const updateTask = useCallback((todolistID: string, taskId: string, newTitle: string) => {
-        dispatch(updateTaskTC(todolistID, taskId, {title:newTitle}))
-    }, [dispatch])
+  const updateTask = useCallback((todolistID: string, taskId: string, newTitle: string) => {
+    dispatch(updateTaskTC(todolistID, taskId, { title: newTitle }))
+  }, [dispatch])
 
-    const removeTask = useCallback((id: string, todolistID: string) => {
-        dispatch(removeTaskTC(todolistID, id ))
-    }, [dispatch])
-
-    
-    const onChengeCheckboxStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        chekedChechbox( props.todolistId, props.task.id, e.currentTarget.checked ? TaskStatuses.Completed :  TaskStatuses.New);
-    };
-    const updateTaskHandler = useCallback( (titleInput: string) => {
-        updateTask(props.todolistId , props.task.id, titleInput);
-    }, [ updateTask, props.todolistId,props.task.id]);
+  const removeTask = useCallback((id: string, todolistID: string) => {
+    dispatch(removeTaskTC(todolistID, id))
+  }, [dispatch])
 
 
+  const onChengeCheckboxStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    chekedChechbox(props.todolistId, props.task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New);
+  };
+  const updateTaskHandler = useCallback((titleInput: string) => {
+    updateTask(props.todolistId, props.task.id, titleInput);
+  }, [updateTask, props.todolistId, props.task.id]);
 
-    return (
-        <div className={props.task.status ? "task-done" : "task"}>
-            <Checkbox size="small" 
-                checked={props.task.status === TaskStatuses.Completed}
-                onChange={onChengeCheckboxStatusHandler}
-                disabled={props.task.entityStatus === "loading"}
 
-            />
-            <EditableSpan
-                callBack={updateTaskHandler}
-                oldTitle={props.task.title}
-                disabled={props.task.entityStatus === "loading"}
-            />
-            <IconButton disabled={props.task.entityStatus === "loading"} onClick={() => {
-                    removeTask(props.task.id, props.todolistId);
-                }} >
-                <DeleteIcon   />
-            </IconButton>
-        </div>
-    );
+
+  return (
+    <ListItem sx={{
+      p: 0,
+      justifyContent: 'space-between',
+      opacity: props.task.status ? 0.7 : 1,
+    }} >
+      <div>
+        <Checkbox size="small"
+          checked={props.task.status === TaskStatuses.Completed}
+          onChange={onChengeCheckboxStatusHandler}
+          disabled={props.task.entityStatus === "loading"}
+        />
+        <EditableSpan
+          callBack={updateTaskHandler}
+          oldTitle={props.task.title}
+          disabled={props.task.entityStatus === "loading"}
+        />
+      </div>
+
+
+      <IconButton disabled={props.task.entityStatus === "loading"} onClick={() => {
+        removeTask(props.task.id, props.todolistId);
+      }} >
+        <DeleteIcon />
+      </IconButton>
+    </ListItem>
+  );
 })

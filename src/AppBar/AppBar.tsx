@@ -7,13 +7,17 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { logoutTC } from '../components/features/login/auth-reducer';
 import { useAppDispatch, useAppSelector } from '../app/store';
+import Switch from '@mui/material/Switch';
 
-export  function MyAppBar() {
+type MyAppBarProps = {
+  changeModeHandler?: ()=> void
+}
+export  function MyAppBar( props:MyAppBarProps) {
   const dispatch = useAppDispatch()
   const isLoggenIn = useAppSelector(state => state.auth.isLoggenIn)
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 , }}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -29,6 +33,7 @@ export  function MyAppBar() {
                         TodoLIst
                     </Typography>
                     {isLoggenIn && <Button   onClick={ ()=> dispatch(logoutTC())} color="inherit">Log out</Button>}
+                    <Switch color={'default'} onChange={props.changeModeHandler} />
                 </Toolbar>
             </AppBar>
         </Box>
