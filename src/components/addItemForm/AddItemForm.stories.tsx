@@ -5,7 +5,6 @@ import { AddItemForm, AddItemFormProos } from './AddItemForm';
 import { IconButton, TextField } from '@mui/material';
 import { AddCircleSharp } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
-import { addTaskAC } from '../tasks/tasks-reducer';
 import { ReduxStoreProviderDecorator } from '../../decorator/ReduxStoreProviderDecorator';
 
 const meta: Meta<typeof AddItemForm> = {

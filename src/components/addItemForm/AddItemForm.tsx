@@ -6,7 +6,6 @@ import { AddCircleSharp, AddCircleTwoTone } from '@mui/icons-material';
 import TextField from '@mui/material/TextField';
 import { error } from 'console';
 import { useDispatch } from 'react-redux';
-import { addTaskAC } from '../tasks/tasks-reducer';
 import AddBoxIcon from '@mui/icons-material/AddBox'
 export type AddItemFormProos = {
   Item: (trimedTitle: string) => void
