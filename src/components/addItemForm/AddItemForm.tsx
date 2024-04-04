@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import { AddCircleSharp, AddCircleTwoTone } from '@mui/icons-material';
 import TextField from '@mui/material/TextField';
 import { error } from 'console';
-import { addTodolistAC } from '../features/TodolistList/todolists-reducer';
 import { useDispatch } from 'react-redux';
 import { addTaskAC } from '../tasks/tasks-reducer';
 import AddBoxIcon from '@mui/icons-material/AddBox'

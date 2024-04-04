@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { useAppDispatch, useAppSelector } from '../../../app/store';
 import { TasksStateType } from '../../../app/AppWithRedux';
-import { FilterTodoListType, TodolistsDomainType, addTodolistTC, changeFilterAC, getTodolistsTC, removeTodolistTC, updateTodolistTC } from './todolists-reducer';
+import { FilterTodoListType, TodolistsDomainType, addTodolistTC, getTodolistsTC, removeTodolistTC, todolistAction, updateTodolistTC } from './todolists-reducer';
 import { addTaskTC, removeTaskTC, updateTaskTC } from '../../tasks/tasks-reducer';
 import { TaskStatuses } from '../../../api/tasks-api';
 import { AddItemForm } from '../../addItemForm/AddItemForm';
@@ -46,9 +46,8 @@ export const TodolistsList: React.FC = () => {
     dispatch(thunk)
   }, [])
 
-  const changeFilter = useCallback(function (value: FilterTodoListType, todolistId: string) {
-    const action = changeFilterAC(value, todolistId)
-    dispatch(action)
+  const changeFilter = useCallback(function (filter: FilterTodoListType, id: string) {
+    dispatch(todolistAction.changeFilter({ id, filter }))
   }, [])
 
   const removeTodolist = useCallback(function (id: string) {
@@ -70,7 +69,7 @@ export const TodolistsList: React.FC = () => {
     return <Navigate to={'/login'} />
   }
   return <>
-    <Grid container style={{ padding: '20px', marginBottom:"40px" }}>
+    <Grid container style={{ padding: '20px', marginBottom: "40px" }}>
       <AddItemForm Item={addTodolist} disabled={entityStatus === "loading"} />
     </Grid>
     <Grid container spacing={3}>
