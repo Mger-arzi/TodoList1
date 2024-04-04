@@ -44,6 +44,9 @@ const slice = createSlice({
           state[tl.id] = []
         })
       })
+      .addCase(todolistAction.clearDate, (state, action ) => {
+        return state = {}
+      })
   }
 })
 export const tasksAction = slice.actions

@@ -10,16 +10,21 @@ import { appReducer } from './app-reducer';
 
 
 
-const rootReducer = combineReducers({
-    tasks: tasksReducer,
-    todolists: todolistsReducer,
-    app: appReducer,
-    auth: authReducer,
-})
+// const rootReducer = combineReducers({
+//   tasks: tasksReducer,
+//   todolists: todolistsReducer,
+//   app: appReducer,
+//   auth: authReducer,
+// })
 // непосредственно создаём store
 
 export const store = configureStore({
-    reducer: rootReducer,
+  reducer: {
+    tasks: tasksReducer,
+    todolists: todolistsReducer,
+    app: appReducer,
+    auth: authReducer
+  }
 });
 
 export type AppRootStateType = ReturnType<typeof store.getState>
@@ -27,6 +32,13 @@ export type AppRootStateType = ReturnType<typeof store.getState>
 export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction>
 export const useAppDispatch = useDispatch<AppDispatchType>
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+
+export const entityStatusSelector = (state: AppRootStateType) => state.app.status
+export const appStatusSelector = (state: AppRootStateType) => state.app.status
+export const isInitializedSelector = (state: AppRootStateType) => state.app.isInitialized
+export const isLoggenInSelictor = (state: AppRootStateType) => state.auth.isLoggenIn
+export const tasksSelector = (state: AppRootStateType) => state.tasks
+export const todolistsSelector = (state: AppRootStateType) => state.todolists
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
 // @ts-ignore
 window.store = store;

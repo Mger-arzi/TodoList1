@@ -17,7 +17,7 @@ const slice = createSlice({
       const index = state.findIndex(todo => todo.id === action.payload.id)
       if (index !== -1) state[index].title = action.payload.title
     },
-    changeFilter(state, action: PayloadAction<{ id: string ,filter: FilterTodoListType }>) {
+    changeFilter(state, action: PayloadAction<{ id: string, filter: FilterTodoListType }>) {
       const index = state.findIndex(todo => todo.id === action.payload.id)
       if (index !== -1) state[index].filter = action.payload.filter
     },
@@ -30,6 +30,9 @@ const slice = createSlice({
     },
     addTodolist(state, action: PayloadAction<{ todolist: TodoListType }>) {
       state.unshift({ ...action.payload.todolist, filter: "All", entityStatus: "idle" })
+    },
+    clearDate(state, action: PayloadAction) {
+      return state = []
     }
   }
 })

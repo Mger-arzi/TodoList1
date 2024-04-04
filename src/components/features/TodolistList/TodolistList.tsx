@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react'
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { useAppDispatch, useAppSelector } from '../../../app/store';
+import { entityStatusSelector, isLoggenInSelictor, tasksSelector, todolistsSelector, useAppDispatch, useAppSelector } from '../../../app/store';
 import { TasksStateType } from '../../../app/AppWithRedux';
 import { FilterTodoListType, TodolistsDomainType, addTodolistTC, getTodolistsTC, removeTodolistTC, todolistAction, updateTodolistTC } from './todolists-reducer';
 import { addTaskTC, removeTaskTC, updateTaskTC } from '../../tasks/tasks-reducer';
@@ -12,15 +12,15 @@ import { Navigate } from 'react-router-dom';
 
 export const TodolistsList: React.FC = () => {
 
-  const todolists = useAppSelector<Array<TodolistsDomainType>>(state => state.todolists)
-  const tasks = useAppSelector<TasksStateType>(state => state.tasks)
-  const entityStatus = useAppSelector(state => state.app.status)
-  const isLoggedIn = useAppSelector(state => state.auth.isLoggenIn)
+  const todolists = useAppSelector(todolistsSelector)
+  const tasks = useAppSelector(tasksSelector)
+  const entityStatus = useAppSelector(entityStatusSelector)
+  const isLoggenIn = useAppSelector(isLoggenInSelictor)
 
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!isLoggenIn) {
       return
     }
     dispatch(getTodolistsTC())
@@ -65,7 +65,7 @@ export const TodolistsList: React.FC = () => {
     dispatch(thunk)
   }, [])
 
-  if (!isLoggedIn) {
+  if (!isLoggenIn) {
     return <Navigate to={'/login'} />
   }
   return <>

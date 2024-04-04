@@ -3,6 +3,7 @@ import { LoginParamsType, authAPI } from '../../../api/auth-api'
 import { handleServerAppError, handleServerNetworkError } from '../../../utils/error-utils'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { appAction } from '../../../app/app-reducer'
+import { todolistAction } from '../TodolistList/todolists-reducer'
 
 
 
@@ -48,6 +49,7 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
     if (res.data.resultCode === 0) {
       dispatch(authAction.setIsLoggenIn({ isLoggedIn: false }))
       dispatch(appAction.setAppStatus({ status: 'idle' }))
+      dispatch(todolistAction.clearDate())
     } else {
       handleServerAppError(res.data, dispatch)
     }

@@ -8,7 +8,7 @@ import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { useFormik } from 'formik'
-import { useAppDispatch, useAppSelector } from '../../../app/store'
+import { isLoggenInSelictor, useAppDispatch, useAppSelector } from '../../../app/store'
 import { loginTC } from './auth-reducer'
 import { Navigate } from 'react-router-dom'
 
@@ -16,7 +16,7 @@ import { Navigate } from 'react-router-dom'
 export const Login = () => {
 
   const dispatch = useAppDispatch()
-  const isLoggenIn = useAppSelector(state => state.auth.isLoggenIn)
+  const isLoggenIn = useAppSelector(isLoggenInSelictor)
 
   
   type FormikErrorType = {

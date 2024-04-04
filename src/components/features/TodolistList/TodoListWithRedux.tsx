@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import { Task } from "../../tasks/Task";
 import { useSelector } from "react-redux";
-import { AppRootStateType, useAppDispatch, useAppSelector } from "../../../app/store";
+import { entityStatusSelector, useAppDispatch, useAppSelector } from "../../../app/store";
 import { TodolistsDomainType, removeTodolistTC, updateTodolistTC, FilterTodoListType, todolistAction } from './todolists-reducer';
 import { addTaskTC, setTasksTC } from "../../tasks/tasks-reducer";
 import { TaskStatuses, TaskType } from "../../../api/tasks-api";
@@ -31,7 +31,7 @@ type PropsType = {
 }
 
 export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter, tasks }) => {
-  const entityStatus = useAppSelector(state => state.app.status)
+  const entityStatus = useAppSelector(entityStatusSelector)
 
   const dispatch = useAppDispatch();
 

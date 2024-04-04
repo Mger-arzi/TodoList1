@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import { TodolistsList } from '../components/features/TodolistList/TodolistList';
 import { TaskType } from '../api/tasks-api';
 import LinearProgress from '@mui/material/LinearProgress';
-import { useAppDispatch, useAppSelector } from './store';
+import { appStatusSelector, isInitializedSelector, useAppDispatch, useAppSelector } from './store';
 import { ErrorSnackbar } from '../components/errorSnackbar/ErrorSnackbar';
 import { Login } from '../components/features/login/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -20,8 +20,8 @@ export type TasksStateType = {
 }
 export function AppWithRedux() {
 
-  const status = useAppSelector(state => state.app.status)
-  const isInitialized = useAppSelector(state => state.app.isInitialized)
+  const status = useAppSelector(appStatusSelector)
+  const isInitialized = useAppSelector(isInitializedSelector)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
