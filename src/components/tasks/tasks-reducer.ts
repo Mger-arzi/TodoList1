@@ -14,18 +14,21 @@ const slice = createSlice({
   initialState: {} as TasksStateType,
   reducers: {
     setTasks(state, action: PayloadAction<{ todolistId: string, tasks: TaskType[] }>) {
-      state.todolistId = action.payload.tasks
+      
+      state[action.payload.todolistId] = action.payload.tasks
     },
     removeTask(state, action: PayloadAction<{ todolistId: string, taskId: string }>) {
-      const index = state.todolistId.findIndex(todo => todo.id === action.payload.taskId)
-      if (index !== -1) state.todolistId.splice(index, 1)
+      const index = state[action.payload.todolistId].findIndex(todo => todo.id === action.payload.taskId)
+      if (index !== -1) state[action.payload.todolistId].splice(index, 1)
     },
     addTask(state, action: PayloadAction<{ task: TaskType }>) {
-      state.todolistId.push(action.payload.task)
+      
+      state[action.payload.task.todoListId].unshift(action.payload.task)
     },
     updateTask(state, action: PayloadAction<{ todolistId: string, taskId: string, model: UpdateDomainTaskModelType }>) {
-      const index = state.todolistId.findIndex(todo => todo.id === action.payload.taskId)
-      if (index !== -1) state.todolistId[index] = { ...state.todolistId[index], ...action.payload.model }
+     
+      const index = state[action.payload.todolistId].findIndex(todo => todo.id === action.payload.taskId)
+      if (index !== -1) state[action.payload.todolistId][index] = { ...state[action.payload.todolistId][index], ...action.payload.model } 
     }
   },
   extraReducers: (builder) => {

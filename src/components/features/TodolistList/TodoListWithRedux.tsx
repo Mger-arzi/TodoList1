@@ -87,7 +87,7 @@ export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter,
           </IconButton>
         </h3>
         <AddItemForm Item={addTaskHandler} disabled={entityStatus === 'loading'} />
-        {tasks?.map(t =>
+        {tasks.map(t =>
           <Task
             key={t.id}
             task={t}
