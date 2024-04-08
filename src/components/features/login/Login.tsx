@@ -40,8 +40,8 @@ export const Login = () => {
       }
       if (!values.password) {
         errors.password = 'Password Required'
-      } else if (values.password.length < 6) {
-        errors.password = 'Password must be more than 6 symbols'
+      } else if (values.password.length <= 4) {
+        errors.password = 'Password must be more than 4 symbols'
       }
       return errors
     },

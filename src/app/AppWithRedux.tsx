@@ -24,6 +24,7 @@ export function AppWithRedux() {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    debugger
     dispatch(initializeAppTC())
   }, [])
 

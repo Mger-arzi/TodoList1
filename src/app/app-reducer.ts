@@ -38,21 +38,13 @@ export const appReducer = slice.reducer
 
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
+  debugger
   authAPI.me().then(res => {
     if (res.data.resultCode === 0) {
       dispatch(authAction.setIsLoggenIn({ isLoggedIn: true }))
     } else {
+      debugger
     }
     dispatch(appAction.setInitializeApp({ isInitialized: true }))
   })
 }
-// export const initializeAppTC = () => (dispatch: Dispatch) => {
-//   authAPI.me().then((res) => {
-//     if (res.data.resultCode === 0) {
-//       dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
-//     } else {
-//     }
-
-//     dispatch(appActions.setAppInitialized({ isInitialized: true }));
-//   });
-// };
