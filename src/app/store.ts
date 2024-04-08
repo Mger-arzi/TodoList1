@@ -7,15 +7,6 @@ import { tasksReducer } from '../components/tasks/tasks-reducer';
 import { authReducer } from '../components/features/login/auth-reducer';
 import { appReducer } from './app-reducer';
 
-
-
-
-// const rootReducer = combineReducers({
-//   tasks: tasksReducer,
-//   todolists: todolistsReducer,
-//   app: appReducer,
-//   auth: authReducer,
-// })
 // непосредственно создаём store
 
 export const store = configureStore({

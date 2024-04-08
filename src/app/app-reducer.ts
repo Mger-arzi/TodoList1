@@ -41,9 +41,18 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
   authAPI.me().then(res => {
     if (res.data.resultCode === 0) {
       dispatch(authAction.setIsLoggenIn({ isLoggedIn: true }))
-      dispatch(appAction.setInitializeApp({ isInitialized: true }))
     } else {
     }
     dispatch(appAction.setInitializeApp({ isInitialized: true }))
   })
 }
+// export const initializeAppTC = () => (dispatch: Dispatch) => {
+//   authAPI.me().then((res) => {
+//     if (res.data.resultCode === 0) {
+//       dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }));
+//     } else {
+//     }
+
+//     dispatch(appActions.setAppInitialized({ isInitialized: true }));
+//   });
+// };

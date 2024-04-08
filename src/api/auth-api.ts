@@ -1,5 +1,5 @@
 import axios from "axios"
-import {ResponseType} from "./todolist-api"
+import { ResponseType } from "./todolist-api"
 
 const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.1',
@@ -7,11 +7,11 @@ const instance = axios.create({
 })
 
 export const authAPI = {
-  login(data:LoginParamsType) {
-    return instance.post<ResponseType< {userId: number} >>( `/auth/login`,data)
+  login(data: LoginParamsType) {
+    return instance.post<ResponseType<{ userId: number }>>(`/auth/login`, data)
   },
   me() {
-    return instance.get<ResponseType<{id: number, email: string, login: string}>>(`/auth/me`)
+    return instance.get<ResponseType<{ id: number, email: string, login: string }>>(`/auth/me`)
   },
   logout() {
     return instance.delete<ResponseType>(`/auth/login`)
