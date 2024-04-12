@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import { entityStatusSelector, isLoggenInSelictor, tasksSelector, todolistsSelector, useAppDispatch, useAppSelector } from '../../../app/store';
 import { TasksStateType } from '../../../app/AppWithRedux';
 import { FilterTodoListType, TodolistsDomainType, addTodolistTC, getTodolistsTC, removeTodolistTC, todolistAction, updateTodolistTC } from './todolists-reducer';
-import { addTaskTC, removeTaskTC, updateTaskTC } from '../../tasks/tasks-reducer';
+import { addTask, removeTaskTC, tasksThunk, updateTaskTC } from '../../tasks/tasks-reducer';
 import { TaskStatuses } from '../../../api/tasks-api';
 import { AddItemForm } from '../../addItemForm/AddItemForm';
 import { TodoListWithRedux } from './TodoListWithRedux';
@@ -32,8 +32,7 @@ export const TodolistsList: React.FC = () => {
   }, [])
 
   const addTask = useCallback(function (title: string, todolistId: string) {
-    const thunk = addTaskTC(title, todolistId)
-    dispatch(thunk)
+    dispatch(tasksThunk.addTask({todolistId, title} ))
   }, [])
 
   const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {

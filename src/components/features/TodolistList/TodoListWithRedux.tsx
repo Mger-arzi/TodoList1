@@ -8,7 +8,7 @@ import { Task } from "../../tasks/Task";
 import { useSelector } from "react-redux";
 import { entityStatusSelector, useAppDispatch, useAppSelector } from "../../../app/store";
 import { TodolistsDomainType, removeTodolistTC, updateTodolistTC, FilterTodoListType, todolistAction } from './todolists-reducer';
-import { addTaskTC, setTasksTC } from "../../tasks/tasks-reducer";
+import { addTask, setTasks, tasksThunk } from "../../tasks/tasks-reducer";
 import { TaskStatuses, TaskType } from "../../../api/tasks-api";
 import { RequestStatusType } from "../../../app/app-reducer";
 import Box from "@mui/material/Box";
@@ -40,7 +40,7 @@ export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter,
   }, [id]);
 
   const addTaskHandler = useCallback((trimedTitle: string) => {
-    dispatch(addTaskTC(id, trimedTitle));
+    dispatch(tasksThunk.addTask({ todolistId: id, title: trimedTitle }));
   }, [id]);
 
   const updateTodolistHandler = useCallback((titleInput: string) => {
@@ -70,7 +70,7 @@ export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter,
   }
 
   useEffect(() => {
-    dispatch(setTasksTC(id))
+    dispatch(setTasks(id))
   }, [])
 
   return (
