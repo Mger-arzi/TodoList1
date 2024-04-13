@@ -5,12 +5,10 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import { Task } from "../../tasks/Task";
-import { useSelector } from "react-redux";
 import { entityStatusSelector, useAppDispatch, useAppSelector } from "../../../app/store";
-import { TodolistsDomainType, removeTodolistTC, updateTodolistTC, FilterTodoListType, todolistAction } from './todolists-reducer';
+import { updateTodolistTC, FilterTodoListType, todolistAction, todolistThunk } from './todolists-reducer';
 import { addTask, setTasks, tasksThunk } from "../../tasks/tasks-reducer";
 import { TaskStatuses, TaskType } from "../../../api/tasks-api";
-import { RequestStatusType } from "../../../app/app-reducer";
 import Box from "@mui/material/Box";
 
 
@@ -36,7 +34,7 @@ export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter,
   const dispatch = useAppDispatch();
 
   const onRevoveTodolistHandler = useCallback(() => {
-    dispatch(removeTodolistTC(id));
+    dispatch(todolistThunk.removeTodolist({id}));
   }, [id]);
 
   const addTaskHandler = useCallback((trimedTitle: string) => {
