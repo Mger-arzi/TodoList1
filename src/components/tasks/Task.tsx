@@ -5,9 +5,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { EditableSpan } from "../editableSpan/EditableSpan";
 import { useDispatch } from "react-redux";
-import { removeTaskTC, tasksThunk } from "./tasks-reducer";
+import {  tasksThunk } from "./tasks-reducer";
 import { TaskStatuses, TaskType } from "../../api/tasks-api";
-import { useAppSelector } from "../../app/store";
 import ListItem from "@mui/material/ListItem";
 
 type TaskPropsType = {
@@ -30,8 +29,8 @@ export const Task = React.memo((props: TaskPropsType) => {
     dispatch(tasksThunk.updateTask({ todolistId, taskId, model: { title } }))
   }, [dispatch])
 
-  const removeTask = useCallback((id: string, todolistID: string) => {
-    dispatch(removeTaskTC(todolistID, id))
+  const removeTask = useCallback((taskId: string, todolistId: string) => {
+    dispatch(tasksThunk.removeTask({todolistId, taskId}))
   }, [dispatch])
 
 

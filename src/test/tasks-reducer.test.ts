@@ -4,6 +4,7 @@ import { TasksStateType } from '../App'
 import { v1 } from 'uuid'
 import { TaskPriorities, TaskStatuses, model } from '../api/tasks-api'
 import { todolistAction } from '../components/features/TodolistList/todolists-reducer'
+import { action } from '@storybook/addon-actions';
 
 
 let startState: TasksStateType
@@ -41,8 +42,13 @@ beforeEach(() => {
 })
 test('correct task should be deleted from correct array', () => {
 
-  const action = tasksAction.removeTask({ todolistId: 'todolistId2', taskId: '2' })
-
+  const action: ActionTypeForTest<typeof tasksThunk.removeTask.fulfilled> = {
+    type: tasksThunk.removeTask.fulfilled.type,
+    payload: {
+      todolistId: 'todolistId2',
+      taskId: '2'
+    }
+  }
   const endState = tasksReducer(startState, action)
 
   expect(endState).toEqual({
