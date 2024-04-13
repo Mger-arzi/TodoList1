@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { logoutTC } from '../components/features/login/auth-reducer';
+import { logoutTC } from '../components/features/login/auth-slice';
 import { useAppDispatch, useAppSelector } from '../app/store';
 import Switch from '@mui/material/Switch';
 

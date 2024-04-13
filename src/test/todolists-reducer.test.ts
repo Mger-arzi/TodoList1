@@ -1,6 +1,6 @@
 
 import { v1 } from 'uuid';
-import { FilterTodoListType, TodolistsDomainType, todolistAction, todolistThunk, todolistsReducer } from '../components/features/TodolistList/todolists-reducer';
+import { FilterTodoListType, TodolistsDomainType, todolistAction, todolistThunk, todolistsReducer } from '../components/features/TodolistList/todolists-slice';
 import { ActionTypeForTest } from './tasks-reducer.test';
 
 let todolistID1: string

@@ -2,10 +2,9 @@ import React, { ChangeEvent, useCallback } from "react";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
 import IconButton from "@mui/material/IconButton/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import { EditableSpan } from "../editableSpan/EditableSpan";
 import { useDispatch } from "react-redux";
-import {  tasksThunk } from "./tasks-reducer";
+import {  tasksThunk } from "./tasks-slice";
 import { TaskStatuses, TaskType } from "../../api/tasks-api";
 import ListItem from "@mui/material/ListItem";
 
@@ -15,10 +14,7 @@ type TaskPropsType = {
 }
 
 
-
-
 export const Task = React.memo((props: TaskPropsType) => {
-  // const entityStatus = useAppSelector(state => state.app.status)
   let dispatch = useDispatch()
 
   const chekedChechbox = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
@@ -61,7 +57,6 @@ export const Task = React.memo((props: TaskPropsType) => {
           disabled={props.task.entityStatus === "loading"}
         />
       </div>
-
 
       <IconButton disabled={props.task.entityStatus === "loading"} onClick={() => {
         removeTask(props.task.id, props.todolistId);

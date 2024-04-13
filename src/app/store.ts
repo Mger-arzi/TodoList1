@@ -2,10 +2,10 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector, } from 'react-redux';
 import { AnyAction, applyMiddleware, combineReducers, legacy_createStore, } from 'redux';
 import { ThunkDispatch, thunk } from 'redux-thunk';
-import { todolistsReducer } from '../components/features/TodolistList/todolists-reducer';
-import { tasksReducer } from '../components/tasks/tasks-reducer';
-import { authReducer } from '../components/features/login/auth-reducer';
-import { appReducer } from './app-reducer';
+import { todolistsReducer } from '../components/features/TodolistList/todolists-slice';
+import { tasksReducer } from '../components/tasks/tasks-slice';
+import { authReducer } from '../components/features/login/auth-slice';
+import { appReducer } from './app-slice';
 
 // непосредственно создаём store
 

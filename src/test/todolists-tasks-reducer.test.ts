@@ -1,7 +1,7 @@
 import { TasksStateType } from "../App"
-import { tasksReducer } from "../components/tasks/tasks-reducer"
-import { TodolistsDomainType, todolistAction, todolistsReducer } from "../components/features/TodolistList/todolists-reducer"
-import { todolistThunk } from './../components/features/TodolistList/todolists-reducer';
+import { tasksReducer } from "../components/tasks/tasks-slice"
+import { TodolistsDomainType, todolistAction, todolistsReducer } from "../components/features/TodolistList/todolists-slice"
+import { todolistThunk } from '../components/features/TodolistList/todolists-slice';
 import { ActionTypeForTest } from "./tasks-reducer.test";
 
 

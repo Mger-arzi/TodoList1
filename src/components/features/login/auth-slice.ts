@@ -2,8 +2,9 @@ import { Dispatch } from 'redux'
 import { LoginParamsType, authAPI } from '../../../api/auth-api'
 import { handleServerAppError, handleServerNetworkError } from '../../../utils/error-utils'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { appAction } from '../../../app/app-reducer'
-import { todolistAction } from '../TodolistList/todolists-reducer'
+import { appAction } from '../../../app/app-slice'
+import { todolistAction } from '../TodolistList/todolists-slice'
+import { ResultCode } from '../../../types/ResultCode'
 
 
 
@@ -30,7 +31,7 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch) => 
   dispatch(appAction.setAppStatus({ status: 'loading' }))
   try {
     const res = await authAPI.login(data)
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.success) {
       dispatch(authAction.setIsLoggenIn({ isLoggedIn: true }))
       dispatch(appAction.setAppStatus({ status: 'idle' }))
     } else {
@@ -46,7 +47,7 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
   dispatch(appAction.setAppStatus({ status: 'loading' }))
   try {
     const res = await authAPI.logout()
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.success) {
       dispatch(authAction.setIsLoggenIn({ isLoggedIn: false }))
       dispatch(appAction.setAppStatus({ status: 'idle' }))
       dispatch(todolistAction.clearDate())

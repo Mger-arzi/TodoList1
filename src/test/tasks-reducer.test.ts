@@ -1,9 +1,9 @@
 
-import { tasksAction, tasksReducer, tasksThunk, } from '../components/tasks/tasks-reducer'
+import { tasksAction, tasksReducer, tasksThunk, } from '../components/tasks/tasks-slice'
 import { TasksStateType } from '../App'
 import { v1 } from 'uuid'
 import { TaskPriorities, TaskStatuses, model } from '../api/tasks-api'
-import { todolistAction, todolistThunk } from '../components/features/TodolistList/todolists-reducer'
+import { todolistAction, todolistThunk } from '../components/features/TodolistList/todolists-slice'
 import { action } from '@storybook/addon-actions';
 
 

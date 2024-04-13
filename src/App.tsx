@@ -8,7 +8,7 @@ import { MyAppBar } from './AppBar/AppBar';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper'
 import { TaskPriorities, TaskStatuses, TaskType } from './api/tasks-api';
-import { FilterTodoListType, TodolistsDomainType } from './components/features/TodolistList/todolists-reducer';
+import { FilterTodoListType, TodolistsDomainType } from './components/features/TodolistList/todolists-slice';
 import { TodoList } from './TodoList';
 
 

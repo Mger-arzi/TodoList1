@@ -1,9 +1,8 @@
 import { Dispatch } from "redux"
 import { authAPI } from "../api/auth-api"
-import { handleServerNetworkError } from "../utils/error-utils"
-import { authAction, authReducer } from './../components/features/login/auth-reducer';
+import { authAction } from '../components/features/login/auth-slice';
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { error } from 'console';
+import { ResultCode } from "../types/ResultCode";
 
 export type RequestStatusType = 'idle' |  'loading' | 'succeeded' | 'failed'
 export type AppInitialStateType = ReturnType<typeof slice.getInitialState>
@@ -38,9 +37,8 @@ export const appReducer = slice.reducer
 
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-  debugger
   authAPI.me().then(res => {
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.success) {
       dispatch(authAction.setIsLoggenIn({ isLoggedIn: true }))
     } else {
       debugger

@@ -9,7 +9,7 @@ import { Login } from '../components/features/login/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
-import { appAction, initializeAppTC } from './app-reducer';
+import { appAction, initializeAppTC } from './app-slice';
 import createTheme from '@mui/material/styles/createTheme';
 import { ThemeProvider } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline'

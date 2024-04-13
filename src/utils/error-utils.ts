@@ -1,9 +1,8 @@
-import { appAction } from '../app/app-reducer'
+import { appAction } from '../app/app-slice'
 import { Dispatch } from 'redux'
 import { ResponseType } from '../api/todolist-api'
 import { AppDispatch } from '../app/store';
 import axios from 'axios';
-
 
 type ErrorUtilsDispatchType = Dispatch
 
@@ -18,12 +17,6 @@ export const handleServerAppError = <T,>(
     }
     dispatch(appAction.setAppStatus({status: 'idle'}))
 }
-
-// export const handleServerNetworkError = ( error: { message: string },dispatch: ErrorUtilsDispatchType) => {
-//     dispatch(appAction.setAppError({error: error.message}))
-//     dispatch(appAction.setAppStatus({status:'idle'}))
-// }
-
 
 
 
