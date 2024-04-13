@@ -2,13 +2,10 @@ import React, { useCallback, useEffect } from 'react'
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { entityStatusSelector, isLoggenInSelictor, tasksSelector, todolistsSelector, useAppDispatch, useAppSelector } from '../../../app/store';
-import { TasksStateType } from '../../../app/AppWithRedux';
-import { FilterTodoListType, TodolistsDomainType, addTodolistTC, getTodolistsTC, removeTodolistTC, todolistAction, updateTodolistTC } from './todolists-reducer';
-import { tasksThunk } from '../../tasks/tasks-reducer';
-import { TaskStatuses } from '../../../api/tasks-api';
 import { AddItemForm } from '../../addItemForm/AddItemForm';
 import { TodoListWithRedux } from './TodoListWithRedux';
 import { Navigate } from 'react-router-dom';
+import {  todolistThunk } from './todolists-reducer';
 
 export const TodolistsList: React.FC = () => {
 
@@ -23,7 +20,7 @@ export const TodolistsList: React.FC = () => {
     if (!isLoggenIn) {
       return
     }
-    dispatch(getTodolistsTC())
+    dispatch(todolistThunk.getTodolists())
   }, [])
 
   // const removeTask = useCallback(function (taskId: string, todolistId: string) {
@@ -59,8 +56,7 @@ export const TodolistsList: React.FC = () => {
   // }, [])
 
   const addTodolist = useCallback((title: string) => {
-    const thunk = addTodolistTC(title)
-    dispatch(thunk)
+    dispatch(todolistThunk.addTodolist({title}))
   }, [])
 
   if (!isLoggenIn) {

@@ -3,7 +3,7 @@ import { tasksAction, tasksReducer, tasksThunk, } from '../components/tasks/task
 import { TasksStateType } from '../App'
 import { v1 } from 'uuid'
 import { TaskPriorities, TaskStatuses, model } from '../api/tasks-api'
-import { todolistAction } from '../components/features/TodolistList/todolists-reducer'
+import { todolistAction, todolistThunk } from '../components/features/TodolistList/todolists-reducer'
 import { action } from '@storybook/addon-actions';
 
 
@@ -129,16 +129,17 @@ test('title of specified task should be changed', () => {
 })
 
 test('new array should be added when new todolist is added', () => {
-
-  const action = todolistAction.addTodolist({
-    todolist: {
-      id: 'todolistId3',
-      title: 'NEW todolist',
-      order: 0,
-      addedDate: new Date,
+  const action: ActionTypeForTest<typeof todolistThunk.addTodolist.fulfilled> = {
+    type: todolistThunk.addTodolist.fulfilled.type,
+    payload: {
+      todolist: {
+        id: 'todolistId3',
+        title: 'NEW todolist',
+        order: 0,
+        addedDate: new Date,
+      }
     }
-  })
-
+  }
   const endState = tasksReducer(startState, action)
 
 
@@ -151,6 +152,8 @@ test('new array should be added when new todolist is added', () => {
   expect(keys.length).toBe(3)
   expect(endState[newKey]).toEqual([])
 })
+
+
 
 
 test('property with todolistId should be deleted', () => {
