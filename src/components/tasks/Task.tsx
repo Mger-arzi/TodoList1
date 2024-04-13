@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { EditableSpan } from "../editableSpan/EditableSpan";
 import { useDispatch } from "react-redux";
-import { removeTaskTC, updateTaskTC, } from "./tasks-reducer";
+import { removeTaskTC, tasksThunk } from "./tasks-reducer";
 import { TaskStatuses, TaskType } from "../../api/tasks-api";
 import { useAppSelector } from "../../app/store";
 import ListItem from "@mui/material/ListItem";
@@ -22,12 +22,12 @@ export const Task = React.memo((props: TaskPropsType) => {
   // const entityStatus = useAppSelector(state => state.app.status)
   let dispatch = useDispatch()
 
-  const chekedChechbox = useCallback((todolistID: string, taskId: string, status: TaskStatuses) => {
-    dispatch(updateTaskTC(todolistID, taskId, { status }))
+  const chekedChechbox = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
+    dispatch(tasksThunk.updateTask({ todolistId, taskId, model: { status } }))
   }, [dispatch])
 
-  const updateTask = useCallback((todolistID: string, taskId: string, newTitle: string) => {
-    dispatch(updateTaskTC(todolistID, taskId, { title: newTitle }))
+  const updateTask = useCallback((todolistId: string, taskId: string, title: string) => {
+    dispatch(tasksThunk.updateTask({ todolistId, taskId, model: { title } }))
   }, [dispatch])
 
   const removeTask = useCallback((id: string, todolistID: string) => {

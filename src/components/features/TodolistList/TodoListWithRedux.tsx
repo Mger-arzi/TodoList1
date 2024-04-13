@@ -18,15 +18,15 @@ type PropsType = {
   id: string
   title: string
   tasks: Array<TaskType>
-  changeFilter: (value: FilterTodoListType, todolistId: string) => void
-  addTask: (title: string, todolistId: string) => void
-  changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void
-  changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
-  removeTask: (taskId: string, todolistId: string) => void
-  removeTodolist: (id: string) => void
-  changeTodolistTitle: (id: string, newTitle: string) => void
+  // changeFilter: (value: FilterTodoListType, todolistId: string) => void
+  // addTask: (title: string, todolistId: string) => void
+  // changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void
+  // changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
+  // removeTask: (taskId: string, todolistId: string) => void
+  // removeTodolist: (id: string) => void
+  // changeTodolistTitle: (id: string, newTitle: string) => void
   filter: FilterTodoListType
-  entityStatus: RequestStatusType
+  // entityStatus: RequestStatusType
 
 }
 

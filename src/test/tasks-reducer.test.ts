@@ -91,14 +91,36 @@ test('correct task should be added to correct array', () => {
 
 test('status of specified task should be changed', () => {
 
-  const action = tasksAction.updateTask({ todolistId: 'todolistId2', taskId: '2', model })
-
+  const action: ActionTypeForTest<typeof tasksThunk.updateTask.fulfilled> = {
+    type: tasksThunk.updateTask.fulfilled.type,
+    payload: {
+      todolistId: 'todolistId2',
+      taskId: '2',
+      model: {
+        status: TaskStatuses.New
+      }
+    }
+  }
   const endState = tasksReducer(startState, action)
-
   expect(endState['todolistId2'][1].status).toBe(TaskStatuses.New)
   expect(endState['todolistId1'][1].status).toBe(TaskStatuses.Completed)
 })
 
+test('title of specified task should be changed', () => {
+
+  const action: ActionTypeForTest<typeof tasksThunk.updateTask.fulfilled> = {
+    type: tasksThunk.updateTask.fulfilled.type,
+    payload: {
+      todolistId: 'todolistId2',
+      taskId: '1',
+      model: {
+        title: 'juce'
+      }
+    }
+  }
+  const endState = tasksReducer(startState, action)
+  expect(endState['todolistId2'][1].title).toBe('juce')
+})
 
 test('new array should be added when new todolist is added', () => {
 
