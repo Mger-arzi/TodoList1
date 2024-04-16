@@ -9,8 +9,8 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { useFormik } from 'formik'
 import { isLoggenInSelictor, useAppDispatch, useAppSelector } from '../../../app/store'
-import { loginTC } from './auth-slice'
 import { Navigate } from 'react-router-dom'
+import { loginThunk } from './auth-slice'
 
 
 export const Login = () => {
@@ -18,7 +18,7 @@ export const Login = () => {
   const dispatch = useAppDispatch()
   const isLoggenIn = useAppSelector(isLoggenInSelictor)
 
-  
+
   type FormikErrorType = {
     email?: string
     password?: string
@@ -46,7 +46,7 @@ export const Login = () => {
       return errors
     },
     onSubmit: values => {
-      dispatch(loginTC(values))
+      dispatch(loginThunk.login({ data:   values }))
       formik.resetForm()
     },
   })
@@ -88,7 +88,7 @@ export const Login = () => {
               {formik.errors.password && formik.touched.password ? <div style={{ color: 'red' }}>{formik.errors.password}</div> : null}
               <FormControlLabel
                 label={'Remember me'}
-                control={<Checkbox {...formik.getFieldProps('rememberMe')} checked = {formik.values.rememberMe}/>}
+                control={<Checkbox {...formik.getFieldProps('rememberMe')} checked={formik.values.rememberMe} />}
               />
               <Button type={'submit'} variant={'contained'} color={'primary'}>
                 Login
@@ -99,7 +99,7 @@ export const Login = () => {
 
       </Grid>
     </Grid>
-    
+
   )
-  
+
 }
