@@ -7,7 +7,7 @@ import { todolistAction } from '../TodolistList/todolists-slice'
 import { ResultCode } from '../../../types/ResultCode'
 import { createAppAsyncThunk } from '../../../utils/create-app-async-thunk'
 
-const login = createAppAsyncThunk<any, { data: LoginParamsType }>('login/auth', async (arg, thunkAPI) => {
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsType }>('login/auth', async (arg, thunkAPI) => {
   thunkAPI.dispatch(appAction.setAppStatus({ status: 'loading' }))
   try {
     const res = await authAPI.login(arg.data)
@@ -26,6 +26,24 @@ const login = createAppAsyncThunk<any, { data: LoginParamsType }>('login/auth', 
   }
 })
 
+const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('logout/auth', async (_, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI
+  dispatch(appAction.setAppStatus({ status: 'loading' }))
+  try {
+    const res = await authAPI.logout()
+    if (res.data.resultCode === ResultCode.success) {
+      dispatch(appAction.setAppStatus({ status: 'idle' }))
+      dispatch(todolistAction.clearDate())
+      return { isLoggedIn: false }
+    } else {
+      handleServerAppError(res.data, dispatch)
+      return rejectWithValue(null)
+    }
+  } catch (e) {
+    handleServerNetworkError(e as { message: string }, dispatch)
+    return rejectWithValue(null)
+  }
+})
 
 const slice = createSlice({
   name: 'auth',
@@ -42,30 +60,15 @@ const slice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoggenIn = action.payload.isLoggedIn;
       })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.isLoggenIn = action.payload.isLoggedIn;
+      })
+   
   }
 })
 export const authReducer = slice.reducer
 export const authAction = slice.actions
-export const loginThunk = {login}
+export const loginThunk = { login, logout }
 
 
-// thunks
-
-
-
-export const logoutTC = () => async (dispatch: Dispatch) => {
-  dispatch(appAction.setAppStatus({ status: 'loading' }))
-  try {
-    const res = await authAPI.logout()
-    if (res.data.resultCode === ResultCode.success) {
-      dispatch(authAction.setIsLoggenIn({ isLoggedIn: false }))
-      dispatch(appAction.setAppStatus({ status: 'idle' }))
-      dispatch(todolistAction.clearDate())
-    } else {
-      handleServerAppError(res.data, dispatch)
-    }
-  } catch (e) {
-    handleServerNetworkError(e as { message: string }, dispatch)
-  }
-}
 

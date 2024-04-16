@@ -3,11 +3,32 @@ import { authAPI } from "../api/auth-api"
 import { authAction } from '../components/features/login/auth-slice';
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ResultCode } from "../types/ResultCode";
+import { createAppAsyncThunk } from "../utils/create-app-async-thunk";
+import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils";
 
-export type RequestStatusType = 'idle' |  'loading' | 'succeeded' | 'failed'
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type AppInitialStateType = ReturnType<typeof slice.getInitialState>
 
 
+const initializeApp = createAppAsyncThunk<{ isInitialized: boolean }, undefined>('initialize/app', async (_, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI
+  try {
+    dispatch(appAction.setAppStatus({ status: 'loading' }))
+    const res = await authAPI.me()
+    if (res.data.resultCode === ResultCode.success) {
+      dispatch(authAction.setIsLoggenIn({ isLoggedIn: true }))
+    } else {
+      handleServerAppError(res.data, dispatch)
+      return rejectWithValue(null)
+    }
+    return { isInitialized: true }
+  }
+  catch (e) {
+    handleServerNetworkError(e as { message: string }, dispatch)
+    return rejectWithValue(null)
+  }
+
+})
 
 
 const slice = createSlice({
@@ -32,17 +53,8 @@ const slice = createSlice({
 })
 export const appAction = slice.actions
 export const appReducer = slice.reducer
+export const appThunk = { initializeApp }
 
 
 
 
-export const initializeAppTC = () => (dispatch: Dispatch) => {
-  authAPI.me().then(res => {
-    if (res.data.resultCode === ResultCode.success) {
-      dispatch(authAction.setIsLoggenIn({ isLoggedIn: true }))
-    } else {
-      debugger
-    }
-    dispatch(appAction.setInitializeApp({ isInitialized: true }))
-  })
-}
