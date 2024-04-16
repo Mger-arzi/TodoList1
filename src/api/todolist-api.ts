@@ -9,15 +9,15 @@ export const todolistAPI = {
         return promise
     },
     createTodolist(title: string) {
-        const promise = instance.post<ResponseType<{ item: TodoListType }>>(`todo-lists/`, { title })
+        const promise = instance.post<BaseResponseType<{ item: TodoListType }>>(`todo-lists/`, { title })
         return promise
     },
     deleteTodolist(todolistId: string) {
-        const promise = instance.delete<ResponseType>(`todo-lists/${todolistId}`)
+        const promise = instance.delete<BaseResponseType>(`todo-lists/${todolistId}`)
         return promise
     },
     updateTodolist(todolistId: string, title: string) {
-        const propmis = instance.put<ResponseType>(`todo-lists/${todolistId}`, { title })
+        const propmis = instance.put<BaseResponseType>(`todo-lists/${todolistId}`, { title })
         return propmis
     }
 }
@@ -32,7 +32,7 @@ export type FieldErrorType = {
     error: string
     field: string
 }
-export type ResponseType<D = {}> = {
+export type BaseResponseType<D = {}> = {
     resultCode: 0
     fieldsErrors: FieldErrorType[]
     messages: string[],

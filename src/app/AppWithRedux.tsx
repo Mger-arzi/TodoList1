@@ -13,7 +13,6 @@ import createTheme from '@mui/material/styles/createTheme';
 import { ThemeProvider } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline'
 import { loginThunk } from '../components/features/login/auth-slice';
-import { appThunk } from './app-slice';
 
 export type TasksStateType = {
   [key: string]: TaskType[]
@@ -25,7 +24,7 @@ export function AppWithRedux() {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(appThunk.initializeApp())
+    dispatch(loginThunk.initializeApp())
   }, [])
 
   type ThemeMode = 'dark' | 'light'

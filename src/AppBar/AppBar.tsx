@@ -14,7 +14,7 @@ type MyAppBarProps = {
 }
 export  function MyAppBar( props:MyAppBarProps) {
   const dispatch = useAppDispatch()
-  const isLoggenIn = useAppSelector(state => state.auth.isLoggenIn)
+  const isLoggenIn = useAppSelector(state => state.auth.isLoggedIn)
 
     return (
         <Box sx={{ flexGrow: 1 , }}>

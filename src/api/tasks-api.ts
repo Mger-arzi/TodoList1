@@ -1,5 +1,5 @@
 import axios from "axios"
-import {ResponseType} from "./todolist-api"
+import {BaseResponseType} from "./todolist-api"
 import { RequestStatusType } from "../app/app-slice"
 import { instance } from "./auth-api"
 
@@ -12,13 +12,13 @@ export const tasksAPI = {
         return instance.get<GetTasksType>( `/todo-lists/${todolistId}/tasks`,)
     },
     createTask(todolistId: string, title: string) {
-        return instance.post<ResponseType< {item: TaskType} >>(`/todo-lists/${todolistId}/tasks`,{title} )
+        return instance.post<BaseResponseType< {item: TaskType} >>(`/todo-lists/${todolistId}/tasks`,{title} )
     },
     updateTask(todolistId: string, taskId:string, model: UpdateTaskModelType){
-        return instance.put<ResponseType< {item: TaskType} >>( `/todo-lists/${todolistId}/tasks/${taskId}`, model)
+        return instance.put<BaseResponseType< {item: TaskType} >>( `/todo-lists/${todolistId}/tasks/${taskId}`, model)
     },
     deleteTask(todolistId: string, taskId:string){
-        return instance.delete<ResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`,)
+        return instance.delete<BaseResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`,)
     }
 }
 // types 

@@ -27,7 +27,7 @@ export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelecto
 export const entityStatusSelector = (state: AppRootStateType) => state.app.status
 export const appStatusSelector = (state: AppRootStateType) => state.app.status
 export const isInitializedSelector = (state: AppRootStateType) => state.app.isInitialized
-export const isLoggenInSelictor = (state: AppRootStateType) => state.auth.isLoggenIn
+export const isLoggenInSelictor = (state: AppRootStateType) => state.auth.isLoggedIn
 export const tasksSelector = (state: AppRootStateType) => state.tasks
 export const todolistsSelector = (state: AppRootStateType) => state.todolists
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент

@@ -1,13 +1,13 @@
 import { appAction } from '../app/app-slice'
 import { Dispatch } from 'redux'
-import { ResponseType } from '../api/todolist-api'
+import { BaseResponseType } from '../api/todolist-api'
 import { AppDispatch } from '../app/store';
 import axios from 'axios';
 
 type ErrorUtilsDispatchType = Dispatch
 
 export const handleServerAppError = <T,>(
-    data: ResponseType<T>,
+    data: BaseResponseType<T>,
     dispatch: ErrorUtilsDispatchType
 ) => {
     if (data.messages.length) {
