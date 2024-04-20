@@ -16,7 +16,7 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsTy
       return { isLoggedIn: true }
     } else {
       handleServerAppError(res.data, thunkAPI.dispatch)
-      return thunkAPI.rejectWithValue(null)
+      return thunkAPI.rejectWithValue(res.data)
     }
   }
   catch (error) {

@@ -47,7 +47,11 @@ export const Login = () => {
     },
     onSubmit: values => {
       dispatch(loginThunk.login({ data:   values }))
-      formik.resetForm()
+      .unwrap()
+      .catch((e)=>{
+        debugger
+      })
+      // formik.resetForm()
     },
   })
 
@@ -103,3 +107,8 @@ export const Login = () => {
   )
 
 }
+
+
+
+
+ 
