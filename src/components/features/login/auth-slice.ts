@@ -15,7 +15,10 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsTy
       thunkAPI.dispatch(appAction.setAppStatus({ status: 'idle' }))
       return { isLoggedIn: true }
     } else {
-      handleServerAppError(res.data, thunkAPI.dispatch)
+      debugger
+      const isShowGlobalError = !res.data.fieldsErrors.length
+      handleServerAppError(res.data, thunkAPI.dispatch, isShowGlobalError)
+      
       return thunkAPI.rejectWithValue(res.data)
     }
   }
@@ -53,7 +56,8 @@ const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('i
     if (res.data.resultCode === ResultCode.success) {
 
     } else {
-      // handleServerAppError(res.data, dispatch)
+      
+      handleServerAppError(res.data, dispatch, false)
       return rejectWithValue(null)
     }
     return { isLoggedIn: true }

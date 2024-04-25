@@ -5,16 +5,27 @@ import { AppDispatch } from '../app/store';
 import axios from 'axios';
 
 type ErrorUtilsDispatchType = Dispatch
-
+/**
+ * handleServerAppError - обработка ошибки от сервера 
+ * @param data - данные ответа сервера
+ * @param dispatch - диспач для редюсера
+ * @param ShowGlobalError - отображать глобальную ошибку или нет
+ * @returns - void то что возвращает функция
+ */
 export const handleServerAppError = <T,>(
     data: BaseResponseType<T>,
-    dispatch: ErrorUtilsDispatchType
+    dispatch: ErrorUtilsDispatchType,
+    ShowGlobalError: boolean = true
+
 ) => {
-    if (data.messages.length) {
+    if (ShowGlobalError) {
+      if (data.messages.length) {
         dispatch(appAction.setAppError({error:data.messages[0]}))
     } else {
         dispatch(appAction.setAppError({error: 'Some error occurred'}))
     }
+    }
+   
     dispatch(appAction.setAppStatus({status: 'idle'}))
 }
 

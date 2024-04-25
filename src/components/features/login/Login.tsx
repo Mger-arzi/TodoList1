@@ -11,6 +11,7 @@ import { useFormik } from 'formik'
 import { isLoggenInSelictor, useAppDispatch, useAppSelector } from '../../../app/store'
 import { Navigate } from 'react-router-dom'
 import { loginThunk } from './auth-slice'
+import { BaseResponseType } from '../../../api/todolist-api'
 
 
 export const Login = () => {
@@ -45,11 +46,15 @@ export const Login = () => {
       }
       return errors
     },
-    onSubmit: values => {
+    onSubmit: (values , formikHalpers) => {
       dispatch(loginThunk.login({ data:   values }))
       .unwrap()
-      .catch((e)=>{
-        debugger
+      .catch((e:BaseResponseType)=>{
+        if(e.fieldsErrors) {
+          e.fieldsErrors.forEach(el => {
+            formikHalpers.setFieldError(el.field, el.error)
+          });
+        }
       })
       // formik.resetForm()
     },
