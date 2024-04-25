@@ -1,14 +1,14 @@
 import { TasksStateType } from "../App"
 import { tasksReducer } from "../components/tasks/tasks-slice"
-import { TodolistsDomainType, todolistAction, todolistsReducer } from "../components/features/TodolistList/todolists-slice"
-import { todolistThunk } from '../components/features/TodolistList/todolists-slice';
+import { TodolistsDomainType, todolistsActions, todolistsReducer } from "../components/features/TodolistList/todolists-slice"
+import { todolistsThunks } from '../components/features/TodolistList/todolists-slice';
 import { ActionTypeForTest } from "./tasks-reducer.test";
 
 
 test('ids should be equals', () => {
   const startTasksState: TasksStateType = {}
   const startTodolistsState: Array<TodolistsDomainType> = []
-  const action: ActionTypeForTest<typeof todolistThunk.addTodolist.fulfilled> = {
+  const action: ActionTypeForTest<typeof todolistsThunks.addTodolist.fulfilled> = {
 
     type: 'ADD-TODOLIST',
     payload: {

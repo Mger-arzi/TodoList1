@@ -1,6 +1,6 @@
 
 import { v1 } from 'uuid';
-import { FilterTodoListType, TodolistsDomainType, todolistAction, todolistThunk, todolistsReducer } from '../components/features/TodolistList/todolists-slice';
+import { FilterTodoListType, TodolistsDomainType, todolistsActions, todolistsThunks, todolistsReducer } from '../components/features/TodolistList/todolists-slice';
 import { ActionTypeForTest } from './tasks-reducer.test';
 
 let todolistID1: string
@@ -22,7 +22,7 @@ beforeEach(() => {
 test('correct todolist should be removed', () => {
 
   // const endState = todolistsReducer(startState , {type: 'REMOVE-TODOLIST', id: todolistID1})
-  const action: ActionTypeForTest<typeof todolistThunk.removeTodolist.fulfilled> = {
+  const action: ActionTypeForTest<typeof todolistsThunks.removeTodolist.fulfilled> = {
     type: 'REMOVE-TODOLIST',
     payload: {
       id: todolistID1
@@ -38,7 +38,7 @@ test('correct todolist should be removed', () => {
 test('correct todolist should be added', () => {
 
   let newTodolistTitle = "New Todolist"
-  const action: ActionTypeForTest<typeof todolistThunk.addTodolist.fulfilled> = {
+  const action: ActionTypeForTest<typeof todolistsThunks.addTodolist.fulfilled> = {
     type: 'ADD-TODOLIST',
     payload: {
       todolist: {
@@ -58,7 +58,7 @@ test('correct todolist should be added', () => {
 test('correct todolist should change its name', () => {
 
   let newTodolistTitle = "New Todolist"
-  const action: ActionTypeForTest<typeof todolistThunk.updateTodolist.fulfilled> = {
+  const action: ActionTypeForTest<typeof todolistsThunks.updateTodolist.fulfilled> = {
     type: 'UPDATE-TODOLIST',
     payload: {
       id: todolistID2,
@@ -77,7 +77,7 @@ test('correct filter of todolist should be changed ', () => {
 
   let newFilter: FilterTodoListType = "Completed"
 
-  const endState = todolistsReducer(startState, todolistAction.changeFilter({ id: todolistID2, filter: newFilter }))
+  const endState = todolistsReducer(startState, todolistsActions.changeFilter({ id: todolistID2, filter: newFilter }))
 
   expect(endState[0].filter).toBe('All')
   expect(endState[1].filter).toBe(newFilter)

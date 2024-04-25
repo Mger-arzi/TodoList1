@@ -5,7 +5,7 @@ import { AppRootStateType } from "../../app/store";
 import { handleServerAppError, handleServerNetworkError } from "../../utils/error-utils";
 import { appAction } from "../../app/app-slice";
 import { createSlice } from "@reduxjs/toolkit";
-import {  todolistAction, todolistThunk } from "../features/TodolistList/todolists-slice";
+import {  todolistsActions, todolistsThunks } from "../features/TodolistList/todolists-slice";
 import { createAppAsyncThunk } from "../../utils/create-app-async-thunk";
 import { ResultCode } from "../../types/ResultCode";
 
@@ -112,18 +112,18 @@ const slice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(todolistThunk.addTodolist.fulfilled, (state, action) => {
+      .addCase(todolistsThunks.addTodolist.fulfilled, (state, action) => {
         state[action.payload.todolist.id] = []
       })
-      .addCase(todolistThunk.removeTodolist.fulfilled, (state, action) => {
+      .addCase(todolistsThunks.removeTodolist.fulfilled, (state, action) => {
         delete state[action.payload.id]
       })
-      .addCase(todolistThunk.getTodolists.fulfilled, (state, action) => {
+      .addCase(todolistsThunks.getTodolists.fulfilled, (state, action) => {
         action.payload.todolists.forEach((tl) => {
           state[tl.id] = []
         })
       })
-      .addCase(todolistAction.clearDate, (state, action) => {
+      .addCase(todolistsActions.clearDate, (state, action) => {
         return state = {}
       })
       .addCase(setTasks.fulfilled, (state, action) => {
@@ -144,7 +144,7 @@ const slice = createSlice({
 })
 export const tasksAction = slice.actions
 export const tasksReducer = slice.reducer
-export const tasksThunk = { setTasks, addTask, updateTask ,removeTask}
+export const tasksThunks = { setTasks, addTask, updateTask ,removeTask}
 
 
 

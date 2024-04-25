@@ -6,10 +6,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import { Task } from "../../tasks/Task";
 import { entityStatusSelector, useAppDispatch, useAppSelector } from "../../../app/store";
-import { FilterTodoListType, todolistAction, todolistThunk } from './todolists-slice';
-import { setTasks, tasksThunk } from "../../tasks/tasks-slice";
+import { FilterTodoListType, todolistsActions, todolistsThunks } from './todolists-slice';
 import { TaskStatuses, TaskType } from "../../../api/tasks-api";
 import Box from "@mui/material/Box";
+import { useActions } from "../../../utils/useActions/useActions";
 
 
 type PropsType = {
@@ -23,32 +23,31 @@ export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter,
   const entityStatus = useAppSelector(entityStatusSelector)
 
   const dispatch = useAppDispatch();
+  const { removeTodolist, addTask, updateTodolist, changeFilter , setTasks} = useActions()
 
   const onRevoveTodolistHandler = useCallback(() => {
-    dispatch(todolistThunk.removeTodolist({ id }));
+    removeTodolist({ id });
   }, [id]);
 
   const addTaskHandler = useCallback((trimedTitle: string) => {
-    dispatch(tasksThunk.addTask({ todolistId: id, title: trimedTitle }));
+    addTask({ todolistId: id, title: trimedTitle });
   }, [id]);
 
   const updateTodolistHandler = useCallback((title: string) => {
-    dispatch(todolistThunk.updateTodolist({ id, title }))
+    updateTodolist({ id, title })
   }, [id]);
 
 
   const onAllClickHandler = useCallback(() => {
-    dispatch(todolistAction.changeFilter({ id, filter: "All" }))
+    changeFilter({ id, filter: "All" })
   }, [id]);
 
   const onActiveClickHandler = useCallback(() => {
-    dispatch(todolistAction.changeFilter({ id, filter: "Active" }))
-
+    changeFilter({ id, filter: "Active" })
   }, [id]);
 
   const onComplitedClickHandler = useCallback(() => {
-    dispatch(todolistAction.changeFilter({ id, filter: "Completed" }))
-
+    changeFilter({ id, filter: "Completed" })
   }, [id]);
 
   if (filter === "Active") {
@@ -59,7 +58,7 @@ export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter,
   }
 
   useEffect(() => {
-    dispatch(setTasks(id))
+    setTasks(id)
   }, [])
 
   return (

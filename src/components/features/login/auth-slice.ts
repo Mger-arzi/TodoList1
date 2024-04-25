@@ -3,7 +3,7 @@ import { LoginParamsType, authAPI } from '../../../api/auth-api'
 import { handleServerAppError, handleServerNetworkError } from '../../../utils/error-utils'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { appAction } from '../../../app/app-slice'
-import { todolistAction } from '../TodolistList/todolists-slice'
+import { todolistsActions } from '../TodolistList/todolists-slice'
 import { ResultCode } from '../../../types/ResultCode'
 import { createAppAsyncThunk } from '../../../utils/create-app-async-thunk'
 
@@ -36,7 +36,7 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('logout/a
     const res = await authAPI.logout()
     if (res.data.resultCode === ResultCode.success) {
       dispatch(appAction.setAppStatus({ status: 'idle' }))
-      dispatch(todolistAction.clearDate())
+      dispatch(todolistsActions.clearDate())
       return { isLoggedIn: false }
     } else {
       handleServerAppError(res.data, dispatch)
@@ -97,7 +97,7 @@ const slice = createSlice({
 })
 export const authReducer = slice.reducer
 export const authAction = slice.actions
-export const loginThunk = { login, logout, initializeApp }
+export const authThunks = { login, logout, initializeApp }
 
 
 

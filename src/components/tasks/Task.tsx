@@ -4,9 +4,10 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { EditableSpan } from "../editableSpan/EditableSpan";
 import { useDispatch } from "react-redux";
-import {  tasksThunk } from "./tasks-slice";
+import {  tasksThunks } from "./tasks-slice";
 import { TaskStatuses, TaskType } from "../../api/tasks-api";
 import ListItem from "@mui/material/ListItem";
+import { useActions } from "../../utils/useActions/useActions";
 
 type TaskPropsType = {
   task: TaskType;
@@ -15,26 +16,26 @@ type TaskPropsType = {
 
 
 export const Task = React.memo((props: TaskPropsType) => {
-  let dispatch = useDispatch()
+  const {updateTask ,removeTask} = useActions()
 
   const chekedChechbox = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
-    dispatch(tasksThunk.updateTask({ todolistId, taskId, model: { status } }))
-  }, [dispatch])
+    updateTask({ todolistId, taskId, model: { status } })
+  }, [])
 
-  const updateTask = useCallback((todolistId: string, taskId: string, title: string) => {
-    dispatch(tasksThunk.updateTask({ todolistId, taskId, model: { title } }))
-  }, [dispatch])
+  const updateTaskCallback = useCallback((todolistId: string, taskId: string, title: string) => {
+    updateTask({ todolistId, taskId, model: { title } })
+  }, [])
 
-  const removeTask = useCallback((taskId: string, todolistId: string) => {
-    dispatch(tasksThunk.removeTask({todolistId, taskId}))
-  }, [dispatch])
+  const removeTaskCallback = useCallback((taskId: string, todolistId: string) => {
+    removeTask({todolistId, taskId})
+  }, [])
 
 
   const onChengeCheckboxStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
     chekedChechbox(props.todolistId, props.task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New);
   };
   const updateTaskHandler = useCallback((titleInput: string) => {
-    updateTask(props.todolistId, props.task.id, titleInput);
+    updateTaskCallback(props.todolistId, props.task.id, titleInput);
   }, [updateTask, props.todolistId, props.task.id]);
 
 
@@ -59,7 +60,7 @@ export const Task = React.memo((props: TaskPropsType) => {
       </div>
 
       <IconButton disabled={props.task.entityStatus === "loading"} onClick={() => {
-        removeTask(props.task.id, props.todolistId);
+        removeTaskCallback(props.task.id, props.todolistId);
       }} >
         <DeleteIcon />
       </IconButton>

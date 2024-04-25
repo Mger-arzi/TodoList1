@@ -12,7 +12,7 @@ import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 import createTheme from '@mui/material/styles/createTheme';
 import { ThemeProvider } from '@emotion/react';
 import CssBaseline from '@mui/material/CssBaseline'
-import { loginThunk } from '../components/features/login/auth-slice';
+import { useActions } from '../utils/useActions/useActions';
 
 export type TasksStateType = {
   [key: string]: TaskType[]
@@ -21,10 +21,10 @@ export function AppWithRedux() {
 
   const status = useAppSelector(appStatusSelector)
   const isInitialized = useAppSelector(isInitializedSelector)
-  const dispatch = useAppDispatch()
 
+  const {initializeApp} = useActions()
   useEffect(() => {
-    dispatch(loginThunk.initializeApp())
+    initializeApp()
   }, [])
 
   type ThemeMode = 'dark' | 'light'

@@ -1,9 +1,9 @@
 
-import { tasksAction, tasksReducer, tasksThunk, } from '../components/tasks/tasks-slice'
+import { tasksAction, tasksReducer, tasksThunks, } from '../components/tasks/tasks-slice'
 import { TasksStateType } from '../App'
 import { v1 } from 'uuid'
 import { TaskPriorities, TaskStatuses, model } from '../api/tasks-api'
-import { todolistAction, todolistThunk } from '../components/features/TodolistList/todolists-slice'
+import { todolistsActions, todolistsThunks } from '../components/features/TodolistList/todolists-slice'
 import { action } from '@storybook/addon-actions';
 
 
@@ -42,8 +42,8 @@ beforeEach(() => {
 })
 test('correct task should be deleted from correct array', () => {
 
-  const action: ActionTypeForTest<typeof tasksThunk.removeTask.fulfilled> = {
-    type: tasksThunk.removeTask.fulfilled.type,
+  const action: ActionTypeForTest<typeof tasksThunks.removeTask.fulfilled> = {
+    type: tasksThunks.removeTask.fulfilled.type,
     payload: {
       todolistId: 'todolistId2',
       taskId: '2'
@@ -66,8 +66,8 @@ test('correct task should be deleted from correct array', () => {
 
 
 test('correct task should be added to correct array', () => {
-  const action: ActionTypeForTest<typeof tasksThunk.addTask.fulfilled> = {
-    type: tasksThunk.addTask.fulfilled.type,
+  const action: ActionTypeForTest<typeof tasksThunks.addTask.fulfilled> = {
+    type: tasksThunks.addTask.fulfilled.type,
     payload: {
       tasks: {
         id: '',
@@ -97,8 +97,8 @@ test('correct task should be added to correct array', () => {
 
 test('status of specified task should be changed', () => {
 
-  const action: ActionTypeForTest<typeof tasksThunk.updateTask.fulfilled> = {
-    type: tasksThunk.updateTask.fulfilled.type,
+  const action: ActionTypeForTest<typeof tasksThunks.updateTask.fulfilled> = {
+    type: tasksThunks.updateTask.fulfilled.type,
     payload: {
       todolistId: 'todolistId2',
       taskId: '2',
@@ -114,8 +114,8 @@ test('status of specified task should be changed', () => {
 
 test('title of specified task should be changed', () => {
 
-  const action: ActionTypeForTest<typeof tasksThunk.updateTask.fulfilled> = {
-    type: tasksThunk.updateTask.fulfilled.type,
+  const action: ActionTypeForTest<typeof tasksThunks.updateTask.fulfilled> = {
+    type: tasksThunks.updateTask.fulfilled.type,
     payload: {
       todolistId: 'todolistId2',
       taskId: '1',
@@ -129,8 +129,8 @@ test('title of specified task should be changed', () => {
 })
 
 test('new array should be added when new todolist is added', () => {
-  const action: ActionTypeForTest<typeof todolistThunk.addTodolist.fulfilled> = {
-    type: todolistThunk.addTodolist.fulfilled.type,
+  const action: ActionTypeForTest<typeof todolistsThunks.addTodolist.fulfilled> = {
+    type: todolistsThunks.addTodolist.fulfilled.type,
     payload: {
       todolist: {
         id: 'todolistId3',
@@ -157,8 +157,8 @@ test('new array should be added when new todolist is added', () => {
 
 
 test('property with todolistId should be deleted', () => {
-  const action: ActionTypeForTest<typeof todolistThunk.removeTodolist.fulfilled> = {
-    type: todolistThunk.removeTodolist.fulfilled.type,
+  const action: ActionTypeForTest<typeof todolistsThunks.removeTodolist.fulfilled> = {
+    type: todolistsThunks.removeTodolist.fulfilled.type,
     payload: {
       id: 'todolistId2'
     }
@@ -177,8 +177,8 @@ test('property with todolistId should be deleted', () => {
 
 
 test("tasks should be added for todolist", () => {
-  const action: ActionTypeForTest<typeof tasksThunk.setTasks.fulfilled> = {
-    type: tasksThunk.setTasks.fulfilled.type,
+  const action: ActionTypeForTest<typeof tasksThunks.setTasks.fulfilled> = {
+    type: tasksThunks.setTasks.fulfilled.type,
     payload: { tasks: startState["todolistID1"], todolistId: "todolistID" },
   }
 

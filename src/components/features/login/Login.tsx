@@ -10,15 +10,14 @@ import Button from '@mui/material/Button'
 import { useFormik } from 'formik'
 import { isLoggenInSelictor, useAppDispatch, useAppSelector } from '../../../app/store'
 import { Navigate } from 'react-router-dom'
-import { loginThunk } from './auth-slice'
 import { BaseResponseType } from '../../../api/todolist-api'
+import { useActions } from '../../../utils/useActions/useActions'
 
 
 export const Login = () => {
 
-  const dispatch = useAppDispatch()
   const isLoggenIn = useAppSelector(isLoggenInSelictor)
-
+  const { login } = useActions()
 
   type FormikErrorType = {
     email?: string
@@ -46,16 +45,16 @@ export const Login = () => {
       }
       return errors
     },
-    onSubmit: (values , formikHalpers) => {
-      dispatch(loginThunk.login({ data:   values }))
-      .unwrap()
-      .catch((e:BaseResponseType)=>{
-        if(e.fieldsErrors) {
-          e.fieldsErrors.forEach(el => {
-            formikHalpers.setFieldError(el.field, el.error)
-          });
-        }
-      })
+    onSubmit: (values, formikHalpers) => {
+      login({ data: values })
+        .unwrap()
+        .catch((e: BaseResponseType) => {
+          if (e.fieldsErrors) {
+            e.fieldsErrors.forEach(el => {
+              formikHalpers.setFieldError(el.field, el.error)
+            });
+          }
+        })
       // formik.resetForm()
     },
   })
@@ -116,4 +115,3 @@ export const Login = () => {
 
 
 
- 

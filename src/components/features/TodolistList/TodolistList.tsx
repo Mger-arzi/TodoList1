@@ -3,9 +3,10 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { entityStatusSelector, isLoggenInSelictor, tasksSelector, todolistsSelector, useAppDispatch, useAppSelector } from '../../../app/store';
 import { Navigate } from 'react-router-dom';
-import { todolistThunk } from './todolists-slice';
+import { todolistsThunks } from './todolists-slice';
 import { AddItemForm } from '../../addItemForm/AddItemForm';
 import { TodoListWithRedux } from './TodoListWithRedux';
+import { useActions } from '../../../utils/useActions/useActions';
 
 export const TodolistsList: React.FC = () => {
 
@@ -15,18 +16,18 @@ export const TodolistsList: React.FC = () => {
   const isLoggenIn = useAppSelector(isLoggenInSelictor)
 
   const dispatch = useAppDispatch()
-
+  const { getTodolists, addTodolist } = useActions()
   useEffect(() => {
     if (!isLoggenIn) {
       return
     }
-    dispatch(todolistThunk.getTodolists())
+    getTodolists()
   }, [])
 
 
 
-  const addTodolist = useCallback((title: string) => {
-    dispatch(todolistThunk.addTodolist({ title }))
+  const addTodolistCallback = useCallback((title: string) => {
+    addTodolist({ title })
   }, [])
 
   if (!isLoggenIn) {
@@ -34,7 +35,7 @@ export const TodolistsList: React.FC = () => {
   }
   return <>
     <Grid container style={{ padding: '20px', marginBottom: "40px" }}>
-      <AddItemForm Item={addTodolist} disabled={entityStatus === "loading"} />
+      <AddItemForm Item={addTodolistCallback} disabled={entityStatus === "loading"} />
     </Grid>
     <Grid container spacing={3}>
       {

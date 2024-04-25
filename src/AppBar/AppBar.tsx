@@ -7,15 +7,15 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useAppDispatch, useAppSelector } from '../app/store';
 import Switch from '@mui/material/Switch';
-import { loginThunk } from '../components/features/login/auth-slice';
+import { authThunks } from '../components/features/login/auth-slice';
+import { useActions } from '../utils/useActions/useActions';
 
 type MyAppBarProps = {
   changeModeHandler?: ()=> void
 }
 export  function MyAppBar( props:MyAppBarProps) {
-  const dispatch = useAppDispatch()
   const isLoggenIn = useAppSelector(state => state.auth.isLoggedIn)
-
+  const { logout } = useActions()
     return (
         <Box sx={{ flexGrow: 1 , }}>
             <AppBar position="static">
@@ -32,7 +32,7 @@ export  function MyAppBar( props:MyAppBarProps) {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         TodoLIst
                     </Typography>
-                    {isLoggenIn && <Button   onClick={ ()=> dispatch(loginThunk.logout())} color="inherit">Log out</Button>}
+                    {isLoggenIn && <Button   onClick={ ()=> logout()} color="inherit">Log out</Button>}
                     <Switch color={'default'} onChange={props.changeModeHandler} />
                 </Toolbar>
             </AppBar>
