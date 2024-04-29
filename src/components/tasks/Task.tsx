@@ -51,7 +51,7 @@ export const Task = React.memo((props: TaskPropsType) => {
       <IconButton disabled={props.task.entityStatus === "loading"} onClick={() => {
         removeTask({ taskId: props.task.id, todolistId: props.todolistId });
       }} >
-        <DeleteIcon />
+        <DeleteIcon fontSize="small"  color="primary"/>
       </IconButton>
     </ListItem>
   );

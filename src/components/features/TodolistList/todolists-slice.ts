@@ -4,7 +4,7 @@ import { RequestStatusType } from "../../../app/app-slice";
 import { appAction } from '../../../app/app-slice';
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "../../../utils/create-app-async-thunk";
-import { handleServerNetworkError } from "../../../utils/error-utils";
+import { handleServerAppError, handleServerNetworkError } from "../../../utils/error-utils";
 
 const getTodolists = createAppAsyncThunk<{ todolists: TodoListType[] }, undefined>('todo/get', async (_, thunkAPI) => {
   const { dispatch } = thunkAPI
@@ -25,8 +25,15 @@ const addTodolist = createAppAsyncThunk<{ todolist: TodoListType }, { title: str
   dispatch(appAction.setAppStatus({ status: "loading" }))
   try {
     const res = await todolistAPI.createTodolist(title)
-    dispatch(appAction.setAppStatus({ status: "idle" }))
-    return { todolist: res.data.data.item }
+    if (res.data.resultCode === 0) {
+      dispatch(appAction.setAppStatus({ status: "idle" }))
+      return { todolist: res.data.data.item }
+    }
+    else{
+      dispatch(appAction.setAppStatus({ status: "idle" }))
+      handleServerAppError(res.data, dispatch)
+      return thunkAPI.rejectWithValue(null)
+    }
   }
   catch (e) {
     handleServerNetworkError(e, dispatch)

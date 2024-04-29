@@ -12,14 +12,14 @@ import Box from "@mui/material/Box";
 import { useActions } from "../../../utils/useActions/useActions";
 
 
-type PropsType = {
+type TodoListPropsType = {
   id: string
   title: string
   tasks: Array<TaskType>
   filter: FilterTodoListType
 }
 
-export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter, tasks }) => {
+export const TodoListWithRedux: FC<TodoListPropsType> = React.memo(({ id, title, filter, tasks }) => {
 
   const entityStatus = useAppSelector(entityStatusSelector)
 
@@ -49,16 +49,18 @@ export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter,
 
   return (
     <div >
-      <div>
+      <div style={{position: "relative"}}>
+      <IconButton onClick={() => removeTodolist({ id })} disabled={entityStatus === "loading"} 
+      style={{position: "absolute", top: "-14px", right: '-2px'}}>
+            <DeleteIcon />
+          </IconButton>
         <h3>
           <EditableSpan
             callBack={updateTodolistTitleHandler}
             oldTitle={title}
             disabled={entityStatus === 'loading'}
           />
-          <IconButton onClick={() => removeTodolist({ id })} disabled={entityStatus === "loading"} >
-            <DeleteIcon />
-          </IconButton>
+          
         </h3>
         <AddItemForm Item={addTaskHandler} disabled={entityStatus === 'loading'} />
         {tasks.map(t =>

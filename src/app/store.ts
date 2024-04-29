@@ -25,8 +25,8 @@ export const useAppDispatch = useDispatch<AppDispatch>
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
 export const entityStatusSelector = (state: AppRootStateType) => state.app.status
-export const appStatusSelector = (state: AppRootStateType) => state.app.status
-export const isInitializedSelector = (state: AppRootStateType) => state.app.isInitialized
+export const appStatusSelector = (state: AppRootStateType) => state && state.app && state.app.status 
+export const isInitializedSelector = (state: AppRootStateType) => state && state.app && state.app.isInitialized
 export const isLoggenInSelictor = (state: AppRootStateType) => state.auth.isLoggedIn
 export const tasksSelector = (state: AppRootStateType) => state.tasks
 export const todolistsSelector = (state: AppRootStateType) => state.todolists

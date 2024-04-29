@@ -22,7 +22,7 @@ export function AppWithRedux() {
   const status = useAppSelector(appStatusSelector)
   const isInitialized = useAppSelector(isInitializedSelector)
 
-  const {initializeApp} = useActions()
+  const { initializeApp } = useActions()
   useEffect(() => {
     initializeApp()
   }, [initializeApp])
@@ -60,7 +60,8 @@ export function AppWithRedux() {
       <CssBaseline />
       <ErrorSnackbar />
       <MyAppBar changeModeHandler={changeModeHandler} />
-      {status === "loading" && <LinearProgress color="success" />}
+     
+      {status && status === "loading" && <LinearProgress color="success"  />}
       <Container fixed>
         <Routes>
           <Route path={'/'} element={<TodolistsList />} />
