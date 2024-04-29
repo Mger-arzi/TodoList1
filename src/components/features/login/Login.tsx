@@ -1,4 +1,3 @@
-import React from 'react'
 import Grid from '@mui/material/Grid'
 import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
@@ -8,10 +7,10 @@ import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { useFormik } from 'formik'
-import { isLoggenInSelictor, useAppDispatch, useAppSelector } from '../../../app/store'
 import { Navigate } from 'react-router-dom'
-import { BaseResponseType } from '../../../api/todolist-api'
-import { useActions } from '../../../utils/useActions/useActions'
+import { useActions } from 'utils/useActions/useActions'
+import { isLoggenInSelictor, useAppSelector } from 'app/store'
+import { BaseResponseType } from 'api/todolist-api'
 
 
 export const Login = () => {

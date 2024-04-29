@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import { TodolistsList } from '../components/features/TodolistList/TodolistList';
 import { TaskType } from '../api/tasks-api';
 import LinearProgress from '@mui/material/LinearProgress';
-import { appStatusSelector, isInitializedSelector, useAppDispatch, useAppSelector } from './store';
+import { appStatusSelector, isInitializedSelector, useAppSelector } from './store';
 import { ErrorSnackbar } from '../components/errorSnackbar/ErrorSnackbar';
 import { Login } from '../components/features/login/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -25,7 +25,7 @@ export function AppWithRedux() {
   const {initializeApp} = useActions()
   useEffect(() => {
     initializeApp()
-  }, [])
+  }, [initializeApp])
 
   type ThemeMode = 'dark' | 'light'
   const [themeMode, setThemeMode] = useState<ThemeMode>('light')
@@ -53,7 +53,7 @@ export function AppWithRedux() {
 
 
   const changeModeHandler = () => {
-    setThemeMode(themeMode == 'light' ? 'dark' : 'light')
+    setThemeMode(themeMode === 'light' ? 'dark' : 'light')
   }
   return (
     <ThemeProvider theme={theme}>

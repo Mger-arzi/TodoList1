@@ -1,11 +1,10 @@
-import { Dispatch } from 'redux'
-import { LoginParamsType, authAPI } from '../../../api/auth-api'
-import { handleServerAppError, handleServerNetworkError } from '../../../utils/error-utils'
+import { LoginParamsType, authAPI } from 'api/auth-api'
+import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { appAction } from '../../../app/app-slice'
+import { appAction } from 'app/app-slice'
 import { todolistsActions } from '../TodolistList/todolists-slice'
-import { ResultCode } from '../../../types/ResultCode'
-import { createAppAsyncThunk } from '../../../utils/create-app-async-thunk'
+import { ResultCode } from 'types/ResultCode'
+import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
 
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsType }>('login/auth', async (arg, thunkAPI) => {
   thunkAPI.dispatch(appAction.setAppStatus({ status: 'loading' }))

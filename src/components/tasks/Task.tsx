@@ -3,8 +3,6 @@ import Checkbox from "@mui/material/Checkbox/Checkbox";
 import IconButton from "@mui/material/IconButton/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { EditableSpan } from "../editableSpan/EditableSpan";
-import { useDispatch } from "react-redux";
-import { tasksThunks } from "./tasks-slice";
 import { TaskStatuses, TaskType } from "../../api/tasks-api";
 import ListItem from "@mui/material/ListItem";
 import { useActions } from "../../utils/useActions/useActions";
@@ -19,13 +17,14 @@ export const Task = React.memo((props: TaskPropsType) => {
   const { updateTask, removeTask } = useActions()
 
 
-  const updateTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-    updateTask({ taskId: props.task.id, todolistId: props.todolistId, model: { status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New } })
-    // chekedChechbox(props.todolistId, props.task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New);
-  };
+  const updateTaskStatus = useCallback((e: ChangeEvent<HTMLInputElement>)=>{
+    updateTask({ taskId: props.task.id, todolistId: props.todolistId, 
+      model: { status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New } })
+  }, [updateTask,  props.todolistId, props.task.id])
+    
+  
   const updateTaskTitle = useCallback((titleInput: string) => {
     updateTask({ taskId: props.task.id, todolistId: props.todolistId, model: { title: titleInput } })
-    // updateTaskCallback(props.todolistId, props.task.id, titleInput);
   }, [updateTask, props.todolistId, props.task.id]);
 
 

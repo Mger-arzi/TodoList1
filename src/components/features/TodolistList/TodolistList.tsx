@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { entityStatusSelector, isLoggenInSelictor, tasksSelector, todolistsSelector, useAppDispatch, useAppSelector } from '../../../app/store';
+import { entityStatusSelector, isLoggenInSelictor, tasksSelector, todolistsSelector, useAppSelector } from 'app/store';
 import { Navigate } from 'react-router-dom';
-import { todolistsThunks } from './todolists-slice';
 import { AddItemForm } from '../../addItemForm/AddItemForm';
 import { TodoListWithRedux } from './TodoListWithRedux';
-import { useActions } from '../../../utils/useActions/useActions';
+import { useActions } from 'utils/useActions/useActions';
 
 export const TodolistsList: React.FC = () => {
 
@@ -21,13 +20,13 @@ export const TodolistsList: React.FC = () => {
       return
     }
     getTodolists()
-  }, [])
+  }, [getTodolists, isLoggenIn])
 
 
 
   const addTodolistCallback = useCallback((title: string) => {
     addTodolist({ title })
-  }, [])
+  }, [addTodolist])
 
   if (!isLoggenIn) {
     return <Navigate to={'/login'} />
