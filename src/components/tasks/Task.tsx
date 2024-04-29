@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { EditableSpan } from "../editableSpan/EditableSpan";
 import { useDispatch } from "react-redux";
-import {  tasksThunks } from "./tasks-slice";
+import { tasksThunks } from "./tasks-slice";
 import { TaskStatuses, TaskType } from "../../api/tasks-api";
 import ListItem from "@mui/material/ListItem";
 import { useActions } from "../../utils/useActions/useActions";
@@ -16,26 +16,16 @@ type TaskPropsType = {
 
 
 export const Task = React.memo((props: TaskPropsType) => {
-  const {updateTask ,removeTask} = useActions()
-
-  const chekedChechbox = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
-    updateTask({ todolistId, taskId, model: { status } })
-  }, [])
-
-  const updateTaskCallback = useCallback((todolistId: string, taskId: string, title: string) => {
-    updateTask({ todolistId, taskId, model: { title } })
-  }, [])
-
-  const removeTaskCallback = useCallback((taskId: string, todolistId: string) => {
-    removeTask({todolistId, taskId})
-  }, [])
+  const { updateTask, removeTask } = useActions()
 
 
-  const onChengeCheckboxStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    chekedChechbox(props.todolistId, props.task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New);
+  const updateTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
+    updateTask({ taskId: props.task.id, todolistId: props.todolistId, model: { status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New } })
+    // chekedChechbox(props.todolistId, props.task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New);
   };
-  const updateTaskHandler = useCallback((titleInput: string) => {
-    updateTaskCallback(props.todolistId, props.task.id, titleInput);
+  const updateTaskTitle = useCallback((titleInput: string) => {
+    updateTask({ taskId: props.task.id, todolistId: props.todolistId, model: { title: titleInput } })
+    // updateTaskCallback(props.todolistId, props.task.id, titleInput);
   }, [updateTask, props.todolistId, props.task.id]);
 
 
@@ -49,18 +39,18 @@ export const Task = React.memo((props: TaskPropsType) => {
       <div>
         <Checkbox size="small"
           checked={props.task.status === TaskStatuses.Completed}
-          onChange={onChengeCheckboxStatusHandler}
+          onChange={updateTaskStatus}
           disabled={props.task.entityStatus === "loading"}
         />
         <EditableSpan
-          callBack={updateTaskHandler}
+          callBack={updateTaskTitle}
           oldTitle={props.task.title}
           disabled={props.task.entityStatus === "loading"}
         />
       </div>
 
       <IconButton disabled={props.task.entityStatus === "loading"} onClick={() => {
-        removeTaskCallback(props.task.id, props.todolistId);
+        removeTask({ taskId: props.task.id, todolistId: props.todolistId });
       }} >
         <DeleteIcon />
       </IconButton>

@@ -20,35 +20,21 @@ type PropsType = {
 }
 
 export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter, tasks }) => {
+
   const entityStatus = useAppSelector(entityStatusSelector)
 
-  const dispatch = useAppDispatch();
-  const { removeTodolist, addTask, updateTodolist, changeFilter , setTasks} = useActions()
-
-  const onRevoveTodolistHandler = useCallback(() => {
-    removeTodolist({ id });
-  }, [id]);
+  const { removeTodolist, addTask, updateTodolist, changeFilter, setTasks } = useActions()
 
   const addTaskHandler = useCallback((trimedTitle: string) => {
     addTask({ todolistId: id, title: trimedTitle });
   }, [id]);
 
-  const updateTodolistHandler = useCallback((title: string) => {
+  const updateTodolistTitleHandler = useCallback((title: string) => {
     updateTodolist({ id, title })
   }, [id]);
 
 
-  const onAllClickHandler = useCallback(() => {
-    changeFilter({ id, filter: "All" })
-  }, [id]);
 
-  const onActiveClickHandler = useCallback(() => {
-    changeFilter({ id, filter: "Active" })
-  }, [id]);
-
-  const onComplitedClickHandler = useCallback(() => {
-    changeFilter({ id, filter: "Completed" })
-  }, [id]);
 
   if (filter === "Active") {
     tasks = tasks.filter(t => t.status === TaskStatuses.New)
@@ -66,11 +52,11 @@ export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter,
       <div>
         <h3>
           <EditableSpan
-            callBack={updateTodolistHandler}
+            callBack={updateTodolistTitleHandler}
             oldTitle={title}
             disabled={entityStatus === 'loading'}
           />
-          <IconButton onClick={onRevoveTodolistHandler} disabled={entityStatus === "loading"} >
+          <IconButton onClick={() => removeTodolist({ id })} disabled={entityStatus === "loading"} >
             <DeleteIcon />
           </IconButton>
         </h3>
@@ -83,20 +69,20 @@ export const TodoListWithRedux: FC<PropsType> = React.memo(({ id, title, filter,
           />)}
         <Box style={{ paddingTop: "10px" }} sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button variant={filter === "All" ? "contained" : "text"}
-            onClick={onAllClickHandler}> All
+            onClick={() => changeFilter({ id, filter: "All" })}
+          > All
           </Button>
           <Button
             variant={filter === "Active" ? "contained" : "text"}
-            onClick={onActiveClickHandler}
+            onClick={() => changeFilter({ id, filter: "Active" })}
             color="info"
           > Active
           </Button>
           <Button
             variant={filter === "Completed" ? "contained" : "text"}
             color="secondary"
-            onClick={onComplitedClickHandler}
-          >
-            Completed
+            onClick={() => changeFilter({ id, filter: "Completed" })}
+          > Completed
           </Button>
 
         </Box>

@@ -15,7 +15,6 @@ export const TodolistsList: React.FC = () => {
   const entityStatus = useAppSelector(entityStatusSelector)
   const isLoggenIn = useAppSelector(isLoggenInSelictor)
 
-  const dispatch = useAppDispatch()
   const { getTodolists, addTodolist } = useActions()
   useEffect(() => {
     if (!isLoggenIn) {
