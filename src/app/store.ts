@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector, } from 'react-redux';
-import { AnyAction, applyMiddleware, combineReducers, legacy_createStore, } from 'redux';
+import { AnyAction } from 'redux';
 import { ThunkDispatch, thunk } from 'redux-thunk';
 import { todolistsReducer } from '../components/features/TodolistList/todolists-slice';
 import { tasksReducer } from '../components/tasks/tasks-slice';
@@ -18,11 +18,12 @@ export const store = configureStore({
   }
 });
 
-export type AppRootStateType = ReturnType<typeof store.getState>
 
-export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>
-export const useAppDispatch = useDispatch<AppDispatch>
+export const useAppDispatch = useDispatch
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+
+export type AppRootStateType = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export const entityStatusSelector = (state: AppRootStateType) => state.app.status
 export const appStatusSelector = (state: AppRootStateType) => state && state.app && state.app.status 

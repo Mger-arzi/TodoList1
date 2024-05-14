@@ -14,7 +14,6 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsTy
       thunkAPI.dispatch(appAction.setAppStatus({ status: 'idle' }))
       return { isLoggedIn: true }
     } else {
-      debugger
       const isShowGlobalError = !res.data.fieldsErrors.length
       handleServerAppError(res.data, thunkAPI.dispatch, isShowGlobalError)
       

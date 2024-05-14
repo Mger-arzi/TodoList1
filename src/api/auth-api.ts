@@ -3,7 +3,10 @@ import { BaseResponseType } from "./todolist-api"
 
 export const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.1',
-  withCredentials: true,
+  headers: {
+    "API-KEY": "8b52d82b-411b-4078-b86b-2741990d2f24",
+    "Authorization": "Bearer 0cd9c881-200e-4bb4-83d5-e97aab0e6f58"
+}
 })
 
 export const authAPI = {
@@ -11,7 +14,6 @@ export const authAPI = {
     return instance.post<BaseResponseType<{ userId: number }>>(`/auth/login`, data)
   },
   me() {
-    debugger
     return instance.get<BaseResponseType<{ id: number, email: string, login: string }>>(`/auth/me`)
     
   },

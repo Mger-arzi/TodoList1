@@ -18,6 +18,10 @@ const getTodolists = createAppAsyncThunk<{ todolists: TodoListType[] }, undefine
     handleServerNetworkError(e, dispatch)
     return thunkAPI.rejectWithValue(null)
   }
+  finally{
+    dispatch(appAction.setAppStatus({ status: "idle" }))
+
+  }
 })
 
 const addTodolist = createAppAsyncThunk<{ todolist: TodoListType }, { title: string }>('todo/add', async ({ title }, thunkAPI) => {
@@ -54,8 +58,8 @@ const removeTodolist = createAppAsyncThunk<{ id: string }, { id: string }>('todo
   }
 })
 
-const updateTodolist = createAppAsyncThunk<{ id: string, title: string }, { id: string, title: string }>
-('todo/update', async (arg, thunkAPI) => {
+const updateTodolist = createAppAsyncThunk<{ id: string, title: string }, { id: string, title: string }>('todo/update', async (arg, thunkAPI) => {
+
   const { dispatch, rejectWithValue } = thunkAPI
   try {
     const res = await todolistAPI.updateTodolist(arg.id, arg.title)
@@ -89,6 +93,7 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getTodolists.fulfilled, (state, action) => {
+        debugger
         return action.payload.todolists.map(el => ({ ...el, filter: "All", entityStatus: "idle" }))
       })
       .addCase(addTodolist.fulfilled, (state, action) => {
