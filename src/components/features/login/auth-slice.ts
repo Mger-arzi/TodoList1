@@ -5,6 +5,9 @@ import { appAction } from 'app/app-slice'
 import { todolistsActions } from '../TodolistList/todolists-slice'
 import { ResultCode } from 'types/types'
 import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
+import { useActions } from 'utils/useActions/useActions'
+
+// const {  initializeApp } = useActions()
 
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsType }>('login/auth', async (arg, thunkAPI) => {
   thunkAPI.dispatch(appAction.setAppStatus({ status: 'loading' }))
@@ -12,6 +15,9 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsTy
     const res = await authAPI.login(arg.data)
     if (res.data.resultCode === ResultCode.success) {
       thunkAPI.dispatch(appAction.setAppStatus({ status: 'idle' }))
+      let token = res.data.data.token
+      localStorage.setItem("sn-token", token);
+      initializeApp();
       return { isLoggedIn: true }
     } else {
       const isShowGlobalError = !res.data.fieldsErrors.length
@@ -51,9 +57,8 @@ const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('i
   try {
     const res = await authAPI.me()
     if (res.data.resultCode === ResultCode.success) {
-
-    } else {
-      
+    } 
+    else {
       handleServerAppError(res.data, dispatch, false)
       return rejectWithValue(null)
     }

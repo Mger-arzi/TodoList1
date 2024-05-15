@@ -93,7 +93,6 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getTodolists.fulfilled, (state, action) => {
-        debugger
         return action.payload.todolists.map(el => ({ ...el, filter: "All", entityStatus: "idle" }))
       })
       .addCase(addTodolist.fulfilled, (state, action) => {
