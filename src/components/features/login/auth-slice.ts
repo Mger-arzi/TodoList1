@@ -23,7 +23,6 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsTy
   catch (error) {
     handleServerNetworkError(error as { message: string }, thunkAPI.dispatch)
     return thunkAPI.rejectWithValue(null)
-
   }
 })
 
