@@ -1,6 +1,5 @@
 import axios from "axios"
-import { BaseResponseType } from "./todolist-api"
-
+import { BaseResponseType } from "types/types"
 export const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.1',
   headers: {

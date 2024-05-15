@@ -1,8 +1,8 @@
 import { appAction } from '../app/app-slice'
 import { Dispatch } from 'redux'
-import { BaseResponseType } from '../api/todolist-api'
 import { AppDispatch } from '../app/store';
 import axios from 'axios';
+import { BaseResponseType } from 'types/types';
 
 type ErrorUtilsDispatchType = Dispatch
 /**

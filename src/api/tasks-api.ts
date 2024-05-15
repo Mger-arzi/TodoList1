@@ -1,7 +1,7 @@
 import axios from "axios"
-import {BaseResponseType} from "./todolist-api"
 import { RequestStatusType } from "../app/app-slice"
 import { instance } from "./auth-api"
+import { BaseResponseType } from "types/types"
 
 
 
