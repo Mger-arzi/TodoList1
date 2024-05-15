@@ -7,7 +7,7 @@ import { appAction } from "../../app/app-slice";
 import { createSlice } from "@reduxjs/toolkit";
 import {  todolistsActions, todolistsThunks } from "../features/TodolistList/todolists-slice";
 import { createAppAsyncThunk } from "../../utils/create-app-async-thunk";
-import { ResultCode } from "../../types/ResultCode";
+import { ResultCode } from "../../types/types";
 
 
 export const setTasks = createAppAsyncThunk

@@ -2,7 +2,7 @@ import { Dispatch } from "redux"
 import { authAPI } from "../api/auth-api"
 import { authAction } from '../components/features/login/auth-slice';
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ResultCode } from "../types/ResultCode";
+import { ResultCode } from "../types/types";
 import { createAppAsyncThunk } from "../utils/create-app-async-thunk";
 import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils";
 

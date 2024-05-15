@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { instance } from './auth-api'
+import { BaseResponseType } from 'types/types'
 
 
 // API
@@ -27,14 +28,4 @@ export type TodoListType = {
     title: string,
     addedDate: Date,
     order: number
-}
-export type FieldErrorType = {
-    error: string
-    field: string
-}
-export type BaseResponseType<D = {}> = {
-    resultCode: 0
-    fieldsErrors: FieldErrorType[]
-    messages: string[],
-    data: D
 }

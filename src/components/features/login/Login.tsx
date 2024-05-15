@@ -10,7 +10,7 @@ import { useFormik } from 'formik'
 import { Navigate } from 'react-router-dom'
 import { useActions } from 'utils/useActions/useActions'
 import { isLoggenInSelictor, useAppSelector } from 'app/store'
-import { BaseResponseType } from 'api/todolist-api'
+import { BaseResponseType } from 'types/types'
 
 
 export const Login = () => {

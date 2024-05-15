@@ -3,7 +3,7 @@ import { handleServerAppError, handleServerNetworkError } from 'utils/error-util
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { appAction } from 'app/app-slice'
 import { todolistsActions } from '../TodolistList/todolists-slice'
-import { ResultCode } from 'types/ResultCode'
+import { ResultCode } from 'types/types'
 import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
 
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsType }>('login/auth', async (arg, thunkAPI) => {
