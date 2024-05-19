@@ -1,6 +1,6 @@
 import { LoginParamsType, authAPI } from 'api/auth-api'
 import { handleServerAppError, handleServerNetworkError } from 'utils/error-utils'
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice, isAnyOf, isFulfilled } from '@reduxjs/toolkit'
 import { appAction } from 'app/app-slice'
 import { todolistsActions } from '../TodolistList/todolists-slice'
 import { ResultCode } from 'types/types'
@@ -79,18 +79,8 @@ const slice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addMatcher((action) => {
-        if (
-          action.type === "auth/login/fulfilled" ||
-          action.type === "auth/logout/fulfilled" ||
-          action.type === "auth/initializeApp/fulfilled"
-        ) {
-          return true
-        }
-        else {
-          return false
-        }
-      }, (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
+      .addMatcher(isFulfilled(authThunks.initializeApp, authThunks.login, authThunks.logout),
+       (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
         state.isLoggedIn = action.payload.isLoggedIn;
       })
 
