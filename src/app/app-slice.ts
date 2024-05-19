@@ -10,27 +10,6 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type AppInitialStateType = ReturnType<typeof slice.getInitialState>
 
 
-// const initializeApp = createAppAsyncThunk<{ isInitialized: boolean }, undefined>('initialize/app', async (_, thunkAPI) => {
-//   const { dispatch, rejectWithValue } = thunkAPI
-//   try {
-//     // dispatch(appAction.setAppStatus({ status: 'loading' }))
-//     const res = await authAPI.me()
-//     if (res.data.resultCode === ResultCode.success) {
-//       dispatch(authAction.setIsLoggenIn({ isLoggedIn: true }))
-      
-//     } else {
-//       handleServerAppError(res.data, dispatch)
-//       return rejectWithValue(null)
-//     }
-//     return { isInitialized: true }
-//   }
-//   catch (e) {
-//     handleServerNetworkError(e as { message: string }, dispatch)
-//     return rejectWithValue(null)
-//   }
-// })
-
-
 const slice = createSlice({
   name: 'app',
   initialState: {

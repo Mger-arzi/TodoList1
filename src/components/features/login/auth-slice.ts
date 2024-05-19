@@ -5,11 +5,9 @@ import { appAction } from 'app/app-slice'
 import { todolistsActions } from '../TodolistList/todolists-slice'
 import { ResultCode } from 'types/types'
 import { createAppAsyncThunk } from 'utils/create-app-async-thunk'
-import { useActions } from 'utils/useActions/useActions'
 
-// const {  initializeApp } = useActions()
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsType }>('login/auth', async (arg, thunkAPI) => {
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsType }>('auth/login', async (arg, thunkAPI) => {
   thunkAPI.dispatch(appAction.setAppStatus({ status: 'loading' }))
   try {
     const res = await authAPI.login(arg.data)
@@ -22,7 +20,7 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsTy
     } else {
       const isShowGlobalError = !res.data.fieldsErrors.length
       handleServerAppError(res.data, thunkAPI.dispatch, isShowGlobalError)
-      
+
       return thunkAPI.rejectWithValue(res.data)
     }
   }
@@ -32,7 +30,7 @@ const login = createAppAsyncThunk<{ isLoggedIn: boolean }, { data: LoginParamsTy
   }
 })
 
-const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('logout/auth', async (_, thunkAPI) => {
+const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('auth/logout', async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
   dispatch(appAction.setAppStatus({ status: 'loading' }))
   try {
@@ -52,12 +50,12 @@ const logout = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('logout/a
 })
 
 
-const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('initialize/auth', async (_, thunkAPI) => {
+const initializeApp = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>('auth/initialize', async (_, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI
   try {
     const res = await authAPI.me()
     if (res.data.resultCode === ResultCode.success) {
-    } 
+    }
     else {
       handleServerAppError(res.data, dispatch, false)
       return rejectWithValue(null)
@@ -78,22 +76,24 @@ const slice = createSlice({
   initialState: {
     isLoggedIn: false,
   },
-  reducers: {
-    setIsLoggenIn(state, action: PayloadAction<{ isLoggedIn: boolean }>) {
-      state.isLoggedIn = action.payload.isLoggedIn;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(login.fulfilled, (state, action) => {
+      .addMatcher((action) => {
+        if (
+          action.type === "auth/login/fulfilled" ||
+          action.type === "auth/logout/fulfilled" ||
+          action.type === "auth/initializeApp/fulfilled"
+        ) {
+          return true
+        }
+        else {
+          return false
+        }
+      }, (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
         state.isLoggedIn = action.payload.isLoggedIn;
       })
-      .addCase(logout.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn;
-      })
-      .addCase(initializeApp.fulfilled, (state, action) => {
-        state.isLoggedIn = action.payload.isLoggedIn;
-      })
+
 
   }
 })
