@@ -12,26 +12,27 @@ type ErrorUtilsDispatchType = Dispatch
  * @param ShowGlobalError - отображать глобальную ошибку или нет
  * @returns - void то что возвращает функция
  */
+
 export const handleServerAppError = <T,>(
-    data: BaseResponseType<T>,
-    dispatch: ErrorUtilsDispatchType,
-    ShowGlobalError: boolean = true
+  data: BaseResponseType<T>,
+  dispatch: ErrorUtilsDispatchType,
+  ShowGlobalError: boolean = true
 
 ) => {
-    if (ShowGlobalError) {
-      if (data.messages.length) {
-        dispatch(appAction.setAppError({error:data.messages[0]}))
+  if (ShowGlobalError) {
+    if (data.messages.length) {
+      dispatch(appAction.setAppError({ error: data.messages[0] }))
     } else {
-        dispatch(appAction.setAppError({error: 'Some error occurred'}))
+      dispatch(appAction.setAppError({ error: 'Some error occurred' }))
     }
-    }
-   
-    dispatch(appAction.setAppStatus({status: 'idle'}))
+  }
+
+  dispatch(appAction.setAppStatus({ status: 'idle' }))
 }
 
 
 
-export const handleServerNetworkError = (err: unknown, dispatch: AppDispatch):void => {
+export const handleServerNetworkError = (err: unknown, dispatch: AppDispatch): void => {
   let errorMessage = "Some error occurred";
 
   // ❗Проверка на наличие axios ошибки

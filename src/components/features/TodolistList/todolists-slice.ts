@@ -18,7 +18,7 @@ const getTodolists = createAppAsyncThunk<{ todolists: TodoListType[] }, undefine
     handleServerNetworkError(e, dispatch)
     return thunkAPI.rejectWithValue(null)
   }
-  finally{
+  finally {
     dispatch(appAction.setAppStatus({ status: "idle" }))
 
   }
@@ -33,7 +33,7 @@ const addTodolist = createAppAsyncThunk<{ todolist: TodoListType }, { title: str
       dispatch(appAction.setAppStatus({ status: "idle" }))
       return { todolist: res.data.data.item }
     }
-    else{
+    else {
       dispatch(appAction.setAppStatus({ status: "idle" }))
       handleServerAppError(res.data, dispatch)
       return thunkAPI.rejectWithValue(null)

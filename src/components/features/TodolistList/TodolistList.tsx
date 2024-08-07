@@ -41,7 +41,7 @@ export const TodolistsList: React.FC = () => {
           let allTodolistTasks = tasks[tl.id]
 
           return <Grid style={{ marginRight: '15px', }} item key={tl.id}>
-            <Paper style={{ padding: '10px', width: "280px"}}>
+            <Paper style={{ padding: '10px', width: "280px" }}>
               <TodoListWithRedux
                 id={tl.id}
                 title={tl.title}

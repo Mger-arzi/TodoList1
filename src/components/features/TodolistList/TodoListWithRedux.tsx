@@ -5,8 +5,8 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import { Task } from "../../tasks/Task";
-import { entityStatusSelector, useAppDispatch, useAppSelector } from "../../../app/store";
-import { FilterTodoListType, todolistsActions, todolistsThunks } from './todolists-slice';
+import { entityStatusSelector, useAppSelector } from "../../../app/store";
+import { FilterTodoListType, } from './todolists-slice';
 import { TaskStatuses, TaskType } from "../../../api/tasks-api";
 import Box from "@mui/material/Box";
 import { useActions } from "../../../utils/useActions/useActions";
@@ -49,18 +49,18 @@ export const TodoListWithRedux: FC<TodoListPropsType> = React.memo(({ id, title,
 
   return (
     <div >
-      <div style={{position: "relative"}}>
-      <IconButton onClick={() => removeTodolist({ id })} disabled={entityStatus === "loading"} 
-      style={{position: "absolute", top: "-14px", right: '-2px'}}>
-            <DeleteIcon />
-          </IconButton>
+      <div style={{ position: "relative" }}>
+        <IconButton onClick={() => removeTodolist({ id })} disabled={entityStatus === "loading"}
+          style={{ position: "absolute", top: "-14px", right: '-2px' }}>
+          <DeleteIcon />
+        </IconButton>
         <h3>
           <EditableSpan
             callBack={updateTodolistTitleHandler}
             oldTitle={title}
             disabled={entityStatus === 'loading'}
           />
-          
+
         </h3>
         <AddItemForm Item={addTaskHandler} disabled={entityStatus === 'loading'} />
         {tasks.map(t =>
