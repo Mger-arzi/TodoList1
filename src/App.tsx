@@ -25,11 +25,11 @@ function App() {
 
   let [todolists, setTodolists] = useState<Array<TodolistsDomainType>>([
     {
-      id: todolistID1, title: 'What to learn', filter: 'All', entityStatus: "idle", addedDate: new Date,
+      id: todolistID1, title: 'What to learn', filter: 'All', entityStatus: "idle", addedDate: new Date(),
       order: 0,
     },
     {
-      id: todolistID2, title: 'What to buy', filter: 'All', entityStatus: "idle", addedDate: new Date,
+      id: todolistID2, title: 'What to buy', filter: 'All', entityStatus: "idle", addedDate: new Date(),
       order: 0,
     },
   ])
@@ -37,27 +37,27 @@ function App() {
   let [tasks, setTasks] = useState<TasksStateType>({
     [todolistID1]: [
       {
-        id: v1(), title: 'HTML&CSS', status: TaskStatuses.Completed, addedDate: new Date, deadline: new Date, description: "",
-        order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: todolistID1, entityStatus: "idle"
+        id: v1(), title: 'HTML&CSS', status: TaskStatuses.Completed, addedDate: new Date(), deadline: new Date(), description: "",
+        order: 0, priority: TaskPriorities.Low, startDate: new Date(), todoListId: todolistID1, entityStatus: "idle"
       },
       {
-        id: v1(), title: 'JS', status: TaskStatuses.Completed, addedDate: new Date, deadline: new Date, description: "",
-        order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: todolistID1, entityStatus: "idle"
+        id: v1(), title: 'JS', status: TaskStatuses.Completed, addedDate: new Date(), deadline: new Date(), description: "",
+        order: 0, priority: TaskPriorities.Low, startDate: new Date(), todoListId: todolistID1, entityStatus: "idle"
       },
       {
-        id: v1(), title: 'ReactJS', status: TaskStatuses.New, addedDate: new Date, deadline: new Date, description: "",
-        order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: todolistID1, entityStatus: "idle"
+        id: v1(), title: 'ReactJS', status: TaskStatuses.New, addedDate: new Date(), deadline: new Date(), description: "",
+        order: 0, priority: TaskPriorities.Low, startDate: new Date(), todoListId: todolistID1, entityStatus: "idle"
       },
 
     ],
     [todolistID2]: [
       {
-        id: v1(), title: 'Rest API', status: TaskStatuses.Completed, addedDate: new Date, deadline: new Date, description: "",
-        order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: todolistID2, entityStatus: "idle"
+        id: v1(), title: 'Rest API', status: TaskStatuses.Completed, addedDate: new Date(), deadline: new Date(), description: "",
+        order: 0, priority: TaskPriorities.Low, startDate: new Date(), todoListId: todolistID2, entityStatus: "idle"
       },
       {
-        id: v1(), title: 'GraphQL', status: TaskStatuses.New, addedDate: new Date, deadline: new Date, description: "",
-        order: 0, priority: TaskPriorities.Low, startDate: new Date, todoListId: todolistID2,
+        id: v1(), title: 'GraphQL', status: TaskStatuses.New, addedDate: new Date(), deadline: new Date(), description: "",
+        order: 0, priority: TaskPriorities.Low, startDate: new Date(), todoListId: todolistID2,
         entityStatus: "idle"
 
       },
@@ -83,12 +83,12 @@ function App() {
       id: v1(),
       title: title,
       status: TaskStatuses.New,
-      addedDate: new Date,
-      deadline: new Date,
+      addedDate: new Date(),
+      deadline: new Date(),
       description: "",
       order: 0,
       priority: TaskPriorities.Low,
-      startDate: new Date,
+      startDate: new Date(),
       todoListId: todolistID,
       entityStatus: "idle"
     }
@@ -106,12 +106,6 @@ function App() {
     setTasks({ ...tasks })
   }
 
-  // const addTodolist = (trimedTitle: string) => {
-  //     const newID = v1()
-  //     const newTodo: TodolistsType = { id: newID, title: trimedTitle, filter: 'All' }
-  //     setTodolists([newTodo, ...todolists])
-  //     setTasks({ ...tasks, [newID]: [] })
-  // }
   const updateTask = (todolistID: string, taskID: string, newTitle: string) => {
     setTasks({ ...tasks, [todolistID]: tasks[todolistID].map(t => t.id === taskID ? { ...t, title: newTitle } : t) })
 
